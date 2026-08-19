@@ -1,117 +1,135 @@
+<?php
+require_once 'include/header.php';
+require_once 'data/propertyMgt/config.php';
+
+$itemsPerPage = 9;
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($page - 1) * $itemsPerPage;
+
+$totalPosts = $conn->query("SELECT COUNT(*) FROM blog WHERE status = 'active'")->fetchColumn();
+$totalPages = ceil($totalPosts / $itemsPerPage);
+
+$selectAllUsers = $conn->prepare("SELECT * FROM blog WHERE status = 'active' ORDER BY date DESC LIMIT :limit OFFSET :offset");
+$selectAllUsers->bindValue(':limit', $itemsPerPage, PDO::PARAM_INT);
+$selectAllUsers->bindValue(':offset', $offset, PDO::PARAM_INT);
+$selectAllUsers->execute();
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="bracket-web">
-    <meta name="description" content="Firdip is beautifully designed Figma template especially for the fire department, fireman, fire prevention, fire fighting, fire station, protection, firefighter and all other fire & safety business and websites.">
+    <meta name="description" content="Fair Law Firm LTD - Legal and property management insights, news, and updates from Rwanda.">
+    <title><?= __('Blog') ?> - Fair Law Firm LTD</title>
+    <style>
+        .fl-blog-page {
+            padding: var(--fl-space-20) 0;
+        }
 
-    <?php
-    require_once 'include/header.php';
-    ?>
+        .fl-blog-page__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--fl-space-6);
+        }
+
+        .fl-blog-page__empty {
+            text-align: center;
+            padding: var(--fl-space-16) 0;
+            grid-column: 1 / -1;
+        }
+
+        .fl-blog-page__empty-icon {
+            font-size: 3rem;
+            color: var(--fl-gray-300);
+            margin-bottom: var(--fl-space-4);
+        }
+
+        .fl-blog-page__empty-text {
+            font-size: var(--fl-text-lg);
+            color: var(--fl-slate);
+        }
+
+        @media (max-width: 992px) {
+            .fl-blog-page__grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .fl-blog-page__grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
-<body class="custom-cursor">
-
-    <div class="page-wrapper">
-
-        <section class="page-header">
-            <!-- <div class="page-header__bg" style="background-color: #1a2f24"></div> -->
-            <div class="page-header__bg" style="background-image: url(assets/images/backgrounds/background1-1.jpg);"></div>
-            <div class="container">
-                <h2 class="page-header__title"><?= __('Blog') ?></h2>
-                <ul class="firdip-breadcrumb list-unstyled">
-                    <li><a href="index.php"><?= __('Home') ?></a></li>
-                    <li><span><?= __('Blog') ?></span></li>
-                </ul>
+    <!-- Page Header -->
+    <section class="fl-page-header">
+        <div class="fl-page-header__bg" style="background-image: url(assets/images/backgrounds/bkground_1.jpg);"></div>
+        <div class="fl-container">
+            <div class="fl-page-header__content">
+                <h1 class="fl-page-header__title"><?= __('Blog') ?></h1>
+                <nav class="fl-page-header__breadcrumb">
+                    <a href="index.php"><?= __('Home') ?></a>
+                    <span>/</span>
+                    <span><?= __('Blog') ?></span>
+                </nav>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="blog-one blog-one--page">
-            <div class="container">
-                <div class="row row-cols-1 row-cols-md-3 g-4">
-                    <?php
-                    require 'data/propertyMgt/config.php';
-
-                    $itemsPerPage = 9;
-
-                    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-                    $offset = ($page - 1) * $itemsPerPage;
-
-                    $totalPosts = $conn->query("SELECT COUNT(*) FROM blog WHERE status = 'active'")->fetchColumn();
-
-                    $totalPages = ceil($totalPosts / $itemsPerPage);
-
-                    $selectAllUsers = $conn->prepare("SELECT * FROM blog WHERE status = 'active' ORDER BY date DESC LIMIT :limit OFFSET :offset");
-                    $selectAllUsers->bindValue(':limit', $itemsPerPage, PDO::PARAM_INT);
-                    $selectAllUsers->bindValue(':offset', $offset, PDO::PARAM_INT);
-                    $selectAllUsers->execute();
-
-                    if ($selectAllUsers->rowCount() > 0) {
-                        while ($blog = $selectAllUsers->fetch()) {
-                            ?>
-                            <div class="col">
-                                <div class="card">
-                                    <?php if (!empty($blog['image']) && file_exists("data/propertyMgt/blogImg/" . $blog['image'])): ?>
-                                        <img src="data/propertyMgt/blogImg/<?php echo htmlspecialchars($blog['image']); ?>" class="card-img-top" alt="Blog Image">
-                                    <?php else: ?>
-                                        <img src="assets/images/placeholder.jpg" class="card-img-top" alt="Placeholder Image">
-                                    <?php endif; ?>
-                                    <div class="card-body">
-                                        <h6 class="about-two__top__text"><?php echo htmlspecialchars($blog['date']); ?></h6>
-                                        <a href="blog_details?id=<?php echo $blog['id']; ?>">
-                                            <h5 class="feature-one__item__title"><?php echo htmlspecialchars($blog['title']); ?></h5>
-                                        </a>
-                                        <a href="blog_details?id=<?php echo $blog['id']; ?>">
-                                            <button type="submit" name="submit" style="color: white; font-size: 12px;padding: 10px 40px 10px 40px; margin-top:10px;">Read More</button>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php
-                        }
-                    } else {
-                        echo '<div class="col-12 text-center"><h4>No blog posts found.</h4></div>';
-                    }
-                    ?>
-                </div>
-
-                <!-- Pagination -->
-                <div class="row mt-4">
-                    <div class="col-12 d-flex justify-content-center">
-                        <nav aria-label="Page navigation">
-                            <ul class="pagination">
-                                <?php if ($page > 1): ?>
-                                    <li class="page-item">
-                                        <a class="page-link" href="?page=<?php echo $page - 1; ?>" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo; Previous</span>
-                                        </a>
-                                    </li>
-                                <?php endif; ?>
-
-                                <?php if ($page < $totalPages): ?>
-                                    <li class="page-item">
-                                        <a class="page-link" href="?page=<?php echo $page + 1; ?>" aria-label="Next">
-                                            <span aria-hidden="true">Next &raquo;</span>
-                                        </a>
-                                    </li>
-                                <?php endif; ?>
-                            </ul>
-                        </nav>
+    <!-- Blog Grid -->
+    <section class="fl-blog-page">
+        <div class="fl-container">
+            <div class="fl-blog-page__grid">
+                <?php if ($selectAllUsers->rowCount() > 0): ?>
+                    <?php while ($blog = $selectAllUsers->fetch()): ?>
+                    <article class="fl-blog-card">
+                        <div class="fl-blog-card__image-wrap">
+                            <?php if (!empty($blog['image']) && file_exists("data/propertyMgt/blogImg/" . $blog['image'])): ?>
+                                <img src="data/propertyMgt/blogImg/<?= htmlspecialchars($blog['image']) ?>" alt="<?= htmlspecialchars($blog['title']) ?>" class="fl-blog-card__image">
+                            <?php else: ?>
+                                <img src="assets/images/placeholder.jpg" alt="<?= htmlspecialchars($blog['title']) ?>" class="fl-blog-card__image">
+                            <?php endif; ?>
+                            <?php if (!empty($blog['category_blog'])): ?>
+                                <span class="fl-blog-card__category"><?= htmlspecialchars($blog['category_blog']) ?></span>
+                            <?php endif; ?>
+                        </div>
+                        <div class="fl-blog-card__body">
+                            <div class="fl-blog-card__date"><i class="fa fa-calendar-alt" style="margin-right:6px;font-size:0.75rem;"></i> <?= date('M d, Y', strtotime($blog['date'])) ?></div>
+                            <h3 class="fl-blog-card__title">
+                                <a href="blog_details?id=<?= $blog['id'] ?>"><?= htmlspecialchars($blog['title']) ?></a>
+                            </h3>
+                            <p class="fl-blog-card__excerpt"><?= htmlspecialchars($blog['description_blog']) ?></p>
+                            <a href="blog_details?id=<?= $blog['id'] ?>" class="fl-blog-card__link"><?= __('Read More') ?> <i class="fa fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <div class="fl-blog-page__empty">
+                        <div class="fl-blog-page__empty-icon"><i class="fa fa-newspaper"></i></div>
+                        <p class="fl-blog-page__empty-text"><?= __('No blog posts found.') ?></p>
                     </div>
-                </div>
+                <?php endif; ?>
             </div>
-        </section>
-        <!-- Blog Section End -->
 
-    </div>
+            <?php if ($totalPages > 1): ?>
+            <nav aria-label="<?= __('Page navigation') ?>" style="margin-top:var(--fl-space-10);">
+                <ul class="fl-pagination">
+                    <?php if ($page > 1): ?>
+                        <li><a class="fl-pagination__link" href="?page=<?= $page - 1 ?>">&laquo;</a></li>
+                    <?php endif; ?>
+                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                        <li><a class="fl-pagination__link <?= $i == $page ? 'fl-pagination__link--active' : '' ?>" href="?page=<?= $i ?>"><?= $i ?></a></li>
+                    <?php endfor; ?>
+                    <?php if ($page < $totalPages): ?>
+                        <li><a class="fl-pagination__link" href="?page=<?= $page + 1 ?>">&raquo;</a></li>
+                    <?php endif; ?>
+                </ul>
+            </nav>
+            <?php endif; ?>
+        </div>
+    </section>
 
-    <?php
-    require_once 'include/footer.php';
-    ?>
-
-</body>
-
-</html>
+<?php require_once 'include/footer.php'; ?>

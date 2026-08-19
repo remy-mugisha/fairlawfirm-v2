@@ -1,0 +1,12 @@
+RewriteEngine On
+
+# Remove .php extension from URLs (e.g. property_detail.php?id=4 -> property_detail?id=4)
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.+?)\.php$ $1 [L,R=301,QSA]
+
+# If request has no extension and no file/dir exists, try adding .php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.+)$ $1.php [L,QSA]

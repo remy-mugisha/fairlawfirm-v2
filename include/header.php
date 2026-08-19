@@ -1,151 +1,231 @@
-   
-    <?php
-    require 'Lang/lang.php';
-    ?>
-    
-    <link rel="shortcut icon" href="assets/images/favicons/small-logo.jpg" type="image/x-icon">
-    <link rel="manifest" href="assets/images/favicons/site.webmanifest">
+<?php
+require 'Lang/lang.php';
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+if (isset($_GET['lang'])) {
+    $_SESSION['lang'] = $_GET['lang'];
+}
+$_SESSION['lang'] = $_SESSION['lang'] ?? 'en';
+$currentLang = $_SESSION['lang'];
+?>
+<!-- Favicon -->
+<link rel="shortcut icon" href="assets/images/favicons/small-logo.jpg" type="image/x-icon">
+<link rel="manifest" href="assets/images/favicons/site.webmanifest">
 
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com/">
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap" rel="stylesheet">
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="assets/vendors/bootstrap/css/bootstrap.min.css">
-    <!--  bootstrap-select css plugins -->
-    <link rel="stylesheet" href="assets/vendors/bootstrap-select/bootstrap-select.min.css">
-    <!--  animate css plugins -->
-    <link rel="stylesheet" href="assets/vendors/animate/animate.min.css">
-    <!--  fontawesome css plugins -->
-    <link rel="stylesheet" href="assets/vendors/fontawesome/css/all.min.css">
-    <!--  jquery-ui css plugins -->
-    <link rel="stylesheet" href="assets/vendors/jquery-ui/jquery-ui.css">
-    <!--  jarallax css plugins -->
-    <link rel="stylesheet" href="assets/vendors/jarallax/jarallax.css">
-    <!--  magnific-popup css plugins -->
-    <link rel="stylesheet" href="assets/vendors/jquery-magnific-popup/jquery.magnific-popup.css">
-    <!--  nouislider css plugins -->
-    <link rel="stylesheet" href="assets/vendors/nouislider/nouislider.min.css">
-    <!--  nouislider css plugins -->
-    <link rel="stylesheet" href="assets/vendors/nouislider/nouislider.pips.css">
-    <!--  nouislider css plugins -->
-    <link rel="stylesheet" href="assets/vendors/firdip-icons/style.css">
-    <!--  slider css plugins -->
-    <link rel="stylesheet" href="assets/vendors/owl-carousel/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/vendors/owl-carousel/css/owl.theme.default.min.css">
+<!-- Design System -->
+<link rel="stylesheet" href="assets/css/fl-design-system.css">
 
-    <link rel="stylesheet" href="assets/vendors/slick-carousel/slick.css">
-    <link rel="stylesheet" href="assets/vendors/slick-carousel/slick-theme.css">
-    <!-- template styles -->
-    <link rel="stylesheet" href="assets/css/firdip.css">
+<!-- Bootstrap 5 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<link rel="stylesheet" href="assets/vendors/bootstrap/css/bootstrap.min.css">
+
+<!-- Legacy Template CSS (kept for backward compat on inner pages) -->
+<link rel="stylesheet" href="assets/vendors/owl-carousel/css/owl.carousel.min.css">
+<link rel="stylesheet" href="assets/vendors/owl-carousel/css/owl.theme.default.min.css">
+<link rel="stylesheet" href="assets/vendors/jquery-magnific-popup/jquery.magnific-popup.css">
+
 </head>
-
 <body>
 
-    <div class="page-wrapper">
-        <div class="topbar-one">
-            <div class="container-fluid">
-                <div class="topbar-one__inner">
-                    <ul class="list-unstyled topbar-one__info">
-                        <li class="topbar-one__info__item">
-                        <i class="fa fa-clock" aria-hidden="true"></i>
-                            <span class="topbar-one__info__item__location"><?= __('Open Hours')?>: <?= __('Mon')?> - <?= __('Fri')?> 09:00 - 17:00</span>
-                        </li>
-                        <li class="topbar-one__info__item">
-                            <i class="icon-message topbar-one__info__icon"></i>
-                            <a href="mailto:#">fairlawfirmltd@gmail.com</a>
-                        </li>
-                        <li class="topbar-one__info__item">
-                        <i class="icon-call"></i>
-                        <span>+250 788 411 095</span>
-                        </li>
-                    </ul>
-                    <div class="topbar-one__right">
-                        <div class="topbar-one__social">
-                            <!-- <a href="https://facebook.com/"><i class="icon-facebook-f" aria-hidden="true"></i><span class="sr-only">Facebook</span></a> -->
-                            <a href="https://x.com/fairlawfirmltd"><i class="icon-x-twitter" aria-hidden="true"></i> <span class="sr-only">Twitter</span></a>
-                            <a href="https://www.linkedin.com/in/fair-law-firm-ltd-6154b3317/"><i class="fab fa-linkedin"></i><span class="sr-only">linkedin</span></a>
-                            <a href="https://www.instagram.com/fair_law_firm_ltd/"><i class="fab fa-instagram"></i><span class="sr-only">instagram</span></a>
-                        </div>
-                    </div>
-                </div>
+<!-- Utility Bar -->
+<div class="fl-utility-bar">
+    <div class="fl-utility-bar__inner">
+        <div class="fl-utility-bar__left">
+            <div class="fl-utility-bar__item">
+                <i class="fa fa-clock"></i>
+                <span><?= __('Open Hours') ?>: <?= __('Mon') ?> - <?= __('Fri') ?> 09:00 - 17:00</span>
+            </div>
+            <div class="fl-utility-bar__divider"></div>
+            <div class="fl-utility-bar__item">
+                <i class="fa fa-envelope"></i>
+                <a href="mailto:fairlawfirmltd@gmail.com">fairlawfirmltd@gmail.com</a>
+            </div>
+            <div class="fl-utility-bar__divider"></div>
+            <div class="fl-utility-bar__item">
+                <i class="fa fa-phone"></i>
+                <a href="tel:+250788411095">+250 788 411 095</a>
             </div>
         </div>
-
-        <header class="main-header sticky-header sticky-header--normal">
-            <div class="container-fluid">
-                <div class="main-header__inner">
-                    <div class="main-header__logo logo-firdip">
-                        <a href="index.php">
-                            <img src="assets/images/logo-0-0-0.png" alt="firdip HTML" height="50" width="170">
-                        </a>
-                    </div>
-                    <nav class="main-header__nav main-menu">
-                        <ul class="main-menu__list">
-
-                            <li>
-                                <a href="index.php"><?= __('Home')?></a>
-                            </li>
-
-
-                            <li>
-                                <a href="about_us.php"><?= __('About')?></a>
-                            </li>
-                            <li class="dropdown">
-                                <a><?= __('Service')?></a>
-                                <ul class="sub-menu">
-                                    <li><a href="legal_services.php"><?= __('Legal Services')?></a></li>
-                                    <li><a href="property_service.php"><?= __('Property Management')?></a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a><?= __('Property')?></a>
-                                <ul class="sub-menu">
-                                    <li><a href="property.php"><?= __('Rental & Sale house')?></a></li>
-                                    <li><a href="manage_property.php"><?= __('Manage Properties')?></a></li>
-                                </ul>
-                            </li>
-                            <li class="">
-                                <a href="blog.php"><?= __('Blog')?></a>
-                            </li>
-                            <li>
-                                <a href="contact.php"><?= __('Contact')?></a>
-                            </li>
-                            
-                        </ul>
-                    </nav>
-                    <div class="main-header__right">
-                    <a href="?lang=en" class="main-header__right__info__item" >
-                          <img src="assets/images/en.png" alt="English" />
-                     </a>
-                     <a href="?lang=fr" class="main-header__right__info__item">
-                          <img src="assets/images/fr.png" alt="French" />
-                     </a>
-                        <div class="mobile-nav__btn mobile-nav__toggler">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                    </div>
-                </div>
+        <div class="fl-utility-bar__right">
+            <div class="fl-utility-bar__item">
+                <a href="https://x.com/fairlawfirmltd" target="_blank" rel="noopener"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://www.linkedin.com/in/fair-law-firm-ltd-6154b3317/" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/fair_law_firm_ltd/" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a>
             </div>
-        </header>
+        </div>
+    </div>
+</div>
 
-        <script>
-        function changeLanguage() {
-            var lang = document.getElementById('lang').value;
-            window.location.href = '?lang=' + lang;
+<!-- Navigation -->
+<nav class="fl-nav" id="flNav">
+    <div class="fl-nav__inner">
+        <!-- Logo -->
+        <a href="index.php" class="fl-nav__logo" aria-label="Fair Law Firm LTD Home">
+            <img src="assets/images/logo-0-0-0.png" alt="Fair Law Firm LTD" height="48">
+        </a>
+
+        <!-- Desktop Links -->
+        <ul class="fl-nav__links">
+            <li>
+                <a href="index.php" class="fl-nav__link"><?= __('Home') ?></a>
+            </li>
+            <li>
+                <a href="about_us.php" class="fl-nav__link"><?= __('About') ?></a>
+            </li>
+            <li class="fl-nav__dropdown">
+                <a href="#" class="fl-nav__link" onclick="return false;"><?= __('Services') ?></a>
+                <ul class="fl-nav__dropdown-menu">
+                    <li class="fl-nav__dropdown-item"><a href="legal_services.php"><?= __('Legal Services') ?></a></li>
+                    <li class="fl-nav__dropdown-item"><a href="property_service.php"><?= __('Property Management') ?></a></li>
+                </ul>
+            </li>
+            <li class="fl-nav__dropdown">
+                <a href="#" class="fl-nav__link" onclick="return false;"><?= __('Property') ?></a>
+                <ul class="fl-nav__dropdown-menu">
+                    <li class="fl-nav__dropdown-item"><a href="property.php"><?= __('Rental & Sale Properties') ?></a></li>
+                    <li class="fl-nav__dropdown-item"><a href="manage_property.php"><?= __('Manage Properties') ?></a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="blog.php" class="fl-nav__link"><?= __('Blog') ?></a>
+            </li>
+            <li>
+                <a href="contact.php" class="fl-nav__link"><?= __('Contact') ?></a>
+            </li>
+        </ul>
+
+        <!-- Right Side: Lang + CTA + Mobile Toggle -->
+        <div style="display:flex;align-items:center;gap:12px;">
+            <!-- Language Switcher -->
+            <div class="fl-lang-switch fl-nav__lang-desktop">
+                <a href="?lang=en" class="<?= $currentLang === 'en' ? 'fl-lang-active' : '' ?>" title="English">EN</a>
+                <span style="color:var(--fl-gray-300)">|</span>
+                <a href="?lang=fr" class="<?= $currentLang === 'fr' ? 'fl-lang-active' : '' ?>" title="Français">FR</a>
+            </div>
+
+            <!-- CTA Button -->
+            <a href="contact.php" class="fl-btn fl-btn--primary fl-btn--sm fl-nav__cta"><?= __('Book Consultation') ?></a>
+
+            <!-- Mobile Toggle -->
+            <button class="fl-nav__toggle" id="flNavToggle" aria-label="Open menu">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<!-- Mobile Navigation -->
+<div class="fl-mobile-nav__overlay" id="flMobileOverlay"></div>
+<div class="fl-mobile-nav" id="flMobileNav">
+    <div class="fl-mobile-nav__header">
+        <a href="index.php">
+            <img src="assets/images/logo-0-0-0.png" alt="Fair Law Firm" height="40">
+        </a>
+        <button class="fl-mobile-nav__close" id="flMobileClose" aria-label="Close menu">
+            <i class="fa fa-times"></i>
+        </button>
+    </div>
+
+    <ul class="fl-mobile-nav__links">
+        <li><a href="index.php"><?= __('Home') ?></a></li>
+        <li><a href="about_us.php"><?= __('About') ?></a></li>
+        <li><a href="legal_services.php"><?= __('Legal Services') ?></a></li>
+        <li><a href="property_service.php"><?= __('Property Management') ?></a></li>
+        <li><a href="property.php"><?= __('Rental & Sale Properties') ?></a></li>
+        <li><a href="manage_property.php"><?= __('Manage Properties') ?></a></li>
+        <li><a href="blog.php"><?= __('Blog') ?></a></li>
+        <li><a href="contact.php"><?= __('Contact') ?></a></li>
+    </ul>
+
+    <div class="fl-mobile-nav__lang">
+        <a href="?lang=en" style="color: <?= $currentLang === 'en' ? 'var(--fl-navy)' : 'var(--fl-gray-500)' ?>; font-weight: <?= $currentLang === 'en' ? '700' : '500' ?>;">EN</a>
+        <span style="color:var(--fl-gray-300)">|</span>
+        <a href="?lang=fr" style="color: <?= $currentLang === 'fr' ? 'var(--fl-navy)' : 'var(--fl-gray-500)' ?>; font-weight: <?= $currentLang === 'fr' ? '700' : '500' ?>;">FR</a>
+    </div>
+
+    <ul class="fl-mobile-nav__contact">
+        <li>
+            <i class="fa fa-envelope"></i>
+            <a href="mailto:fairlawfirmltd@gmail.com">fairlawfirmltd@gmail.com</a>
+        </li>
+        <li>
+            <i class="fa fa-phone"></i>
+            <a href="tel:+250788411095">+250 788 411 095</a>
+        </li>
+        <li>
+            <i class="fa fa-clock"></i>
+            <span>Mon - Fri 09:00 - 17:00</span>
+        </li>
+    </ul>
+
+    <div style="padding:16px 24px;">
+        <a href="contact.php" class="fl-btn fl-btn--primary" style="width:100%;text-align:center;"><?= __('Book Consultation') ?></a>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var nav = document.getElementById('flNav');
+    var toggle = document.getElementById('flNavToggle');
+    var mobileNav = document.getElementById('flMobileNav');
+    var overlay = document.getElementById('flMobileOverlay');
+    var closeBtn = document.getElementById('flMobileClose');
+
+    // Sticky nav shadow on scroll
+    if (nav) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 10) {
+                nav.style.boxShadow = '0 2px 12px rgba(1,22,106,0.08)';
+            } else {
+                nav.style.boxShadow = 'none';
+            }
+        });
+    }
+
+    // Active nav link
+    var currentPage = window.location.pathname.split('/').pop() || 'index.php';
+    var links = document.querySelectorAll('.fl-nav__link');
+    links.forEach(function(link) {
+        var href = link.getAttribute('href');
+        if (href === currentPage || (currentPage === '' && href === 'index.php')) {
+            link.classList.add('fl-nav__link--active');
         }
-    </script> 
-     <?php
-    // Include the PHP logic here
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
+    });
+
+    // Mobile nav open
+    if (toggle) {
+        toggle.addEventListener('click', function() {
+            mobileNav.classList.add('fl-mobile-nav--open');
+            overlay.classList.add('fl-mobile-nav__overlay--visible');
+            document.body.style.overflow = 'hidden';
+        });
     }
 
-    if (isset($_GET['lang'])) {
-        $_SESSION['lang'] = $_GET['lang'];
+    // Mobile nav close
+    function closeMobile() {
+        mobileNav.classList.remove('fl-mobile-nav--open');
+        overlay.classList.remove('fl-mobile-nav__overlay--visible');
+        document.body.style.overflow = '';
     }
-    ?>
+    if (closeBtn) closeBtn.addEventListener('click', closeMobile);
+    if (overlay) overlay.addEventListener('click', closeMobile);
+
+    // Mobile active link
+    var mobileLinks = document.querySelectorAll('.fl-mobile-nav__links a');
+    mobileLinks.forEach(function(link) {
+        var href = link.getAttribute('href');
+        if (href === currentPage || (currentPage === '' && href === 'index.php')) {
+            link.classList.add('fl-nav__link--active');
+        }
+    });
+});
+</script>

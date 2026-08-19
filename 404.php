@@ -1,49 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="bracket-web">
-    <meta name="description" content="Firdip is beautifully designed Figma template especially for the fire department, fireman, fire prevention, fire fighting, fire station, protection, firefighter and all other fire & safety business and websites.">
-    <?php 
-    require_once 'include/header.php';
-    ?>
+    <meta name="description" content="Page not found - Fair Law Firm LTD">
+    <?php require_once 'include/header.php'; ?>
+    <title>404 <?= __('Error') ?> - Fair Law Firm LTD</title>
+    <style>
+        .fl-error {
+            padding: var(--fl-space-24) 0;
+            text-align: center;
+        }
+
+        .fl-error__code {
+            font-family: var(--fl-font-heading);
+            font-size: clamp(6rem, 12vw, 10rem);
+            font-weight: 700;
+            color: var(--fl-gray-200);
+            line-height: 1;
+            margin-bottom: var(--fl-space-4);
+        }
+
+        .fl-error__title {
+            font-family: var(--fl-font-heading);
+            font-size: var(--fl-text-3xl);
+            font-weight: 600;
+            color: var(--fl-charcoal);
+            margin-bottom: var(--fl-space-4);
+        }
+
+        .fl-error__text {
+            font-size: var(--fl-text-md);
+            color: var(--fl-slate);
+            margin-bottom: var(--fl-space-8);
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
 </head>
 
-<body class="custom-cursor">
+    <section class="fl-error">
+        <div class="fl-container">
+            <div class="fl-error__code">404</div>
+            <h2 class="fl-error__title"><?= __('Page Not Found') ?></h2>
+            <p class="fl-error__text"><?= __('The page you are looking for doesn\'t exist or has been moved.') ?></p>
+            <a href="index.php" class="fl-btn fl-btn--primary fl-btn--lg"><?= __('Back to Home') ?></a>
+        </div>
+    </section>
 
-    <div class="page-wrapper">
-        <section class="page-header">
-        <div class="page-header__bg" style="background-color: #1a2f24"></div>
-            <!-- <div class="page-header__bg" style="background-image: url(assets/images/backgrounds/page-header-bg-1-1.jpg);"></div> -->
-            <div class="container">
-                <h2 class="page-header__title">404 <?= __('Error')?></h2>
-                <ul class="firdip-breadcrumb list-unstyled">
-                    <li><a href="index.php"><?= __('Home')?></a></li>
-                    <li><span>404 <?= __('Error')?></span></li>
-                </ul>
-            </div>
-        </section>
-
-        <section class="error-404">
-            <div class="container">
-                <h3 class="error-404__sub-title">Oops! <?= __('Page not Found')?></h3>
-                <p class="error-404__text"><?= __('The page you are looking for is not exist.')?></p>
-                <div class="error-404__btns text-center">
-                <a href="index.php"><button type="submit" name="submit" style="color: white; font-size: 12px;padding: 10px 40px 10px 40px; margin-top:10px;"><?= __('back to home')?></button></a> 
-                </div>
-            </div>
-        </section>
-
-
-    </div><!-- /.page-wrapper -->
-
-
-</body>
-<?php
-require_once 'include/footer.php';
-?>
-</html>
+<?php require_once 'include/footer.php'; ?>

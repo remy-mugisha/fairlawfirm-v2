@@ -1,107 +1,138 @@
 <!DOCTYPE html>
-<!-- language -->
 <html lang="en">
-
-
 <head>
-    <!-- ========== Meta Tags ========== -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="bracket-web">
-    <meta name="description" content="Firdip is beautifully designed Figma template especially for the fire department, fireman, fire prevention, fire fighting, fire station, protection, firefighter and all other fire & safety business and websites.">
+    <meta name="description" content="Fair Law Firm LTD - Professional property management services including rental management, marketing, tax compliance, and reporting in Rwanda.">
+    <?php require_once 'include/header.php'; ?>
+    <title><?= __('Property Management Services') ?> - Fair Law Firm LTD</title>
+    <style>
+        .fl-services-detail {
+            padding: var(--fl-space-20) 0;
+        }
 
-   <?php
-   require_once 'include/header.php';
-   ?>
+        .fl-services-detail__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: var(--fl-space-6);
+        }
+
+        .fl-services-detail__cta {
+            padding: var(--fl-space-16) 0;
+            background: var(--fl-gray-100);
+        }
+
+        .fl-services-detail__cta-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--fl-space-8);
+            padding: var(--fl-space-10);
+            background: var(--fl-white);
+            border: 1px solid var(--fl-gray-200);
+            border-radius: var(--fl-radius-lg);
+        }
+
+        .fl-services-detail__cta-title {
+            font-family: var(--fl-font-heading);
+            font-size: var(--fl-text-2xl);
+            font-weight: 600;
+            color: var(--fl-charcoal);
+            margin-bottom: var(--fl-space-2);
+        }
+
+        .fl-services-detail__cta-text {
+            font-size: var(--fl-text-base);
+            color: var(--fl-slate);
+        }
+
+        @media (max-width: 768px) {
+            .fl-services-detail__grid {
+                grid-template-columns: 1fr;
+            }
+            .fl-services-detail__cta-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 
-<body class="custom-cursor">
-
-
-    <div class="page-wrapper">
-        <section class="page-header">
-        <!-- <div class="page-header__bg" style="background-color: #1a2f24"></div> -->
-            <div class="page-header__bg" style="background-image: url(assets/images/backgrounds/background1-1.jpg);"></div>
-            <div class="container">
-                <h2 class="page-header__title"><?= __('Property Management Services')?></h2>
-                <ul class="firdip-breadcrumb list-unstyled">
-                    <li><a href="index.php"><?= __('Home')?></a></li>
-                    <li><span><?= __('Service')?></span></li>
-                </ul>
+    <!-- Page Header -->
+    <section class="fl-page-header">
+        <div class="fl-page-header__bg" style="background-image: url(assets/images/backgrounds/bkground_1.jpg);"></div>
+        <div class="fl-container">
+            <div class="fl-page-header__content">
+                <h1 class="fl-page-header__title"><?= __('Property Management Services') ?></h1>
+                <nav class="fl-page-header__breadcrumb">
+                    <a href="index.php"><?= __('Home') ?></a>
+                    <span>/</span>
+                    <span><?= __('Property Management') ?></span>
+                </nav>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Feature Section Start -->
-        <section class="feature-one">
-            <div class="container">
-            <div class="sec-title  text-center wow fadeInUp" data-wow-duration='1500ms' data-wow-delay='000ms'>
-                <div class="row gutter-y-30">
-                    <div class="col-lg-4 col-md-4">
-                        <div class="feature-one__item wow fadeInUp" data-wow-duration='1500ms' data-wow-delay='300ms'>
-                            <div class="feature-one__item__icon">
-                            </div>
-                            <h4 class="feature-one__item__title"><?= __('Recovery of Rent')?> </h4>
-                            <p class="feature-one__item__text"><?= __('Our daily task is collecting the rent with maximum pre-payment. We have more effective strategies to make clients respect contracts.')?></p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <div class="feature-one__item wow fadeInUp" data-wow-duration='1500ms' data-wow-delay='500ms'>
-                            <div class="feature-one__item__icon">
-                            </div>
-                            <h4 class="feature-one__item__title"><?= __('MARKETING AND ADVISES')?></h4>
-                            <p class="feature-one__item__text"><?= __('We help our partners to promote their products and services; to find customers and offer them services through our social and commercial media, so that they can maximize the profit.')?> </p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <div class="feature-one__item wow fadeInUp" data-wow-duration='1500ms' data-wow-delay='700ms'>
-                            <div class="feature-one__item__icon">
-                            </div>
-                            <h4 class="feature-one__item__title"><?= __('Maximizing rental Profits')?></h4>
-                            <p class="feature-one__item__text"><?= __('Throughout marketing and advertising, we will find more clients and deliver them a maximum of services; minimize the expenses in order to maximize the profit.')?></p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <div class="feature-one__item wow fadeInUp" data-wow-duration='1500ms' data-wow-delay='300ms'>
-                            <div class="feature-one__item__icon">
-                            </div>
-                            <h4 class="feature-one__item__title"><?= __('Comply with Law & administrative directives')?></h4>
-                            <p class="feature-one__item__text"><?= __('As well as other commercial activity, the property management must comply with laws and administrative directives. And we are aware and able to do it under mandate; as an institution with experience in the legal and commercial field.')?></p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <div class="feature-one__item wow fadeInUp" data-wow-duration='1500ms' data-wow-delay='300ms'>
-                            <div class="feature-one__item__icon">
-                            </div>
-                            <h4 class="feature-one__item__title"><?= __('Payment of Taxes')?></h4>
-                            <p class="feature-one__item__text"><?= __('As we help our clients with the daily management of rental properties, through invoicing, rent collection, maintenance expenses, weekly and monthly reports; this allows us to calculate and pay rental taxes on behalf of our clients.')?></p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <div class="feature-one__item wow fadeInUp" data-wow-duration='1500ms' data-wow-delay='300ms'>
-                            <div class="feature-one__item__icon">
-                            </div>
-                            <h4 class="feature-one__item__title"><?= __('Reporting and Filing')?></h4>
-                            <p class="feature-one__item__text"><?= __('Our duty is daily, weekly and monthly reported for evaluation of our performance in our mission. This is very important to our clients to keep archive in order to get information any time, in transparency about business.')?></p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <div class="feature-one__item wow fadeInUp" data-wow-duration='1500ms' data-wow-delay='300ms'>
-                            <div class="feature-one__item__icon">
-                            </div>
-                            <h4 class="feature-one__item__title"><?= __('Representation in execution of rental contracts')?></h4>
-                            <p class="feature-one__item__text"><?= __('We negotiate with clients on the terms of the rental contract, within the limits of the conditions and prices set by the landlord.  For landlord who want it, we represent him in the signing and execution of contracts with client notwithstanding any related legal advice.')?></p>
-                        </div>
-                    </div>
+    <!-- Services Grid -->
+    <section class="fl-services-detail">
+        <div class="fl-container">
+            <div class="fl-section-title">
+                <div class="fl-section-title__label"><?= __('What We Offer') ?></div>
+                <h2 class="fl-section-title__heading"><?= __('Complete Property Management') ?></h2>
+                <p class="fl-section-title__desc"><?= __('End-to-end property management solutions designed to maximize your returns while ensuring full legal compliance.') ?></p>
+            </div>
+            <div class="fl-services-detail__grid">
+                <div class="fl-service-card">
+                    <div class="fl-service-card__icon"><i class="fa fa-money-bill-wave"></i></div>
+                    <h4 class="fl-service-card__title"><?= __('Rent Recovery') ?></h4>
+                    <p class="fl-service-card__text"><?= __('Our daily task is collecting the rent with maximum pre-payment. We have effective strategies to make clients respect contracts.') ?></p>
+                </div>
+                <div class="fl-service-card">
+                    <div class="fl-service-card__icon"><i class="fa fa-bullhorn"></i></div>
+                    <h4 class="fl-service-card__title"><?= __('Marketing & Advisory') ?></h4>
+                    <p class="fl-service-card__text"><?= __('We help partners promote their products and services through our social and commercial media to maximize profit.') ?></p>
+                </div>
+                <div class="fl-service-card">
+                    <div class="fl-service-card__icon"><i class="fa fa-chart-line"></i></div>
+                    <h4 class="fl-service-card__title"><?= __('Maximizing Rental Profits') ?></h4>
+                    <p class="fl-service-card__text"><?= __('Throughout marketing and advertising, we find more clients, deliver maximum services, and minimize expenses to maximize profit.') ?></p>
+                </div>
+                <div class="fl-service-card">
+                    <div class="fl-service-card__icon"><i class="fa fa-gavel"></i></div>
+                    <h4 class="fl-service-card__title"><?= __('Legal & Administrative Compliance') ?></h4>
+                    <p class="fl-service-card__text"><?= __('Property management must comply with laws and administrative directives. We ensure full compliance under mandate.') ?></p>
+                </div>
+                <div class="fl-service-card">
+                    <div class="fl-service-card__icon"><i class="fa fa-receipt"></i></div>
+                    <h4 class="fl-service-card__title"><?= __('Payment of Taxes') ?></h4>
+                    <p class="fl-service-card__text"><?= __('Through invoicing, rent collection, and maintenance tracking, we calculate and pay rental taxes on behalf of our clients.') ?></p>
+                </div>
+                <div class="fl-service-card">
+                    <div class="fl-service-card__icon"><i class="fa fa-file-alt"></i></div>
+                    <h4 class="fl-service-card__title"><?= __('Reporting & Filing') ?></h4>
+                    <p class="fl-service-card__text"><?= __('Daily, weekly, and monthly reports for evaluation of performance. Important archives kept in transparency about business.') ?></p>
+                </div>
+                <div class="fl-service-card">
+                    <div class="fl-service-card__icon"><i class="fa fa-file-signature"></i></div>
+                    <h4 class="fl-service-card__title"><?= __('Rental Contract Representation') ?></h4>
+                    <p class="fl-service-card__text"><?= __('We negotiate rental contract terms and represent landlords in the signing and execution of contracts with clients.') ?></p>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="fl-services-detail__cta">
+        <div class="fl-container">
+            <div class="fl-services-detail__cta-inner">
+                <div>
+                    <h3 class="fl-services-detail__cta-title"><?= __('Need Property Management?') ?></h3>
+                    <p class="fl-services-detail__cta-text"><?= __('Let us handle your property management needs with professionalism and expertise.') ?></p>
+                </div>
+                <a href="contact.php" class="fl-btn fl-btn--gold fl-btn--lg"><?= __('Get Started') ?></a>
             </div>
-        </section>
-        <!--end of feature section-->
+        </div>
+    </section>
 
-</body>
-<?php
-require_once 'include/footer.php';
-?>
-
-</html>
+<?php require_once 'include/footer.php'; ?>
