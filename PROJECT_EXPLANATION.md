@@ -2,7 +2,7 @@
 
 ## 1. Executive Summary
 
-**Fair Law Firm LTD** is a full-stack PHP web application serving as both a public-facing marketing platform and an internal content management system for a Rwandan law and property management firm founded in 2021. The system enables the firm to showcase legal services, manage property listings (rent/sale), publish blog content, handle client inquiries via email, and administer all content through a role-based dashboard.
+**Fair Law Firm LTD** is a full-stack PHP web application serving as both a public-facing marketing platform and an internal content management system for a Rwandan law and property management firm founded in 2021. The system enables the firm to showcase legal services, manage property listings (rent/sale), puyeahblish blog content, handle client inquiries via email, and administer all content through a role-based dashboard.
 
 ---
 

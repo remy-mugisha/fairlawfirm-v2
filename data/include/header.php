@@ -6,11 +6,80 @@ if(!isset($_SESSION["email"])){
    header("location: index.php");
    exit(); // Always exit after header redirect
 }
+
+$flfCurrentPage = basename($_SERVER['PHP_SELF']);
+
+$flfActiveGroups = array(
+    'dashboard.php'          => array('dashboard.php'),
+    'manage_users.php'       => array('manage_users.php', 'register.php', 'edit_user.php'),
+    'display_properties.php' => array('display_properties.php', 'add_property.php', 'edit_property.php', 'manage_property.php', 'property_details.php', 'property_images.php'),
+    'display_rental.php'     => array('display_rental.php', 'add_rental_property.php', 'edit_rental.php'),
+    'display_blog.php'       => array('display_blog.php', 'add_blog.php', 'edit_blog.php', 'view_blog.php'),
+    'display_about.php'      => array('display_about.php', 'add_about.php', 'edit_about.php', 'view_about.php'),
+    'profile.php'            => array('profile.php')
+);
+
+$flfPageTitles = array(
+    'dashboard.php'          => 'Dashboard',
+    'manage_users.php'       => 'Manage Users',
+    'register.php'           => 'Add User',
+    'edit_user.php'          => 'Edit User',
+    'display_properties.php' => 'Manage Properties',
+    'add_property.php'       => 'Add Property',
+    'edit_property.php'      => 'Edit Property',
+    'manage_property.php'    => 'Manage Property',
+    'property_details.php'   => 'Property Details',
+    'property_images.php'    => 'Property Images',
+    'display_rental.php'     => 'Rental Houses',
+    'add_rental_property.php'=> 'Add Rental Property',
+    'edit_rental.php'        => 'Edit Rental Property',
+    'display_blog.php'       => 'Blog Posts',
+    'add_blog.php'           => 'Add Blog Post',
+    'edit_blog.php'          => 'Edit Blog Post',
+    'view_blog.php'          => 'View Blog Post',
+    'display_about.php'      => 'About Page',
+    'add_about.php'          => 'Edit About Content',
+    'edit_about.php'         => 'Edit About Content',
+    'view_about.php'         => 'About Preview',
+    'home_background.php'    => 'Home Backgrounds',
+    'edit_background.php'    => 'Edit Background',
+    'profile.php'            => 'My Profile'
+);
+
+if (isset($flfPageTitles[$flfCurrentPage])) {
+    $flfPageTitle = $flfPageTitles[$flfCurrentPage];
+} else {
+    $flfPageTitle = ucwords(str_replace(array('-', '_'), ' ', pathinfo($flfCurrentPage, PATHINFO_FILENAME)));
+}
+
+function flfNavActive($groupPages, $currentPage) {
+    return in_array($currentPage, $groupPages, true) ? ' class="active"' : '';
+}
+
+$flfPendingBlogs  = null;
+$flfPendingUsers  = null;
+$flfNotifTotal    = 0;
+
+try {
+    require_once __DIR__ . '/../propertyMgt/config.php';
+    $stmt = $conn->query("SELECT COUNT(*) FROM blog WHERE status = 'pending'");
+    $flfPendingBlogs = (int)$stmt->fetchColumn();
+    $stmt = $conn->query("SELECT COUNT(*) FROM users WHERE status = 'Pending'");
+    $flfPendingUsers = (int)$stmt->fetchColumn();
+    $flfNotifTotal = $flfPendingBlogs + $flfPendingUsers;
+} catch (Throwable $e) {
+    $flfPendingBlogs = null;
+    $flfPendingUsers = null;
+    $flfNotifTotal   = 0;
+}
+
+$flfUserName = 'Guest';
+if (isset($_SESSION['first_name']) && isset($_SESSION['last_name'])) {
+    $flfUserName = htmlspecialchars($_SESSION['first_name'] . ' ' . $_SESSION['last_name']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<!-- Mirrored from themewagon.github.io/pluto/index by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 28 Jan 2025 09:06:51 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
       <!-- basic -->
       <meta charset="utf-8">
@@ -22,7 +91,7 @@ if(!isset($_SESSION["email"])){
       <link rel="manifest" href="images/logo/site.webmanifest">
 
       <!-- site metas -->
-      <title>Fair Law Firm | Admin</title>
+      <title><?php echo $flfPageTitle; ?> | Fair Law Firm LTD</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
@@ -42,129 +111,125 @@ if(!isset($_SESSION["email"])){
       <link rel="stylesheet" href="css/perfect-scrollbar.css" />
       <!-- custom css -->
       <link rel="stylesheet" href="css/custom.css" />
-      <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> -->
+      <!-- brand fonts -->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
       <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
       <![endif]-->
+
+      <!-- admin dashboard brand styles -->
+      <link rel="stylesheet" href="css/dashboard.css" />
    </head>
    <body class="dashboard dashboard_1">
       <div class="full_container">
          <div class="inner_container">
             <!-- Sidebar  -->
             <nav id="sidebar">
-               <div class="sidebar_blog_1">
-                  <!-- <div class="sidebar-header">
-                     <div class="logo_section">
-                        <a href="index-2.html"><img class="logo_icon img-responsive" src="images/logo/logo_icon.png" alt="#" /></a>
-                     </div>
-                  </div> -->
-                  <!-- <div class="sidebar_user_info">
-                     <div class="icon_setting"></div>
-                     <div class="user_profle_side">
-                        <div class="user_img"><img class="img-responsive" src="images/layout_img/user_img.jpg" alt="#" /></div>
-                        <div class="user_info">
-                           <h6>John David</h6>
-                           <p><span class="online_animation"></span> Online</p>
-                        </div>
-                     </div>
-                  </div> -->
-               </div>
-               <div class="sidebar_blog_2">
-                  <!-- <h4>Fair Law Firm LTD</h4> -->
-                  <a href="dashboard.php">
-                     <img src="propertyMgt/logoImg/logo-0-0-0.png" alt="firdip HTML" height="60" width="200">
+               <div class="flf-brand">
+                  <a href="dashboard.php" class="flf-brand-link">
+                     <span class="flf-brand-icon"><i class="fa fa-gavel"></i></span>
+                     <span class="flf-brand-text">
+                        <strong>Fair Law Firm</strong>
+                        <small>LTD &middot; Admin Panel</small>
+                     </span>
                   </a>
-                  <ul class="list-unstyled components">
-                     <li class="active">
-                        <a href="dashboard.php"><i class="fa fa-dashboard "></i> <span>Dashboard</span></a>
-                     </li>
-                     <!-- <li>
-                        <a href="manage_users">
-                        <i class="fa fa-briefcase blue1_color"></i> <span>Manage Users</span></a>
-                     </li> -->
-                     <!-- <li><a href="home_background"><i class="fa fa-newspaper-o blue1_color"></i> <span> Home</span></a></li> -->
-                     
-                     <li>
-                        <a href="display_properties.php">
-                        <i class="fa fa-building fa-cog"></i> <span> Manage Properties</span></a>
-                     </li>
-                     <li>
-                        <a href="display_rental.php">
-                        <i class="fa fa-home fa-cog"></i> <span> Rental House</span></a>
-                     </li>
-                     <li><a href="display_blog.php"><i class="fa fa-newspaper-o "></i> <span> Blog</span></a></li>
-                     <li><a href="display_about.php"><i class="fa fa-info-circle"></i> <span> About</span></a></li>
-                     <!-- <li><a href="add_video.php"><i class="fa fa-play-circle " ></i> <span> Videos</span></a></li> -->
-                     <li class="active">
-                        <a href="#additional_page" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-image"></i> <span>Images</span></a>
-                        <ul class="collapse list-unstyled" id="additional_page">
-                           <li>
-                              <a href="property_images.php">> <span>Property images</span></a>
-                           </li>
-                           <!-- <li>
-                              <a href="#">> <span>Blog</span></a>
-                           </li> -->
-                        </ul>
-                     </li>
-                     <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'admin'): ?>
-                            <li><a href="manage_users.php"><i class="fa fa-users "></i> <span>Manage Users</span></a></li>
-                     <?php endif; ?>
-                     <li><a href="profile.php"><i class="fa fa-cog "></i> <span>Settings</span></a></li>
-                     <!-- <li><a href="logout.php"><i class=""></i> <span>Logout</span></a></li> -->
-                  </ul>
                </div>
+               <ul class="flf-nav">
+                  <li<?php echo flfNavActive($flfActiveGroups['dashboard.php'], $flfCurrentPage); ?>>
+                     <a href="dashboard.php"><i class="fa fa-th-large"></i> <span>Dashboard</span></a>
+                  </li>
+                  <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'admin'): ?>
+                  <li<?php echo flfNavActive($flfActiveGroups['manage_users.php'], $flfCurrentPage); ?>>
+                     <a href="manage_users.php"><i class="fa fa-users"></i> <span>Users</span></a>
+                  </li>
+                  <?php endif; ?>
+                  <li<?php echo flfNavActive($flfActiveGroups['display_properties.php'], $flfCurrentPage); ?>>
+                     <a href="display_properties.php"><i class="fa fa-building"></i> <span>Properties</span></a>
+                  </li>
+                  <li<?php echo flfNavActive($flfActiveGroups['display_rental.php'], $flfCurrentPage); ?>>
+                     <a href="display_rental.php"><i class="fa fa-home"></i> <span>Rentals</span></a>
+                  </li>
+                  <li<?php echo flfNavActive($flfActiveGroups['display_blog.php'], $flfCurrentPage); ?>>
+                     <a href="display_blog.php"><i class="fa fa-newspaper-o"></i> <span>Blog</span></a>
+                  </li>
+                  <li<?php echo flfNavActive($flfActiveGroups['display_about.php'], $flfCurrentPage); ?>>
+                     <a href="display_about.php"><i class="fa fa-info-circle"></i> <span>About</span></a>
+                  </li>
+                  <li<?php echo flfNavActive($flfActiveGroups['profile.php'], $flfCurrentPage); ?>>
+                     <a href="profile.php"><i class="fa fa-user-circle"></i> <span>Profile</span></a>
+                  </li>
+                  <li class="flf-nav-logout">
+                     <a href="logout.php"><i class="fa fa-sign-out"></i> <span>Logout</span></a>
+                  </li>
+               </ul>
             </nav>
             <!-- end sidebar -->
             <!-- right content -->
             <div id="content">
                <!-- topbar -->
                <div class="topbar">
-                  <nav class="navbar navbar-expand-lg navbar-light">
-                     <div class="full">
-                        <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
-                        <!-- <div class="logo_section">
-                           <a href="index-2.html"><img class="img-responsive" src="images/logo/logo.png" alt="#" /></a>
-                        </div> -->
-                        <div class="right_topbar">
-                           <div class="icon_info">
-                           <ul class="user_profile_dd">
-    <li>
-    <a class="dropdown-toggle" data-toggle="dropdown">
-    <?php if (isset($_SESSION['profile_image']) && !empty($_SESSION['profile_image'])): ?>
-        <img class="img-responsive rounded-circle profile-image" src="<?php echo htmlspecialchars($_SESSION['profile_image']); ?>" alt="Profile Image" />
-    <?php else: ?>
-        <img class="img-responsive rounded-circle profile-image" src="images/default-avatar.png" alt="Default Avatar" />
-    <?php endif; ?>
-    <span class="name_user">
-        <?php 
-        if (isset($_SESSION['first_name']) && isset($_SESSION['last_name'])) {
-            echo htmlspecialchars($_SESSION['first_name'] . ' ' . $_SESSION['last_name']);
-        } else {
-            echo 'Guest';
-        }
-        ?>
-    </span>
-</a>
-        <div class="dropdown-menu">
-            <a class="dropdown-item" href="profile.php">My Profile</a>
-            <a class="dropdown-item" href="logout.php"><span>Log Out</span> <i class="fa fa-sign-out"></i></a>
-        </div>
-    </li>
-</ul>
+                  <div class="flf-topbar-inner">
+                     <button type="button" id="sidebarCollapse" class="flf-burger" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
+
+                     <h4 class="flf-page-title"><?php echo htmlspecialchars($flfPageTitle); ?></h4>
+
+                     <form class="flf-search" role="search" action="display_properties.php" method="get">
+                        <i class="fa fa-search"></i>
+                        <input type="text" name="search" placeholder="Search properties..." autocomplete="off">
+                     </form>
+
+                     <div class="flf-top-actions">
+                        <div class="flf-dd dropdown">
+                           <a class="flf-bell" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="fa fa-bell-o"></i>
+                              <?php if ($flfNotifTotal > 0): ?>
+                                 <span class="flf-notif-count"><?php echo $flfNotifTotal > 9 ? '9+' : $flfNotifTotal; ?></span>
+                              <?php endif; ?>
+                           </a>
+                           <div class="dropdown-menu flf-notif-menu">
+                              <div class="flf-notif-head">Notifications</div>
+                              <?php if ($flfNotifTotal > 0): ?>
+                                 <?php if ($flfPendingBlogs > 0): ?>
+                                 <a class="flf-notif-item" href="display_blog.php">
+                                    <i class="fa fa-newspaper-o"></i>
+                                    <span><b>Blog posts awaiting review</b><small>Pending approval</small></span>
+                                    <span class="flf-notif-num"><?php echo $flfPendingBlogs; ?></span>
+                                 </a>
+                                 <?php endif; ?>
+                                 <?php if ($flfPendingUsers > 0): ?>
+                                 <a class="flf-notif-item" href="manage_users.php">
+                                    <i class="fa fa-users"></i>
+                                    <span><b>New users to activate</b><small>Pending accounts</small></span>
+                                    <span class="flf-notif-num"><?php echo $flfPendingUsers; ?></span>
+                                 </a>
+                                 <?php endif; ?>
+                              <?php else: ?>
+                                 <div class="flf-notif-empty">You are all caught up.</div>
+                              <?php endif; ?>
+                           </div>
+                        </div>
+
+                        <div class="flf-dd dropdown">
+                           <a class="flf-user-chip" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <?php if (isset($_SESSION['profile_image']) && !empty($_SESSION['profile_image'])): ?>
+                                 <img src="<?php echo htmlspecialchars($_SESSION['profile_image']); ?>" alt="Profile Image" />
+                              <?php else: ?>
+                                 <img src="images/default-avatar.png" alt="Default Avatar" />
+                              <?php endif; ?>
+                              <span class="flf-user-name"><?php echo $flfUserName; ?></span>
+                              <i class="fa fa-angle-down"></i>
+                           </a>
+                           <div class="dropdown-menu flf-user-menu">
+                              <a class="dropdown-item" href="profile.php"><i class="fa fa-user-circle"></i> My Profile</a>
+                              <a class="dropdown-item" href="dashboard.php"><i class="fa fa-th-large"></i> Dashboard</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item flf-signout" href="logout.php"><i class="fa fa-sign-out"></i> Log Out</a>
                            </div>
                         </div>
                      </div>
-                  </nav>
+                  </div>
                </div>
                <!-- end topbar -->
-
-               <style>
-                  .profile-image {
-                     width: 70px; 
-                     height: 70px; 
-                     object-fit: cover; 
-                     border-radius: 50%; 
-                     }
-
-               </style>
