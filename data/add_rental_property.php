@@ -49,7 +49,7 @@ if (isset($_POST['submit'])) {
         header("Location: property_images.php?property_id=" . $conn->lastInsertId());
         exit();
     } else {
-        $_SESSION['error_message'] = "Error adding property: " . $stmt->errorInfo()[2];
+        error_log("Add rental error: " . $stmt->errorInfo()[2]); $_SESSION['error_message'] = "An error occurred. Please try again.";
         header("Location: add_rental_property.php");
         exit();
     }
@@ -157,7 +157,7 @@ if (isset($_POST['submit'])) {
                 <div class="col-md-12">
                     <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius:var(--flf-radius-sm);margin:0;">
                         <i class="fa fa-check-circle" style="margin-right:6px;"></i>
-                        <?php echo $_SESSION['success_message']; unset($_SESSION['success_message']); ?>
+                        <?php echo htmlspecialchars($_SESSION['success_message']); unset($_SESSION['success_message']); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                 </div>
@@ -169,7 +169,7 @@ if (isset($_POST['submit'])) {
                 <div class="col-md-12">
                     <div class="alert alert-danger alert-dismissible fade show" role="alert" style="border-radius:var(--flf-radius-sm);margin:0;">
                         <i class="fa fa-exclamation-triangle" style="margin-right:6px;"></i>
-                        <?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?>
+                        <?php echo htmlspecialchars($_SESSION['error_message']); unset($_SESSION['error_message']); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                 </div>

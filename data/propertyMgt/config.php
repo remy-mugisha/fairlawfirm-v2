@@ -1,14 +1,15 @@
 <?php
 $host = "localhost";
-$dbname = "helloshi_faird";
+$dbname = "helloshi_fairdb";
 $charset = "utf8";
-$username = "helloshi_fairUser"; 
-$password = "Allin@12345"; 
+$username = "root"; 
+$password = ""; 
 
 try {
     $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    die("Connection failed: " . $e->getMessage());
+    error_log("Database connection failed: " . $e->getMessage());
+    die("A database error occurred. Please try again later.");
 }
 ?>

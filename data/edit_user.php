@@ -108,10 +108,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       ]);
 
       // Handle profile image upload
-      if (!empty($_FILES['profile_image']['error']) === UPLOAD_ERR_OK) {
+      if ($_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
          $upload_dir = 'propertyMgt/userImg/';
          if (!file_exists($upload_dir)) {
-            mkdir($upload_dir, 0777, true);
+            mkdir($upload_dir, 0755, true);
          }
 
          $ext  = pathinfo($_FILES['profile_image']['name'], PATHINFO_EXTENSION);

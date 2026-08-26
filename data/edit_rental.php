@@ -93,7 +93,7 @@ if (isset($_POST['submit'])) {
             exit();
         }
     } catch (PDOException $e) {
-        $_SESSION['error_message'] = "Database error: " . $e->getMessage();
+        error_log("Edit rental error: " . $e->getMessage()); $_SESSION['error_message'] = "An error occurred. Please try again.";
         header("Location: edit_rental.php?id=$id");
         exit();
     }
@@ -209,7 +209,7 @@ $allFloors = [
                 <div class="col-md-12">
                     <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius:var(--flf-radius-sm);margin:0;">
                         <i class="fa fa-check-circle" style="margin-right:6px;"></i>
-                        <?php echo $_SESSION['success_message']; unset($_SESSION['success_message']); ?>
+                        <?php echo htmlspecialchars($_SESSION['success_message']); unset($_SESSION['success_message']); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                 </div>
@@ -221,7 +221,7 @@ $allFloors = [
                 <div class="col-md-12">
                     <div class="alert alert-danger alert-dismissible fade show" role="alert" style="border-radius:var(--flf-radius-sm);margin:0;">
                         <i class="fa fa-exclamation-triangle" style="margin-right:6px;"></i>
-                        <?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?>
+                        <?php echo htmlspecialchars($_SESSION['error_message']); unset($_SESSION['error_message']); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                 </div>

@@ -1,7 +1,8 @@
 <?php
 session_start();
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
 require_once 'propertyMgt/config.php';
 
 date_default_timezone_set('UTC');
@@ -16,7 +17,7 @@ try {
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
     ");
 } catch (PDOException $e) {
-    echo "Table creation error: " . $e->getMessage();
+    error_log("Table creation error: " . $e->getMessage());
 }
 
 $token = isset($_GET['token']) ? $_GET['token'] : null;
@@ -89,7 +90,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token'])) {
             $error_message = "Invalid or expired token.";
         }
     } catch (PDOException $e) {
-        $error_message = "Database error: " . $e->getMessage();
+        error_log("Password reset error: " . $e->getMessage());
+        $error_message = "A database error occurred. Please try again later.";
     }
 }
 ?>

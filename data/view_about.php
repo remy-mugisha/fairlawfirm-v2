@@ -22,7 +22,7 @@ try {
         exit();
     }
 } catch (PDOException $e) {
-    $_SESSION['error_message'] = "Error fetching about content: " . $e->getMessage();
+    error_log("Fetch about error: " . $e->getMessage()); $_SESSION['error_message'] = "An error occurred. Please try again.";
     echo "<script>window.location.href = 'display_about.php';</script>";
     exit();
 }
@@ -168,7 +168,7 @@ try {
                 <div class="col-md-12">
                     <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius:var(--flf-radius-sm);margin:0;">
                         <i class="fa fa-check-circle" style="margin-right:6px;"></i>
-                        <?php echo $_SESSION['success_message']; unset($_SESSION['success_message']); ?>
+                        <?php echo htmlspecialchars($_SESSION['success_message']); unset($_SESSION['success_message']); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                 </div>

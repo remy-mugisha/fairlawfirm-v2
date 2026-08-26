@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($stmt->execute()) {
         echo "Background updated successfully!";
     } else {
-        echo "Error updating background.";
+        echo "An error occurred. Please try again.";
     }
 }
 

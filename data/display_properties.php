@@ -20,7 +20,7 @@ if (isset($_GET['delete'])) {
         
         $_SESSION['success_message'] = "Property deleted successfully!";
     } catch(PDOException $e) {
-        $_SESSION['error_message'] = "Error deleting property: " . $e->getMessage();
+        error_log("Delete property error: " . $e->getMessage()); $_SESSION['error_message'] = "An error occurred. Please try again.";
     }
     echo "<script>window.location.href = 'display_properties.php';</script>";
     exit();
@@ -30,7 +30,7 @@ try {
     $stmt = $conn->query("SELECT * FROM add_property where status='Active' ORDER BY id DESC");
     $properties = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch(PDOException $e) {
-    $error = "Error fetching properties: " . $e->getMessage();
+    error_log("Fetch properties error: " . $e->getMessage()); $error = "An error occurred while loading properties.";
 }
 ?>
 
@@ -135,7 +135,7 @@ try {
                 <div class="col-md-12">
                     <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius:var(--flf-radius-sm);margin:0;">
                         <i class="fa fa-check-circle" style="margin-right:6px;"></i>
-                        <?php echo $_SESSION['success_message']; unset($_SESSION['success_message']); ?>
+                        <?php echo htmlspecialchars($_SESSION['success_message']); unset($_SESSION['success_message']); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -149,7 +149,7 @@ try {
                 <div class="col-md-12">
                     <div class="alert alert-danger alert-dismissible fade show" role="alert" style="border-radius:var(--flf-radius-sm);margin:0;">
                         <i class="fa fa-exclamation-triangle" style="margin-right:6px;"></i>
-                        <?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?>
+                        <?php echo htmlspecialchars($_SESSION['error_message']); unset($_SESSION['error_message']); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -173,7 +173,7 @@ try {
                     <div class="full padding_infor_info" style="padding:0;">
                         <?php if (isset($error)): ?>
                             <div class="alert alert-danger" style="margin:24px 24px 0;border-radius:var(--flf-radius-sm);">
-                                <?php echo $error; ?>
+                                <?php echo htmlspecialchars($error); ?>
                             </div>
                         <?php elseif (empty($properties)): ?>
                             <div class="flf-empty-state">

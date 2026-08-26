@@ -3,10 +3,10 @@ session_start();
 require_once 'propertyMgt/config.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $first_name = filter_var($_POST['first_name'], FILTER_SANITIZE_STRING);
-    $last_name = filter_var($_POST['last_name'], FILTER_SANITIZE_STRING);
+    $first_name = htmlspecialchars(trim($_POST['first_name']), ENT_QUOTES, 'UTF-8');
+    $last_name = htmlspecialchars(trim($_POST['last_name']), ENT_QUOTES, 'UTF-8');
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-    $phone = filter_var($_POST['phone'], FILTER_SANITIZE_STRING);
+    $phone = htmlspecialchars(trim($_POST['phone']), ENT_QUOTES, 'UTF-8');
     $gender = $_POST['gender'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT); 
     $confirm_password = $_POST['confirm_password'];
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $upload_dir = 'propertyMgt/userImg/';
             
             if (!file_exists($upload_dir)) {
-                mkdir($upload_dir, 0777, true);
+                mkdir($upload_dir, 0755, true);
             }
             
             $file_extension = pathinfo($_FILES['profile_image']['name'], PATHINFO_EXTENSION);

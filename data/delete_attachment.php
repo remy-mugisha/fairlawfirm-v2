@@ -34,7 +34,7 @@ if (isset($_GET['id']) && isset($_GET['blog_id'])) {
             $_SESSION['error_message'] = "Attachment not found.";
         }
     } catch (PDOException $e) {
-        $_SESSION['error_message'] = "Error: " . $e->getMessage();
+        error_log("Delete attachment error: " . $e->getMessage()); $_SESSION['error_message'] = "An error occurred. Please try again.";
     }
     
     header("Location: edit_blog.php?id=" . $blog_id);

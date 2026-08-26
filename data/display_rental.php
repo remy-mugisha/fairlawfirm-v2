@@ -32,7 +32,7 @@ if (isset($_GET['delete_id']) && !empty($_GET['delete_id'])) {
             $_SESSION['error_message'] = "Failed to delete property.";
         }
     } catch (PDOException $e) {
-        $_SESSION['error_message'] = "Error: " . $e->getMessage();
+        error_log("Display rental error: " . $e->getMessage()); $_SESSION['error_message'] = "An error occurred. Please try again.";
     }
     echo "<script>window.location.href = 'display_rental.php';</script>";
     exit();
@@ -161,7 +161,7 @@ function formatDisplayPrice($price) {
                 <div class="col-md-12">
                     <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius:var(--flf-radius-sm);margin:0;">
                         <i class="fa fa-check-circle" style="margin-right:6px;"></i>
-                        <?php echo $_SESSION['success_message']; unset($_SESSION['success_message']); ?>
+                        <?php echo htmlspecialchars($_SESSION['success_message']); unset($_SESSION['success_message']); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                 </div>
@@ -173,7 +173,7 @@ function formatDisplayPrice($price) {
                 <div class="col-md-12">
                     <div class="alert alert-danger alert-dismissible fade show" role="alert" style="border-radius:var(--flf-radius-sm);margin:0;">
                         <i class="fa fa-exclamation-triangle" style="margin-right:6px;"></i>
-                        <?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?>
+                        <?php echo htmlspecialchars($_SESSION['error_message']); unset($_SESSION['error_message']); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                 </div>

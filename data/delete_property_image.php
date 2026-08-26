@@ -38,7 +38,7 @@ try {
         $_SESSION['error_message'] = "Image not found.";
     }
 } catch (PDOException $e) {
-    $_SESSION['error_message'] = "Database error: " . $e->getMessage();
+    error_log("Delete image error: " . $e->getMessage()); $_SESSION['error_message'] = "An error occurred. Please try again.";
 }
 
 header("Location: property_details.php?id=" . $property_id);

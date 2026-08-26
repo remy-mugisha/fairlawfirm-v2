@@ -36,7 +36,8 @@ try {
         }
     }
 } catch (PDOException $e) {
-    $error_message = "Database error: " . $e->getMessage();
+    error_log("Profile error: " . $e->getMessage());
+    $error_message = "A database error occurred. Please try again later.";
 }
 
 $avatar = (!empty($user['profile_image']) && file_exists($user['profile_image']))

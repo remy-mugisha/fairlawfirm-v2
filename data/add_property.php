@@ -1,4 +1,5 @@
 <?php
+require_once 'include/header.php';
 require_once 'propertyMgt/config.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
@@ -6,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $title = $_POST['title'];   
     $targetDir = "propertyMgt/proImg/";
     if (!file_exists($targetDir)) {
-        mkdir($targetDir, 0777, true);
+        mkdir($targetDir, 0755, true);
     }
     
     $fileName = basename($_FILES["image"]["name"]);
@@ -28,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                 echo "<script>window.location.href = 'manage_property.php';</script>";
                 exit();
             } catch(PDOException $e) {
-                $_SESSION['error_message'] = "Database Error: " . $e->getMessage();
+                error_log("Add property error: " . $e->getMessage()); $_SESSION['error_message'] = "An error occurred. Please try again.";
             }
         } else {
             $_SESSION['error_message'] = "Sorry, there was an error uploading your file.";

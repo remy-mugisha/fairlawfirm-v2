@@ -40,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error_message = 'Invalid email or password.';
          } else {
             // Successful login — populate session
+            session_regenerate_id(true);
             $_SESSION['user_type'] = $user['usertype'];
             $_SESSION['email']     = $user['email'];
 

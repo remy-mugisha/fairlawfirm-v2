@@ -11,8 +11,8 @@ try {
     $videos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch(PDOException $e) {
     // Handle database errors
-    $error = "Error fetching video links: " . $e->getMessage();
-    echo "<p style='color: red;'>$error</p>";
+    error_log("Fetch video error: " . $e->getMessage()); $error = "An error occurred while loading video links.";
+    echo "<p style='color: red;'>" . htmlspecialchars($error) . "</p>";
 }
 ?>
 

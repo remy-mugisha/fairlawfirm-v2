@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: dashboard.php");
         exit();
     } catch(PDOException $e) {
-        $_SESSION['error_message'] = "Error updating video link: " . $e->getMessage();
+        error_log("Update video error: " . $e->getMessage()); $_SESSION['error_message'] = "An error occurred. Please try again.";
         header("Location: edit_video.php?id=" . $id);
         exit();
     }
@@ -44,20 +44,20 @@ try {
     $stmt->execute();
     $video = $stmt->fetch(PDO::FETCH_ASSOC);
 } catch(PDOException $e) {
-    $error = "Error fetching video link: " . $e->getMessage();
+    error_log("Fetch video error: " . $e->getMessage()); $error = "An error occurred while loading video links.";
 }
 ?>
 
 <!-- Display Success/Error Messages -->
 <?php if (isset($_SESSION['success_message'])): ?>
     <div class="alert alert-success">
-        <?php echo $_SESSION['success_message']; unset($_SESSION['success_message']); ?>
+        <?php echo htmlspecialchars($_SESSION['success_message']); unset($_SESSION['success_message']); ?>
     </div>
 <?php endif; ?>
 
 <?php if (isset($_SESSION['error_message'])): ?>
     <div class="alert alert-danger">
-        <?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?>
+        <?php echo htmlspecialchars($_SESSION['error_message']); unset($_SESSION['error_message']); ?>
     </div>
 <?php endif; ?>
 

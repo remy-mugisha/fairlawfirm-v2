@@ -3,11 +3,7 @@ require 'Lang/lang.php';
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-if (isset($_GET['lang'])) {
-    $_SESSION['lang'] = $_GET['lang'];
-}
-$_SESSION['lang'] = $_SESSION['lang'] ?? 'en';
-$currentLang = $_SESSION['lang'];
+$currentLang = $_SESSION['lang'] ?? 'en';
 ?>
 <!-- Favicon -->
 <link rel="shortcut icon" href="assets/images/favicons/small-logo.jpg" type="image/x-icon">

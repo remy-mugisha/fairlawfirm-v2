@@ -23,6 +23,13 @@ if (isset($_POST['submit'])) {
     $phone = $_POST['phone'];
     $subject = $_POST['subject'];
     $message = $_POST['message'];
+
+    // Sanitize all user inputs for email HTML
+    $name = htmlspecialchars(trim($name), ENT_QUOTES, 'UTF-8');
+    $email = htmlspecialchars(trim($email), ENT_QUOTES, 'UTF-8');
+    $phone = htmlspecialchars(trim($phone), ENT_QUOTES, 'UTF-8');
+    $subject = htmlspecialchars(trim($subject), ENT_QUOTES, 'UTF-8');
+    $message = nl2br(htmlspecialchars(trim($message), ENT_QUOTES, 'UTF-8'));
     
     try {
         // Email to Customer
@@ -270,7 +277,7 @@ if (isset($_POST['submit'])) {
 
         // Display popup and redirect
         echo "<script>
-                alert('Thank you, $name! Your message has been sent.');
+                alert('Thank you! Your message has been sent.');
                 window.location.href = 'index.php';
               </script>";
         exit();

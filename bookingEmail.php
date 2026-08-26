@@ -24,6 +24,14 @@ if (isset($_POST['submit'])) {
     $months = isset($_POST['months']) ? $_POST['months'] : 'N/A';
     $comments = $_POST['comments'];
     $property_id = $_POST['property_id'];
+
+    // Sanitize all user inputs for email HTML
+    $name = htmlspecialchars(trim($name), ENT_QUOTES, 'UTF-8');
+    $email = htmlspecialchars(trim($email), ENT_QUOTES, 'UTF-8');
+    $phone = htmlspecialchars(trim($phone), ENT_QUOTES, 'UTF-8');
+    $months = htmlspecialchars(trim($months), ENT_QUOTES, 'UTF-8');
+    $comments = nl2br(htmlspecialchars(trim($comments), ENT_QUOTES, 'UTF-8'));
+    $property_id = htmlspecialchars(trim($property_id), ENT_QUOTES, 'UTF-8');
     
     try {
         // Email to Customer (Confirmation)
@@ -288,7 +296,7 @@ if (isset($_POST['submit'])) {
 
         // Display popup and redirect
         echo "<script>
-                alert('Thank you, $name! Your booking request has been received.');
+                alert('Thank you! Your booking request has been received.');
                 window.location.href = 'property.php';
               </script>";
         exit();
