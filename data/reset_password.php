@@ -93,7 +93,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token'])) {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -101,164 +100,254 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Fair Law Firm - Reset Password</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <style>
         :root {
-            --primary-color: rgb(247, 247, 247);
-            --secondary-color: #3498db;
-            --light-color: #ecf0f1;
+            --flf-navy: #01166A;
+            --flf-midnight: #07143F;
+            --flf-royal: #18358F;
+            --flf-blue: #E9EEFA;
+            --flf-white: #FFFFFF;
+            --flf-gold: #C8A951;
+            --flf-slate: #536174;
+            --flf-charcoal: #172033;
+            --flf-muted: #6b7699;
+            --flf-danger: #a12734;
+            --flf-success: #1a7a4c;
+            --flf-font-head: 'Cormorant Garamond', serif;
+            --flf-font-body: 'DM Sans', sans-serif;
+            --flf-radius: 14px;
+            --flf-radius-sm: 8px;
         }
-        
+        *, *::before, *::after { box-sizing: border-box; }
         body {
-            background-color: var(--primary-color);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            font-family: var(--flf-font-body);
+            background: #f4f6fa;
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
+            align-items: center;
             justify-content: center;
         }
-        
-        .auth-wrapper {
+        .flf-auth-wrapper {
             width: 100%;
-            max-width: 450px;
-            margin: 0 auto;
+            max-width: 440px;
             padding: 20px;
         }
-        
-        .auth-logo {
-            text-align: center;
-            margin-bottom: 30px;
+        .flf-auth-card {
+            background: var(--flf-white);
+            border: 1px solid var(--flf-blue);
+            border-radius: var(--flf-radius);
+            box-shadow: 0 8px 30px rgba(1, 22, 106, 0.08);
+            overflow: hidden;
         }
-        
-        .auth-logo img {
-            height: 60px;
+        .flf-auth-header {
+            background: linear-gradient(135deg, var(--flf-navy) 0%, var(--flf-midnight) 100%);
+            padding: 32px 32px 28px;
+            text-align: center;
+        }
+        .flf-auth-brand {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        .flf-auth-logo {
+            height: 52px;
             width: auto;
+            filter: brightness(0) invert(1);
         }
-        
-        .auth-card {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            width: 100%;
+        .flf-auth-title {
+            font-family: var(--flf-font-head);
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--flf-white);
+            margin: 0;
+            letter-spacing: 0.5px;
         }
-        
-        .auth-title {
-            text-align: center;
-            margin-bottom: 25px;
-            color: #333;
+        .flf-auth-tagline {
+            font-family: var(--flf-font-body);
+            font-size: 12px;
             font-weight: 600;
+            color: var(--flf-gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 4px 0 0;
         }
-        
-        .form-control {
-            height: 45px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            padding-left: 15px;
-            margin-bottom: 15px;
+        .flf-auth-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(200, 169, 81, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 16px auto 0;
         }
-        
-        .form-control:focus {
-            border-color: var(--secondary-color);
-            box-shadow: none;
+        .flf-auth-icon i { font-size: 22px; color: var(--flf-gold); }
+        .flf-auth-body { padding: 32px; }
+        .flf-field { margin-bottom: 20px; }
+        .flf-field label {
+            display: block; font-family: var(--flf-font-body); font-size: 13px;
+            font-weight: 600; color: var(--flf-slate); margin-bottom: 7px;
         }
-        
-        .btn-primary {
-            background-color: var(--secondary-color);
-            border: none;
-            color: white;
-            padding: 12px;
-            width: 100%;
-            border-radius: 5px;
-            font-weight: 600;
-            transition: all 0.3s;
+        .flf-field label i { color: var(--flf-gold); margin-right: 5px; width: 16px; text-align: center; }
+        .flf-input-wrap {
+            position: relative;
         }
-        
-        .btn-primary:hover {
-            background-color: #2980b9;
-            transform: translateY(-2px);
+        .flf-field .form-control {
+            height: 46px; border: 1px solid #d9dee9; border-radius: var(--flf-radius-sm);
+            font-family: var(--flf-font-body); font-size: 14px; color: var(--flf-charcoal);
+            padding: 0 44px 0 14px; transition: border-color 0.25s ease, box-shadow 0.25s ease;
+            background: var(--flf-white); width: 100%;
         }
-        
-        .auth-footer {
-            text-align: center;
-            margin-top: 20px;
+        .flf-field .form-control:focus { border-color: var(--flf-royal); box-shadow: 0 0 0 3px rgba(24, 53, 143, 0.12); outline: none; }
+        .flf-pw-toggle {
+            position: absolute; right: 0; top: 0; bottom: 0; width: 44px;
+            display: flex; align-items: center; justify-content: center;
+            background: none; border: none; cursor: pointer; color: var(--flf-muted);
+            font-size: 16px; transition: color 0.2s ease;
         }
-        
-        .auth-link {
-            color: var(--secondary-color);
-            text-decoration: none;
+        .flf-pw-toggle:hover { color: var(--flf-navy); }
+        .flf-btn-submit {
+            width: 100%; padding: 12px; background: var(--flf-navy); border: none;
+            border-radius: var(--flf-radius-sm); color: var(--flf-white);
+            font-family: var(--flf-font-body); font-size: 15px; font-weight: 600;
+            cursor: pointer; transition: all 0.25s ease; display: flex;
+            align-items: center; justify-content: center; gap: 8px;
         }
-        
-        .auth-link:hover {
-            text-decoration: underline;
+        .flf-btn-submit:hover { background: var(--flf-midnight); box-shadow: 0 4px 14px rgba(1, 22, 106, 0.3); transform: translateY(-1px); }
+        .flf-btn-submit:active { transform: translateY(0); }
+        .flf-auth-footer { text-align: center; padding: 0 32px 28px; }
+        .flf-back-link {
+            font-family: var(--flf-font-body); font-size: 14px; color: var(--flf-navy);
+            text-decoration: none; font-weight: 500; display: inline-flex;
+            align-items: center; gap: 6px; transition: color 0.2s ease;
         }
-        
-        .alert {
-            border-radius: 5px;
-            margin-bottom: 20px;
+        .flf-back-link:hover { color: var(--flf-gold); text-decoration: none; }
+        .flf-back-link i { font-size: 12px; }
+        .flf-alert {
+            border-radius: var(--flf-radius-sm); padding: 12px 16px; margin-bottom: 20px;
+            font-family: var(--flf-font-body); font-size: 13.5px; display: flex;
+            align-items: center; gap: 8px;
         }
-        
-        @media (max-width: 576px) {
-            .auth-wrapper {
-                padding: 15px;
-            }
-            
-            .auth-card {
-                padding: 20px;
-            }
-            
-            .auth-logo img {
-                height: 50px;
-            }
+        .flf-alert-danger { background: rgba(161, 39, 52, 0.08); color: var(--flf-danger); border: 1px solid rgba(161, 39, 52, 0.2); }
+        .flf-alert-success { background: rgba(26, 122, 76, 0.08); color: var(--flf-success); border: 1px solid rgba(26, 122, 76, 0.2); }
+        .flf-alert-info { background: rgba(24, 53, 143, 0.08); color: var(--flf-royal); border: 1px solid rgba(24, 53, 143, 0.2); }
+        .flf-divider { border: none; border-top: 1px solid var(--flf-blue); margin: 0 0 20px; }
+        .flf-expired-card { text-align: center; padding: 24px 0 4px; }
+        .flf-expired-card i { font-size: 48px; color: var(--flf-danger); opacity: 0.6; display: block; margin-bottom: 16px; }
+        .flf-expired-card p { font-family: var(--flf-font-body); font-size: 14px; color: var(--flf-muted); margin: 0 0 20px; }
+        .flf-btn-outline {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 10px 20px; border: 1px solid var(--flf-navy); border-radius: var(--flf-radius-sm);
+            color: var(--flf-navy); font-family: var(--flf-font-body); font-size: 14px;
+            font-weight: 600; text-decoration: none; transition: all 0.25s ease;
+        }
+        .flf-btn-outline:hover { background: var(--flf-navy); color: var(--flf-white); text-decoration: none; }
+        @media (max-width: 480px) {
+            .flf-auth-wrapper { padding: 12px; }
+            .flf-auth-header { padding: 24px 20px 20px; }
+            .flf-auth-body { padding: 24px 20px; }
+            .flf-auth-footer { padding: 0 20px 24px; }
         }
     </style>
 </head>
 <body>
-    <div class="auth-wrapper">
-        <div class="auth-logo">
-            <img src="propertyMgt/logoImg/logo-0-0-0.png" alt="Fair Law Firm">
-        </div>
-        
-        <div class="auth-card">
-            <?php if (!empty($error_message)) : ?>
-                <div class="alert alert-danger">
-                    <?php echo htmlspecialchars($error_message); ?>
+    <div class="flf-auth-wrapper">
+        <div class="flf-auth-card">
+            <div class="flf-auth-header">
+                <div class="flf-auth-brand">
+                    <img src="propertyMgt/logoImg/logo-0-0-0.png" alt="Fair Law Firm" class="flf-auth-logo">
+                    <h1 class="flf-auth-title">Reset Password</h1>
+                    <p class="flf-auth-tagline">Trusted by Professionals</p>
                 </div>
-            <?php endif; ?>
-            
-            <?php if ($valid_token) : ?>
-                <!-- <h3 class="auth-title">Reset Your Password</h3> -->
-                
-                <form method="POST" action="">
-                    <input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>">
-                    
-                    <div class="form-group">
-                        <label for="new_password">New Password</label>
-                        <input type="password" class="form-control" id="new_password" name="new_password" 
-                               placeholder="Enter new password" required minlength="8">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="confirm_password">Confirm Password</label>
-                        <input type="password" class="form-control" id="confirm_password" name="confirm_password" 
-                               placeholder="Confirm new password" required minlength="8">
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary">Reset Password</button>
-                </form>
-            <?php else : ?>
-                <div class="alert alert-danger">
-                    Invalid or expired password reset link. Please request a new password reset.
+                <div class="flf-auth-icon">
+                    <i class="fa fa-key"></i>
                 </div>
-                
-                <a href="forgot_password.php" class="btn btn-primary">Request New Reset Link</a>
-            <?php endif; ?>
-            
-            <div class="auth-footer">
-                <a href="index.php" class="auth-link">Back to Login</a>
+            </div>
+
+            <div class="flf-auth-body">
+                <?php if (!empty($error_message)): ?>
+                    <div class="flf-alert flf-alert-danger">
+                        <i class="fa fa-exclamation-circle"></i>
+                        <?php echo htmlspecialchars($error_message); ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if ($valid_token): ?>
+                    <form method="POST" action="">
+                        <input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>">
+
+                        <div class="flf-field">
+                            <label><i class="fa fa-lock"></i>New Password</label>
+                            <div class="flf-input-wrap">
+                                <input type="password" class="form-control" id="new_password" name="new_password"
+                                       placeholder="Enter new password" required minlength="8">
+                                <button type="button" class="flf-pw-toggle" onclick="togglePw('new_password', this)" title="Show password">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flf-field">
+                            <label><i class="fa fa-lock"></i>Confirm Password</label>
+                            <div class="flf-input-wrap">
+                                <input type="password" class="form-control" id="confirm_password" name="confirm_password"
+                                       placeholder="Confirm new password" required minlength="8">
+                                <button type="button" class="flf-pw-toggle" onclick="togglePw('confirm_password', this)" title="Show password">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flf-field" style="margin-bottom:0;">
+                            <div class="flf-alert flf-alert-info" style="margin-bottom:0;font-size:12.5px;">
+                                <i class="fa fa-info-circle"></i>Password must be at least 8 characters long.
+                            </div>
+                        </div>
+
+                        <hr class="flf-divider" style="margin-top:20px;">
+
+                        <button type="submit" class="flf-btn-submit">
+                            <i class="fa fa-check-circle"></i>Reset Password
+                        </button>
+                    </form>
+
+                <?php else: ?>
+                    <div class="flf-expired-card">
+                        <i class="fa fa-times-circle"></i>
+                        <p>Invalid or expired password reset link. Please request a new password reset.</p>
+                        <a href="forgot_password.php" class="flf-btn-outline">
+                            <i class="fa fa-refresh"></i>Request New Reset Link
+                        </a>
+                    </div>
+                <?php endif; ?>
+            </div>
+
+            <div class="flf-auth-footer">
+                <a href="index.php" class="flf-back-link">
+                    <i class="fa fa-arrow-left"></i>Back to Login
+                </a>
             </div>
         </div>
     </div>
-    
-    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <script>
+    function togglePw(inputId, btn) {
+        var input = document.getElementById(inputId);
+        var icon = btn.querySelector('i');
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.className = 'fa fa-eye-slash';
+            btn.title = 'Hide password';
+        } else {
+            input.type = 'password';
+            icon.className = 'fa fa-eye';
+            btn.title = 'Show password';
+        }
+    }
+    </script>
 </body>
 </html>

@@ -35,90 +35,235 @@ try {
 ?>
 
 <style>
-.table .thead-dark th {
-    color: #fff;
-    background-color: #15283c;
-    border-color: #32383e;
+.flf-prop-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+.flf-prop-table th {
+    font-family: var(--flf-font-body);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--flf-white);
+    background: var(--flf-midnight);
+    padding: 14px 18px;
+    border-bottom: 2px solid var(--flf-gold);
+    white-space: nowrap;
+}
+.flf-prop-table th:first-child { border-radius: 10px 0 0 0; }
+.flf-prop-table th:last-child  { border-radius: 0 10px 0 0; }
+.flf-prop-table td {
+    font-family: var(--flf-font-body);
+    font-size: 14px;
+    color: var(--flf-charcoal);
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--flf-blue);
+    vertical-align: middle;
+}
+.flf-prop-table tbody tr {
+    transition: background 0.2s ease;
+}
+.flf-prop-table tbody tr:hover {
+    background: rgba(233, 238, 250, 0.45);
+}
+.flf-prop-table tbody tr:last-child td {
+    border-bottom: none;
+}
+.flf-prop-thumb {
+    width: 72px;
+    height: 54px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid var(--flf-blue);
+}
+.flf-prop-id {
+    font-weight: 700;
+    color: var(--flf-navy);
+}
+.flf-prop-location,
+.flf-prop-title {
+    color: var(--flf-charcoal);
+}
+.flf-action-group {
+    display: flex;
+    gap: 6px;
+}
+.flf-action-group .btn-sm {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border-radius: 8px;
+    font-size: 14px;
+}
+.flf-empty-state {
+    text-align: center;
+    padding: 60px 20px;
+}
+.flf-empty-state i {
+    font-size: 48px;
+    color: var(--flf-blue);
+    margin-bottom: 16px;
+    display: block;
+}
+.flf-empty-state p {
+    font-family: var(--flf-font-body);
+    font-size: 15px;
+    color: var(--flf-muted);
+    margin: 0;
+}
+.flf-empty-state a {
+    display: inline-block;
+    margin-top: 16px;
+}
+@media (max-width: 767px) {
+    .flf-prop-table th,
+    .flf-prop-table td { padding: 12px 10px; font-size: 13px; }
+    .flf-prop-thumb { width: 52px; height: 40px; }
 }
 </style>
 
-<div class="row column1">
-    <div class="col-md-12">
-        <div class="white_shd full margin_bottom_30">
-            <div class="full graph_head">
-                <div class="heading1 margin_0 d-flex justify-content-between align-items-center">
-                    <h2>Property Listings</h2>
-                    <a href="manage_property.php" class="btn btn-info btn-sm">Add New Property</a>
+<div class="midde_cont">
+    <div class="container-fluid">
+
+        <?php if (isset($_SESSION['success_message'])): ?>
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius:var(--flf-radius-sm);margin:0;">
+                        <i class="fa fa-check-circle" style="margin-right:6px;"></i>
+                        <?php echo $_SESSION['success_message']; unset($_SESSION['success_message']); ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                 </div>
-            </div>          
-            <?php if (isset($_SESSION['success_message'])): ?>
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <?php 
-                    echo $_SESSION['success_message']; 
-                    unset($_SESSION['success_message']);
-                    ?>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+            </div>
+        <?php endif; ?>
+
+        <?php if (isset($_SESSION['error_message'])): ?>
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert" style="border-radius:var(--flf-radius-sm);margin:0;">
+                        <i class="fa fa-exclamation-triangle" style="margin-right:6px;"></i>
+                        <?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                 </div>
-            <?php endif; ?>
-            
-            <?php if (isset($_SESSION['error_message'])): ?>
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <?php 
-                    echo $_SESSION['error_message']; 
-                    unset($_SESSION['error_message']);
-                    ?>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            <?php endif; ?>
-            
-            <div class="full padding_infor_info">
-                <div class="table-responsive">
-                    <?php if (isset($error)): ?>
-                        <div class="alert alert-danger"><?php echo $error; ?></div>
-                    <?php elseif (empty($properties)): ?>
-                        <div class="alert alert-info">No properties found. Add a new property to get started.</div>
-                    <?php else: ?>
-                        <table class="table table-bordered table-striped">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Image</th>
-                                    <th>Location</th>
-                                    <th>title</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($properties as $property): ?>
-                                <tr>
-                                    <td><?php echo $property['id']; ?></td>
-                                    <td>
-                                        <img src="propertyMgt/proImg/<?php echo htmlspecialchars($property['image']); ?>" alt="Property Image" class="img-thumbnail" style="max-height: 100px;">
-                                    </td>
-                                    <td><?php echo htmlspecialchars($property['location']); ?></td>
-                                    <td><?php echo htmlspecialchars($property['title']); ?></td>
-                                    <td>
-                                        <a href="edit_property.php?id=<?php echo $property['id']; ?>" class="btn btn-info btn-sm">
-                                            <i class="fa fa-edit"></i> 
-                                        </a>
-                                        <a href="display_properties.php?delete=<?php echo $property['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this property?')">
-                                            <i class="fa fa-trash"></i> 
-                                        </a>
-                                    </td>
-                                </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    <?php endif; ?>
+            </div>
+        <?php endif; ?>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="white_shd full margin_bottom_30">
+                    <div class="full graph_head">
+                        <div class="heading1 margin_0 d-flex justify-content-between align-items-center">
+                            <h2><i class="fa fa-home" style="color:var(--flf-gold);margin-right:10px;font-size:20px;"></i>Property Listings</h2>
+                            <a href="manage_property.php" class="btn btn-info btn-sm">
+                                <i class="fa fa-plus" style="margin-right:5px;"></i>Add New Property
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="full padding_infor_info" style="padding:0;">
+                        <?php if (isset($error)): ?>
+                            <div class="alert alert-danger" style="margin:24px 24px 0;border-radius:var(--flf-radius-sm);">
+                                <?php echo $error; ?>
+                            </div>
+                        <?php elseif (empty($properties)): ?>
+                            <div class="flf-empty-state">
+                                <i class="fa fa-building"></i>
+                                <p>No properties found. Add a new property to get started.</p>
+                                <a href="manage_property.php" class="btn btn-info btn-sm">
+                                    <i class="fa fa-plus" style="margin-right:5px;"></i>Add Property
+                                </a>
+                            </div>
+                        <?php else: ?>
+                            <div class="table-responsive">
+                                <table class="table flf-prop-table" style="margin-bottom:0;">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:60px;">ID</th>
+                                            <th style="width:90px;">Image</th>
+                                            <th>Location</th>
+                                            <th>Title</th>
+                                            <th style="width:110px;text-align:center;">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($properties as $property): ?>
+                                        <tr>
+                                            <td><span class="flf-prop-id">#<?php echo htmlspecialchars($property['id']); ?></span></td>
+                                            <td>
+                                                <?php if (!empty($property['image'])): ?>
+                                                    <img src="propertyMgt/proImg/<?php echo htmlspecialchars($property['image']); ?>" alt="Property" class="flf-prop-thumb">
+                                                <?php else: ?>
+                                                    <div class="flf-prop-thumb" style="background:var(--flf-blue);display:flex;align-items:center;justify-content:center;">
+                                                        <i class="fa fa-image" style="color:var(--flf-muted);"></i>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td><span class="flf-prop-location"><?php echo htmlspecialchars($property['location']); ?></span></td>
+                                            <td><span class="flf-prop-title"><?php echo htmlspecialchars($property['title']); ?></span></td>
+                                            <td>
+                                                <div class="flf-action-group" style="justify-content:center;">
+                                                    <a href="edit_property.php?id=<?php echo $property['id']; ?>" class="btn btn-info btn-sm" title="Edit">
+                                                        <i class="fa fa-pencil"></i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-danger btn-sm" title="Delete"
+                                                       onclick="document.getElementById('deleteId').value='<?php echo $property['id']; ?>';document.getElementById('deleteTitle').textContent='<?php echo htmlspecialchars(addslashes($property['title'])); ?>';document.getElementById('deleteModal').style.display='flex';return false;">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
 </div>
+
+<div id="deleteModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center;">
+    <div style="background:var(--flf-white);border-radius:var(--flf-radius);box-shadow:0 20px 60px rgba(0,0,0,0.3);max-width:420px;width:90%;padding:0;overflow:hidden;">
+        <div style="padding:28px 28px 0;text-align:center;">
+            <div style="width:60px;height:60px;border-radius:50%;background:rgba(161,39,52,0.1);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+                <i class="fa fa-trash" style="font-size:24px;color:var(--flf-danger);"></i>
+            </div>
+            <h4 style="font-family:var(--flf-font-head);color:var(--flf-navy);margin:0 0 8px;font-size:22px;">Delete Property</h4>
+            <p style="font-family:var(--flf-font-body);color:var(--flf-muted);font-size:14px;margin:0;">
+                Are you sure you want to delete "<strong id="deleteTitle" style="color:var(--flf-charcoal);"></strong>"? This action cannot be undone.
+            </p>
+        </div>
+        <div style="padding:20px 28px 28px;display:flex;gap:12px;justify-content:center;">
+            <a href="#" class="btn btn-secondary" onclick="document.getElementById('deleteModal').style.display='none';return false;" style="min-width:110px;">Cancel</a>
+            <a id="deleteConfirmBtn" href="#" class="btn btn-danger" style="min-width:110px;">
+                <i class="fa fa-trash" style="margin-right:5px;"></i>Delete
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('deleteConfirmBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+    var id = document.getElementById('deleteId').value;
+    window.location.href = 'display_properties.php?delete=' + id;
+});
+</script>
+
+<input type="hidden" id="deleteId" value="">
 
 <?php
 require_once 'include/footer.php';

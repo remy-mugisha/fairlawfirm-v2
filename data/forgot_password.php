@@ -2,7 +2,6 @@
 session_start();
 require_once 'propertyMgt/config.php';
 
-// Check if PHPMailer files exist before including
 $phpmailerPath = __DIR__ . '/PHPMailer/src/';
 if (!file_exists($phpmailerPath . 'Exception.php')) {
     die("PHPMailer files not found. Please download PHPMailer from https://github.com/PHPMailer/PHPMailer and place the library in a PHPMailer directory.");
@@ -16,7 +15,6 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
 
-// Create password_reset table if it doesn't exist
 try {
     $conn->exec("
         CREATE TABLE IF NOT EXISTS password_reset (
@@ -37,17 +35,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = filter_var($_POST["email"], FILTER_SANITIZE_EMAIL);
     
     try {
-        // Check if email exists
         $stmt = $conn->prepare("SELECT * FROM login WHERE email = :email");
         $stmt->bindParam(':email', $email);
         $stmt->execute();
         
         if ($stmt->rowCount() > 0) {
-            // Generate token and expiry
             $token = bin2hex(random_bytes(32));
             $expiry = date('Y-m-d H:i:s', strtotime('+1 hour'));
             
-            // Store in database
             $resetStmt = $conn->prepare("
                 INSERT INTO password_reset (email, token, expiry) 
                 VALUES (:email, :token, :expiry) 
@@ -58,15 +53,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $resetStmt->bindParam(':expiry', $expiry);
             $resetStmt->execute();
             
-            // Create reset link
             $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
             $resetLink = $protocol . "://" . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . "/reset_password.php?token=" . $token;
             
-            // For both local and production - use PHPMailer
             $mail = new PHPMailer(true);
             
             try {
-                // Server settings
                 $mail->isSMTP();
                 $mail->Host       = 'smtp.hostinger.com';
                 $mail->SMTPAuth   = true;
@@ -75,11 +67,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
                 $mail->Port       = 465;
                 
-                // Recipients
                 $mail->setFrom('noreply@fairlawfirmltd.com', 'Fair Law Firm');
                 $mail->addAddress($email);
                 
-                // Content
                 $mail->isHTML(true);
                 $mail->Subject = 'Fair Law Firm - Password Reset';
                 $mail->Body    = "<p>Hello,</p>
@@ -97,7 +87,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit();
                 
             } catch (Exception $e) {
-                // On email failure, redirect directly to reset page
                 $_SESSION['reset_token'] = $token;
                 header("Location: reset_password.php?token=" . $token);
                 exit();
@@ -111,7 +100,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -119,135 +107,266 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Fair Law Firm - Forgot Password</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <style>
         :root {
-            --primary-color: rgb(247, 247, 247);
-            --secondary-color: #3498db;
-            --light-color: #ecf0f1;
+            --flf-navy: #01166A;
+            --flf-midnight: #07143F;
+            --flf-royal: #18358F;
+            --flf-blue: #E9EEFA;
+            --flf-white: #FFFFFF;
+            --flf-gold: #C8A951;
+            --flf-slate: #536174;
+            --flf-charcoal: #172033;
+            --flf-muted: #6b7699;
+            --flf-danger: #a12734;
+            --flf-success: #1a7a4c;
+            --flf-font-head: 'Cormorant Garamond', serif;
+            --flf-font-body: 'DM Sans', sans-serif;
+            --flf-radius: 14px;
+            --flf-radius-sm: 8px;
         }
-        
+        *, *::before, *::after { box-sizing: border-box; }
         body {
-            background-color: var(--primary-color);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        .login-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            margin: 0;
+            padding: 0;
+            font-family: var(--flf-font-body);
+            background: #f4f6fa;
             min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .flf-auth-wrapper {
+            width: 100%;
+            max-width: 440px;
             padding: 20px;
         }
-        
-        .logo-container {
-            margin-bottom: 30px;
+        .flf-auth-card {
+            background: var(--flf-white);
+            border: 1px solid var(--flf-blue);
+            border-radius: var(--flf-radius);
+            box-shadow: 0 8px 30px rgba(1, 22, 106, 0.08);
+            overflow: hidden;
+        }
+        .flf-auth-header {
+            background: linear-gradient(135deg, var(--flf-navy) 0%, var(--flf-midnight) 100%);
+            padding: 32px 32px 28px;
             text-align: center;
         }
-        
-        .login-card {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 450px;
-            padding: 30px;
+        .flf-auth-brand {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
         }
-        
-        .form-control {
-            height: 45px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            padding-left: 15px;
+        .flf-auth-logo {
+            height: 52px;
+            width: auto;
+            filter: brightness(0) invert(1);
         }
-        
-        .form-control:focus {
-            border-color: var(--secondary-color);
-            box-shadow: none;
+        .flf-auth-title {
+            font-family: var(--flf-font-head);
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--flf-white);
+            margin: 0;
+            letter-spacing: 0.5px;
         }
-        
-        .btn-login {
-            background-color: var(--secondary-color);
-            border: none;
-            color: white;
-            padding: 12px;
-            width: 100%;
-            border-radius: 5px;
+        .flf-auth-tagline {
+            font-family: var(--flf-font-body);
+            font-size: 12px;
             font-weight: 600;
-            transition: all 0.3s;
+            color: var(--flf-gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 4px 0 0;
         }
-        
-        .btn-login:hover {
-            background-color: #2980b9;
-            transform: translateY(-2px);
+        .flf-auth-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(200, 169, 81, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 16px auto 0;
         }
-        
-        .forgot-password {
-            color: var(--secondary-color);
+        .flf-auth-icon i {
+            font-size: 22px;
+            color: var(--flf-gold);
+        }
+        .flf-auth-body {
+            padding: 32px;
+        }
+        .flf-auth-info {
+            font-family: var(--flf-font-body);
+            font-size: 14px;
+            color: var(--flf-muted);
+            text-align: center;
+            margin: 0 0 24px;
+            line-height: 1.6;
+        }
+        .flf-field {
+            margin-bottom: 20px;
+        }
+        .flf-field label {
+            display: block;
+            font-family: var(--flf-font-body);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--flf-slate);
+            margin-bottom: 7px;
+        }
+        .flf-field label i {
+            color: var(--flf-gold);
+            margin-right: 5px;
+            width: 16px;
+            text-align: center;
+        }
+        .flf-field .form-control {
+            height: 46px;
+            border: 1px solid #d9dee9;
+            border-radius: var(--flf-radius-sm);
+            font-family: var(--flf-font-body);
+            font-size: 14px;
+            color: var(--flf-charcoal);
+            padding: 0 14px;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+            background: var(--flf-white);
+        }
+        .flf-field .form-control:focus {
+            border-color: var(--flf-royal);
+            box-shadow: 0 0 0 3px rgba(24, 53, 143, 0.12);
+            outline: none;
+        }
+        .flf-btn-submit {
+            width: 100%;
+            padding: 12px;
+            background: var(--flf-navy);
+            border: none;
+            border-radius: var(--flf-radius-sm);
+            color: var(--flf-white);
+            font-family: var(--flf-font-body);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .flf-btn-submit:hover {
+            background: var(--flf-midnight);
+            box-shadow: 0 4px 14px rgba(1, 22, 106, 0.3);
+            transform: translateY(-1px);
+        }
+        .flf-btn-submit:active { transform: translateY(0); }
+        .flf-auth-footer {
+            text-align: center;
+            padding: 0 32px 28px;
+        }
+        .flf-back-link {
+            font-family: var(--flf-font-body);
+            font-size: 14px;
+            color: var(--flf-navy);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s ease;
+        }
+        .flf-back-link:hover {
+            color: var(--flf-gold);
             text-decoration: none;
         }
-        
-        .forgot-password:hover {
-            text-decoration: underline;
-        }
-        
-        .alert {
-            border-radius: 5px;
+        .flf-back-link i { font-size: 12px; }
+        .flf-alert {
+            border-radius: var(--flf-radius-sm);
+            padding: 12px 16px;
             margin-bottom: 20px;
+            font-family: var(--flf-font-body);
+            font-size: 13.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        
-        .info-text {
-            margin-bottom: 20px;
-            color: #666;
-            text-align: center;
+        .flf-alert-danger {
+            background: rgba(161, 39, 52, 0.08);
+            color: var(--flf-danger);
+            border: 1px solid rgba(161, 39, 52, 0.2);
         }
-        
-        @media (max-width: 576px) {
-            .login-card {
-                padding: 20px;
-            }
+        .flf-alert-success {
+            background: rgba(26, 122, 76, 0.08);
+            color: var(--flf-success);
+            border: 1px solid rgba(26, 122, 76, 0.2);
+        }
+        .flf-divider {
+            border: none;
+            border-top: 1px solid var(--flf-blue);
+            margin: 0 0 20px;
+        }
+        @media (max-width: 480px) {
+            .flf-auth-wrapper { padding: 12px; }
+            .flf-auth-header { padding: 24px 20px 20px; }
+            .flf-auth-body { padding: 24px 20px; }
+            .flf-auth-footer { padding: 0 20px 24px; }
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="logo-container">
-            <img src="propertyMgt/logoImg/logo-0-0-0.png" alt="Fair Law Firm Logo" height="60" width="200">
-        </div>
-        
-        <div class="login-card">
-            <?php if (!empty($error_message)) : ?>
-                <div class="alert alert-danger">
-                    <?php echo htmlspecialchars($error_message); ?>
+    <div class="flf-auth-wrapper">
+        <div class="flf-auth-card">
+            <div class="flf-auth-header">
+                <div class="flf-auth-brand">
+                    <img src="propertyMgt/logoImg/logo-0-0-0.png" alt="Fair Law Firm" class="flf-auth-logo">
+                    <h1 class="flf-auth-title">Forgot Password</h1>
+                    <p class="flf-auth-tagline">Trusted by Professionals</p>
                 </div>
-            <?php endif; ?>
-            
-            <?php if (isset($_SESSION['success_message'])) : ?>
-                <div class="alert alert-success">
-                    <?php 
-                    echo htmlspecialchars($_SESSION['success_message']); 
-                    unset($_SESSION['success_message']);
-                    ?>
+                <div class="flf-auth-icon">
+                    <i class="fa fa-lock"></i>
                 </div>
-            <?php endif; ?>
-            
-            <p class="info-text">Enter your email address and we'll send you instructions to reset your password.</p>
-            
-            <form method="POST" action="">
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
-                </div>
-                
-                <button type="submit" class="btn btn-login mt-3">Send Reset Link</button>
-                
-                <div class="text-center mt-3">
-                    <a href="index.php" class="forgot-password">Back to Login</a>
-                </div>
-            </form>
+            </div>
+
+            <div class="flf-auth-body">
+                <?php if (!empty($error_message)): ?>
+                    <div class="flf-alert flf-alert-danger">
+                        <i class="fa fa-exclamation-circle"></i>
+                        <?php echo htmlspecialchars($error_message); ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if (isset($_SESSION['success_message'])): ?>
+                    <div class="flf-alert flf-alert-success">
+                        <i class="fa fa-check-circle"></i>
+                        <?php echo htmlspecialchars($_SESSION['success_message']); unset($_SESSION['success_message']); ?>
+                    </div>
+                <?php endif; ?>
+
+                <p class="flf-auth-info">Enter your email address and we'll send you instructions to reset your password.</p>
+
+                <form method="POST" action="">
+                    <div class="flf-field">
+                        <label><i class="fa fa-envelope"></i>Email Address</label>
+                        <input type="email" class="form-control" name="email" placeholder="you@example.com" required>
+                    </div>
+
+                    <hr class="flf-divider">
+
+                    <button type="submit" class="flf-btn-submit">
+                        <i class="fa fa-paper-plane"></i>Send Reset Link
+                    </button>
+                </form>
+            </div>
+
+            <div class="flf-auth-footer">
+                <a href="index.php" class="flf-back-link">
+                    <i class="fa fa-arrow-left"></i>Back to Login
+                </a>
+            </div>
         </div>
     </div>
-    
-    <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

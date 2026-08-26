@@ -2,8 +2,9 @@
                   <div class="flf-footer">
                      <p>&copy; <?php echo date('Y'); ?> <a href="https://fairlawfirmltd.com/" target="_blank" rel="noopener">Fair Law Firm LTD</a><span class="flf-sep">&middot;</span>All rights reserved.</p>
                   </div>
+
                </div>
-               <!-- end dashboard inner -->
+               <!-- end .padding_infor_info / page content -->
             </div>
             <!-- end #content -->
          </div>
@@ -12,39 +13,37 @@
       <!-- end .full_container -->
 
 
-
       <!-- ==================== SCRIPTS ==================== -->
 
-      <!-- Core libraries: jQuery, Popper, Bootstrap -->
+      <!-- Core: jQuery + Popper + Bootstrap -->
       <script src="js/jquery.min.js"></script>
       <script src="js/popper.min.js"></script>
       <script src="js/bootstrap.min.js"></script>
 
-      <!-- UI components: select boxes, carousels, animations -->
+      <!-- Bootstrap select + animations -->
       <script src="js/bootstrap-select.js"></script>
-      <script src="js/owl.carousel.js"></script>
       <script src="js/animate.js"></script>
 
-      <!-- Sidebar: custom scrollbar + toggle (custom.js binds #sidebarCollapse) -->
+      <!-- Sidebar: scrollbar + toggle -->
       <script src="js/perfect-scrollbar.min.js"></script>
-      <script>
-         var ps = new PerfectScrollbar('#sidebar');
-      </script>
       <script src="js/custom.js"></script>
 
-      <!-- Chart.js stack (used by analytics pages) -->
+      <!-- Chart.js (used by dashboard analytics) -->
       <script src="js/Chart.min.js"></script>
       <script src="js/Chart.bundle.min.js"></script>
       <script src="js/utils.js"></script>
       <script src="js/analyser.js"></script>
       <script src="js/chart_custom_style1.js"></script>
 
-      <!-- Mobile menu behaviour: close off-canvas sidebar on outside click / Esc -->
+      <!-- Mobile sidebar: close on outside click or Escape key -->
       <script>
       (function () {
          'use strict';
-         var mq = window.matchMedia('(max-width: 1199px)');
+
+         var mq      = window.matchMedia('(max-width: 1199px)');
          var sidebar = document.getElementById('sidebar');
+
+         if (!sidebar) return;
 
          function closeMobileMenu() {
             if (mq.matches && sidebar.classList.contains('active')) {
@@ -63,6 +62,6 @@
          });
       })();
       </script>
-   </body>
 
+   </body>
 </html>

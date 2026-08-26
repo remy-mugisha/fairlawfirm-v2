@@ -10,7 +10,6 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
 
 $id = $_GET['id'];
 
-// Get property details
 $query = "SELECT * FROM properties WHERE id = :id";
 $stmt = $conn->prepare($query);
 $stmt->bindParam(':id', $id, PDO::PARAM_INT);
@@ -23,7 +22,6 @@ if (!$property) {
     exit();
 }
 
-// Get property images
 $image_query = "SELECT * FROM property_images WHERE property_id = :id ORDER BY is_featured DESC";
 $image_stmt = $conn->prepare($image_query);
 $image_stmt->bindParam(':id', $id, PDO::PARAM_INT);
@@ -32,167 +30,381 @@ $images = $image_stmt->fetchAll(PDO::FETCH_ASSOC);
 
 function formatDisplayPrice($price) {
     if (preg_match('/(\d+)\s*-\s*(\d+)/', $price, $matches)) {
-        return number_format($matches[1], 0, '', ',') . 'Rwf - ' . number_format($matches[2], 0, '', ',') . 'Rwf';
+        return number_format($matches[1], 0, '', ',') . ' Rwf - ' . number_format($matches[2], 0, '', ',') . ' Rwf';
     }
     $cleanPrice = preg_replace('/[^0-9]/', '', $price);
-    return number_format($cleanPrice, 0, '', ',') . 'Rwf';
+    return number_format($cleanPrice, 0, '', ',') . ' Rwf';
 }
 ?>
 
 <style>
-.description-text {
-    max-height: 150px;
-    overflow-y: auto;
-    word-wrap: break-word;
-    white-space: pre-wrap;
+.flf-details-hero { border-radius: var(--flf-radius); overflow: hidden; margin-bottom: 0; }
+.flf-carousel { position: relative; width: 100%; overflow: hidden; border-radius: var(--flf-radius) var(--flf-radius) 0 0; }
+.flf-carousel-inner { position: relative; height: 420px; background: var(--flf-midnight); }
+.flf-carousel-slide {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    opacity: 0; transition: opacity 0.5s ease; z-index: 0;
 }
-.carousel-item img {
-    height: 400px;
-    object-fit: cover;
+.flf-carousel-slide.active { opacity: 1; z-index: 1; }
+.flf-carousel-slide img { width: 100%; height: 100%; object-fit: cover; }
+.flf-carousel-featured {
+    position: absolute; top: 16px; left: 16px; padding: 5px 14px; border-radius: 20px;
+    background: var(--flf-gold); color: var(--flf-navy);
+    font-family: var(--flf-font-body); font-size: 11px; font-weight: 700;
+    letter-spacing: 0.5px; text-transform: uppercase; z-index: 5;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.flf-carousel-counter {
+    position: absolute; bottom: 16px; right: 16px; padding: 5px 12px; border-radius: 20px;
+    background: rgba(0,0,0,0.6); color: white;
+    font-family: var(--flf-font-body); font-size: 12px; font-weight: 600; z-index: 5;
+}
+.flf-carousel-btn {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 5;
+    width: 44px; height: 44px; border-radius: 50%; border: none; cursor: pointer;
+    background: rgba(255,255,255,0.9); color: var(--flf-navy); font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15); transition: all 0.2s;
+}
+.flf-carousel-btn:hover { background: var(--flf-white); box-shadow: 0 4px 16px rgba(0,0,0,0.2); transform: translateY(-50%) scale(1.05); }
+.flf-carousel-prev { left: 16px; }
+.flf-carousel-next { right: 16px; }
+.flf-carousel-dots {
+    position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 8px; z-index: 5;
+}
+.flf-carousel-dot {
+    width: 10px; height: 10px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.8);
+    background: transparent; cursor: pointer; transition: all 0.3s; padding: 0;
+}
+.flf-carousel-dot.active { background: var(--flf-gold); border-color: var(--flf-gold); }
+.flf-carousel-empty {
+    height: 420px; display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--flf-midnight), var(--flf-navy));
+    border-radius: var(--flf-radius) var(--flf-radius) 0 0;
+}
+.flf-carousel-empty i { font-size: 60px; color: rgba(255,255,255,0.2); }
+.flf-details-body { padding: 0; }
+.flf-details-header {
+    padding: 24px 30px 20px; border-bottom: 1px solid var(--flf-blue);
+}
+.flf-details-title {
+    font-family: var(--flf-font-head); font-size: 28px; font-weight: 600;
+    color: var(--flf-navy); margin: 0 0 12px;
+}
+.flf-details-meta { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.flf-details-badge {
+    display: inline-flex; align-items: center; gap: 5px; padding: 5px 14px;
+    border-radius: 20px; font-family: var(--flf-font-body); font-size: 12px;
+    font-weight: 700; letter-spacing: 0.3px;
+}
+.flf-badge-active { background: rgba(26, 122, 76, 0.1); color: var(--flf-success); }
+.flf-badge-inactive { background: rgba(161, 39, 52, 0.1); color: var(--flf-danger); }
+.flf-badge-pending { background: rgba(107, 118, 153, 0.1); color: var(--flf-muted); }
+.flf-badge-forrent { background: rgba(24, 53, 143, 0.1); color: var(--flf-royal); }
+.flf-badge-forsale { background: rgba(200, 169, 81, 0.12); color: #8B7330; }
+.flf-details-price {
+    font-family: var(--flf-font-body); font-size: 22px; font-weight: 700;
+    color: var(--flf-navy); margin: 0 0 6px;
+}
+.flf-details-type {
+    font-family: var(--flf-font-body); font-size: 14px; color: var(--flf-muted); margin: 0;
+}
+.flf-details-section {
+    padding: 24px 30px; border-bottom: 1px solid var(--flf-blue);
+}
+.flf-details-section:last-child { border-bottom: none; }
+.flf-section-label {
+    font-family: var(--flf-font-body); font-size: 12px; font-weight: 700;
+    letter-spacing: 0.8px; text-transform: uppercase; color: var(--flf-muted);
+    margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+}
+.flf-section-label i { color: var(--flf-gold); font-size: 13px; }
+.flf-features-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 14px;
+}
+.flf-feature-card {
+    text-align: center; padding: 18px 12px; border-radius: var(--flf-radius-sm);
+    background: var(--flf-blue); border: 1px solid rgba(24, 53, 143, 0.08);
+}
+.flf-feature-card i { font-size: 22px; color: var(--flf-royal); margin-bottom: 8px; display: block; }
+.flf-feature-card .flf-feature-value {
+    font-family: var(--flf-font-body); font-size: 20px; font-weight: 700;
+    color: var(--flf-navy); display: block; margin-bottom: 2px;
+}
+.flf-feature-card .flf-feature-label {
+    font-family: var(--flf-font-body); font-size: 12px; color: var(--flf-muted);
+    text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;
+}
+.flf-location-block {
+    display: flex; align-items: flex-start; gap: 14px;
+}
+.flf-location-icon {
+    width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+    background: rgba(24, 53, 143, 0.08); display: flex; align-items: center;
+    justify-content: center; font-size: 18px; color: var(--flf-royal);
+}
+.flf-location-text {
+    font-family: var(--flf-font-body); font-size: 15px; color: var(--flf-charcoal);
+    line-height: 1.5;
+}
+.flf-description-text {
+    font-family: var(--flf-font-body); font-size: 14px; color: var(--flf-charcoal);
+    line-height: 1.7; white-space: pre-wrap; word-wrap: break-word;
+}
+.flf-actions-bar {
+    padding: 20px 30px; background: var(--flf-blue); border-radius: 0 0 var(--flf-radius) var(--flf-radius);
+    display: flex; gap: 12px; flex-wrap: wrap;
+}
+.flf-gallery-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px;
+}
+.flf-gallery-thumb {
+    position: relative; border-radius: var(--flf-radius-sm); overflow: hidden;
+    border: 2px solid var(--flf-blue); aspect-ratio: 4/3; cursor: pointer;
+    transition: border-color 0.25s, box-shadow 0.25s;
+}
+.flf-gallery-thumb:hover { border-color: var(--flf-royal); box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+.flf-gallery-thumb.current { border-color: var(--flf-navy); box-shadow: 0 2px 12px rgba(1, 22, 106, 0.15); }
+.flf-gallery-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.flf-gallery-thumb .flf-thumb-featured {
+    position: absolute; top: 6px; left: 6px; padding: 2px 8px; border-radius: 10px;
+    background: var(--flf-gold); color: var(--flf-navy);
+    font-family: var(--flf-font-body); font-size: 9px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.3px;
+}
+@media (max-width: 768px) {
+    .flf-carousel-inner { height: 280px; }
+    .flf-carousel-empty { height: 280px; }
+    .flf-details-header, .flf-details-section, .flf-actions-bar { padding-left: 20px; padding-right: 20px; }
+    .flf-features-grid { grid-template-columns: repeat(2, 1fr); }
 }
 </style>
 
-<div class="row column1">
-    <div class="col-md-12">
-        <div class="white_shd full margin_bottom_30">
-            <div class="full graph_head">
-                <div class="heading1 margin_0 d-flex justify-content-between align-items-center">
-                    <h2>Property Details</h2>
-                    <div>
-                        <a href="edit_rental.php?id=<?php echo htmlspecialchars($property['id']); ?>" class="btn btn-info btn-sm mr-2">Edit Property</a>
-                        <a href="property_images.php?property_id=<?php echo htmlspecialchars($property['id']); ?>" class="btn btn-primary btn-sm mr-2">Manage Images</a>
-                        <a href="display_rental.php" class="btn btn-info btn-sm">Back to Properties</a>
-                    </div>
-                </div>
+<?php if (!empty($_SESSION['success_message'])): ?>
+    <div class="row mb-3"><div class="col-md-12">
+        <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius:var(--flf-radius-sm);margin:0;">
+            <i class="fa fa-check-circle" style="margin-right:6px;"></i>
+            <?php echo $_SESSION['success_message']; unset($_SESSION['success_message']); ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+    </div></div>
+<?php endif; ?>
+
+<div class="midde_cont">
+    <div class="container-fluid">
+
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <a href="display_properties.php" class="btn btn-secondary btn-sm">
+                    <i class="fa fa-arrow-left" style="margin-right:5px;"></i>Back to Properties
+                </a>
             </div>
-            
-            <div class="full progress_bar_inner">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="full padding_infor_info">
-                            <!-- Image Carousel -->
-                            <?php if (count($images) > 0): ?>
-                                <div id="propertyCarousel" class="carousel slide mb-5" data-ride="carousel">
-                                    <ol class="carousel-indicators">
-                                        <?php foreach ($images as $key => $image): ?>
-                                            <li data-target="#propertyCarousel" data-slide-to="<?php echo $key; ?>" <?php echo $key == 0 ? 'class="active"' : ''; ?>></li>
-                                        <?php endforeach; ?>
-                                    </ol>
-                                    <div class="carousel-inner">
-                                        <?php foreach ($images as $key => $image): ?>
-                                            <div class="carousel-item <?php echo $key == 0 ? 'active' : ''; ?>">
-                                                <img src="<?php echo htmlspecialchars($image['image_path']); ?>" class="d-block w-100" alt="Property Image">
-                                                <?php if ($image['is_featured']): ?>
-                                                    <div class="carousel-caption d-none d-md-block">
-                                                        <span class="badge badge-success">Featured Image</span>
-                                                    </div>
-                                                <?php endif; ?>
-                                            </div>
-                                        <?php endforeach; ?>
-                                    </div>
-                                    <a class="carousel-control-prev" href="#propertyCarousel" role="button" data-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                    <a class="carousel-control-next" href="#propertyCarousel" role="button" data-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="white_shd full margin_bottom_30" style="padding:0;overflow:hidden;">
+
+                    <?php if (count($images) > 0): ?>
+                        <div class="flf-details-hero">
+                            <div class="flf-carousel" id="flfCarousel">
+                                <div class="flf-carousel-inner">
+                                    <?php foreach ($images as $key => $image): ?>
+                                        <div class="flf-carousel-slide <?php echo $key == 0 ? 'active' : ''; ?>" data-index="<?php echo $key; ?>">
+                                            <img src="<?php echo htmlspecialchars($image['image_path']); ?>" alt="Property Image">
+                                            <?php if ($image['is_featured']): ?>
+                                                <span class="flf-carousel-featured"><i class="fa fa-star" style="margin-right:4px;"></i>Featured</span>
+                                            <?php endif; ?>
+                                        </div>
+                                    <?php endforeach; ?>
                                 </div>
-                            <?php else: ?>
-                                <div class="alert alert-info mb-4">No images available for this property.</div>
-                            <?php endif; ?>
-                            
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="property-info">
-                                        <h3 class="property-title"><?php echo htmlspecialchars($property['title']); ?></h3>
-                                        
-                                        <div class="property-meta mb-4">
-                                            <span class="badge <?php echo ($property['status'] == 'Active') ? 'badge-success' : (($property['status'] == 'Inactive') ? 'badge-danger' : 'badge-warning'); ?> mr-2">
-                                                <?php echo htmlspecialchars($property['status']); ?>
-                                            </span>
-                                            <span class="badge <?php echo ($property['property_status'] == 'For Rent') ? 'badge-success' : 'badge-secondary'; ?> mr-2">
-                                                <?php echo htmlspecialchars($property['property_status']); ?>
-                                            </span>
-                                            <span class="property-type mr-2"><?php echo htmlspecialchars($property['property_type']); ?></span>
-                                            <span class="property-price">
-                                                <?php echo formatDisplayPrice($property['price']); ?>
-                                            </span>
-                                        </div>
-                                        
-                                        <div class="property-features mb-4">
-                                            <div class="row">
-                                                <?php if ($property['property_type'] !== 'Commercial Building'): ?>
-                                                <div class="col-6">
-                                                    <p><i class="fa fa-bed mr-2"></i> <strong>Bedrooms:</strong> <?php echo htmlspecialchars($property['bedroom']); ?></p>
-                                                </div>
-                                                <div class="col-6">
-                                                    <p><i class="fa fa-bath mr-2"></i> <strong>Bathrooms:</strong> <?php echo htmlspecialchars($property['bathroom']); ?></p>
-                                                </div>
-                                                <?php else: ?>
-                                                <div class="col-12">
-                                                    <p><i class="fa fa-building mr-2"></i> <strong>Floors:</strong> <?php echo htmlspecialchars($property['floor']); ?></p>
-                                                </div>
-                                                <?php endif; ?>
-                                                <div class="col-12">
-                                                    <p><i class="fa fa-ruler-combined mr-2"></i> <strong>Size:</strong> <?php echo htmlspecialchars($property['property_size']); ?> sq ft</p>
-                                                </div>
-                                                <?php if ($property['property_status'] !== 'For Sale' && !empty($property['months'])): ?>
-                                                <div class="col-12">
-                                                    <p><i class="fa fa-calendar mr-2"></i> <strong>Months:</strong> <?php echo htmlspecialchars($property['months']); ?> Months</p>
-                                                </div>
-                                                <?php endif; ?>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="property-address mb-4">
-                                            <h5>Location</h5>
-                                            <p>
-                                                <i class="fa fa-map-marker-alt mr-2"></i>
-                                                <?php 
-                                                echo htmlspecialchars($property['street']);
-                                                if (!empty($property['sector'])) echo ', ' . htmlspecialchars($property['sector']);
-                                                if (!empty($property['district'])) echo ', ' . htmlspecialchars($property['district']);
-                                                if (!empty($property['country'])) echo ', ' . htmlspecialchars($property['country']);
-                                                ?>
-                                            </p>
-                                        </div>
-                                    </div>
+                                <?php if (count($images) > 1): ?>
+                                    <button class="flf-carousel-btn flf-carousel-prev" onclick="flfPrev()"><i class="fa fa-chevron-left"></i></button>
+                                    <button class="flf-carousel-btn flf-carousel-next" onclick="flfNext()"><i class="fa fa-chevron-right"></i></button>
+                                    <div class="flf-carousel-dots" id="flfDots"></div>
+                                <?php endif; ?>
+                                <span class="flf-carousel-counter" id="flfCounter">1 / <?php echo count($images); ?></span>
+                            </div>
+                        </div>
+                    <?php else: ?>
+                        <div class="flf-carousel-empty">
+                            <i class="fa fa-image"></i>
+                        </div>
+                    <?php endif; ?>
+
+                    <div class="flf-details-body">
+                        <div class="flf-details-header">
+                            <h1 class="flf-details-title"><?php echo htmlspecialchars($property['title']); ?></h1>
+                            <div class="flf-details-meta">
+                                <span class="flf-details-badge <?php
+                                    if ($property['status'] == 'Active') echo 'flf-badge-active';
+                                    elseif ($property['status'] == 'Inactive') echo 'flf-badge-inactive';
+                                    else echo 'flf-badge-pending';
+                                ?>">
+                                    <i class="fa fa-circle" style="font-size:6px;"></i>
+                                    <?php echo htmlspecialchars($property['status']); ?>
+                                </span>
+                                <span class="flf-details-badge <?php echo ($property['property_status'] == 'For Rent') ? 'flf-badge-forrent' : 'flf-badge-forsale'; ?>">
+                                    <i class="fa <?php echo ($property['property_status'] == 'For Rent') ? 'fa-key' : 'fa-tag'; ?>" style="font-size:11px;"></i>
+                                    <?php echo htmlspecialchars($property['property_status']); ?>
+                                </span>
+                                <span class="flf-details-badge" style="background:rgba(107,118,153,0.08);color:var(--flf-charcoal);">
+                                    <i class="fa fa-building" style="font-size:11px;"></i>
+                                    <?php echo htmlspecialchars($property['property_type']); ?>
+                                </span>
+                            </div>
+                            <div style="margin-top:16px;">
+                                <div class="flf-details-price"><?php echo formatDisplayPrice($property['price']); ?></div>
+                                <div class="flf-details-type"><?php echo htmlspecialchars($property['property_size']); ?> sq ft</div>
+                            </div>
+                        </div>
+
+                        <?php if ($property['property_type'] !== 'Commercial Building'): ?>
+                        <div class="flf-details-section">
+                            <div class="flf-section-label"><i class="fa fa-th-large"></i>Features</div>
+                            <div class="flf-features-grid">
+                                <div class="flf-feature-card">
+                                    <i class="fa fa-bed"></i>
+                                    <span class="flf-feature-value"><?php echo htmlspecialchars($property['bedroom']); ?></span>
+                                    <span class="flf-feature-label">Bedrooms</span>
                                 </div>
-                                
-                                <div class="col-md-6">
-                                    <div class="property-description">
-                                        <h5>Description</h5>
-                                        <p class="description-text"><?php echo nl2br(htmlspecialchars($property['description'])); ?></p>
-                                    </div>
+                                <div class="flf-feature-card">
+                                    <i class="fa fa-bath"></i>
+                                    <span class="flf-feature-value"><?php echo htmlspecialchars($property['bathroom']); ?></span>
+                                    <span class="flf-feature-label">Bathrooms</span>
+                                </div>
+                                <?php if (!empty($property['property_status']) && $property['property_status'] !== 'For Sale' && !empty($property['months'])): ?>
+                                <div class="flf-feature-card">
+                                    <i class="fa fa-calendar"></i>
+                                    <span class="flf-feature-value"><?php echo htmlspecialchars($property['months']); ?></span>
+                                    <span class="flf-feature-label">Months</span>
+                                </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <?php else: ?>
+                        <div class="flf-details-section">
+                            <div class="flf-section-label"><i class="fa fa-th-large"></i>Features</div>
+                            <div class="flf-features-grid">
+                                <div class="flf-feature-card">
+                                    <i class="fa fa-building"></i>
+                                    <span class="flf-feature-value"><?php echo htmlspecialchars($property['floor']); ?></span>
+                                    <span class="flf-feature-label">Floors</span>
+                                </div>
+                                <?php if (!empty($property['property_status']) && $property['property_status'] !== 'For Sale' && !empty($property['months'])): ?>
+                                <div class="flf-feature-card">
+                                    <i class="fa fa-calendar"></i>
+                                    <span class="flf-feature-value"><?php echo htmlspecialchars($property['months']); ?></span>
+                                    <span class="flf-feature-label">Months</span>
+                                </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+
+                        <div class="flf-details-section">
+                            <div class="flf-section-label"><i class="fa fa-map-marker-alt"></i>Location</div>
+                            <div class="flf-location-block">
+                                <div class="flf-location-icon"><i class="fa fa-map-marker-alt"></i></div>
+                                <div class="flf-location-text">
+                                    <?php
+                                    $parts = [];
+                                    if (!empty($property['street']))  $parts[] = htmlspecialchars($property['street']);
+                                    if (!empty($property['sector']))  $parts[] = htmlspecialchars($property['sector']);
+                                    if (!empty($property['district'])) $parts[] = htmlspecialchars($property['district']);
+                                    if (!empty($property['country'])) $parts[] = htmlspecialchars($property['country']);
+                                    echo implode(', ', $parts);
+                                    ?>
                                 </div>
                             </div>
-                            
-                            <!-- Thumbnail Gallery -->
-                            <?php if (count($images) > 0): ?>
-                                <div class="mt-5">
-                                    <h5>Image Gallery</h5>
-                                    <div class="d-flex flex-wrap">
-                                        <?php foreach ($images as $image): ?>
-                                            <div class="image-container m-2">
-                                                <img src="<?php echo htmlspecialchars($image['image_path']); ?>" alt="Property Image" class="img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">
-                                                <?php if ($image['is_featured']): ?>
-                                                    <span class="badge badge-success" style="position: absolute; top: 10px; right: 10px;">Featured</span>
-                                                <?php endif; ?>
-                                            </div>
-                                        <?php endforeach; ?>
-                                    </div>
-                                </div>
-                            <?php endif; ?>
                         </div>
+
+                        <?php if (!empty($property['description'])): ?>
+                        <div class="flf-details-section">
+                            <div class="flf-section-label"><i class="fa fa-align-left"></i>Description</div>
+                            <div class="flf-description-text"><?php echo htmlspecialchars($property['description']); ?></div>
+                        </div>
+                        <?php endif; ?>
+
+                        <?php if (count($images) > 0): ?>
+                        <div class="flf-details-section">
+                            <div class="flf-section-label"><i class="fa fa-images"></i>Image Gallery</div>
+                            <div class="flf-gallery-grid" id="flfGallery">
+                                <?php foreach ($images as $key => $image): ?>
+                                    <div class="flf-gallery-thumb <?php echo $key == 0 ? 'current' : ''; ?>" data-index="<?php echo $key; ?>" onclick="flfGoTo(<?php echo $key; ?>)">
+                                        <img src="<?php echo htmlspecialchars($image['image_path']); ?>" alt="Property Image">
+                                        <?php if ($image['is_featured']): ?>
+                                            <span class="flf-thumb-featured"><i class="fa fa-star" style="margin-right:2px;"></i>Featured</span>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+
+                        <div class="flf-actions-bar">
+                            <a href="edit_rental.php?id=<?php echo htmlspecialchars($property['id']); ?>" class="btn btn-info">
+                                <i class="fa fa-pencil" style="margin-right:5px;"></i>Edit Property
+                            </a>
+                            <a href="property_images.php?property_id=<?php echo htmlspecialchars($property['id']); ?>" class="btn btn-success">
+                                <i class="fa fa-images" style="margin-right:5px;"></i>Manage Images
+                            </a>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 </div>
-              
+
+<script>
+(function() {
+    var slides = document.querySelectorAll('.flf-carousel-slide');
+    var dots = document.getElementById('flfDots');
+    var counter = document.getElementById('flfCounter');
+    var gallery = document.getElementById('flfGallery');
+    var current = 0;
+    var total = slides.length;
+
+    if (total === 0) return;
+
+    if (dots) {
+        for (var i = 0; i < total; i++) {
+            var dot = document.createElement('button');
+            dot.className = 'flf-carousel-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('data-index', i);
+            dot.addEventListener('click', function() { flfGoTo(parseInt(this.getAttribute('data-index'))); });
+            dots.appendChild(dot);
+        }
+    }
+
+    function update() {
+        slides.forEach(function(s) { s.classList.remove('active'); });
+        slides[current].classList.add('active');
+
+        var allDots = dots ? dots.querySelectorAll('.flf-carousel-dot') : [];
+        allDots.forEach(function(d) { d.classList.remove('active'); });
+        if (allDots[current]) allDots[current].classList.add('active');
+
+        if (counter) counter.textContent = (current + 1) + ' / ' + total;
+
+        var thumbs = gallery ? gallery.querySelectorAll('.flf-gallery-thumb') : [];
+        thumbs.forEach(function(t) { t.classList.remove('current'); });
+        if (thumbs[current]) thumbs[current].classList.add('current');
+    }
+
+    window.flfGoTo = function(idx) { current = idx; update(); };
+    window.flfPrev = function() { current = (current - 1 + total) % total; update(); };
+    window.flfNext = function() { current = (current + 1) % total; update(); };
+
+    setInterval(function() { flfNext(); }, 5000);
+})();
+</script>
+
 <?php
 require_once 'include/footer.php';
 ?>
