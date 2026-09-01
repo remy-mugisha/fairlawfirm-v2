@@ -1,9 +1,12 @@
 <?php
-$host = "localhost";
-$dbname = "helloshi_fairdb";
+require_once dirname(__DIR__, 2) . '/env.php';
+loadEnv(dirname(__DIR__, 2) . '/.env');
+
+$host = env('DB_HOST', 'localhost');
+$dbname = env('DB_NAME', 'helloshi_fairdb');
 $charset = "utf8";
-$username = "root"; 
-$password = ""; 
+$username = env('DB_USER', 'root');
+$password = env('DB_PASS', '');
 
 try {
     $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);

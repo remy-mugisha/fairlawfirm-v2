@@ -3,8 +3,9 @@ ob_start();
 require_once 'include/header.php';
 require_once 'propertyMgt/config.php';
 
-if (isset($_GET['delete_id']) && !empty($_GET['delete_id'])) {
-    $delete_id = intval($_GET['delete_id']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id']) && !empty($_POST['delete_id'])) {
+    requireCsrfPost();
+    $delete_id = intval($_POST['delete_id']);
     
     try {
         $check_query = "SELECT image FROM blog WHERE id = :id";
@@ -312,7 +313,7 @@ if (!empty($blogs)) {
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
                                                     <a href="#" class="btn btn-danger btn-sm" title="Delete"
-                                                       onclick="document.getElementById('deleteId').value='<?php echo $row['id']; ?>';document.getElementById('deleteTitle').textContent='<?php echo htmlspecialchars(addslashes($row['title'])); ?>';document.getElementById('deleteModal').style.display='flex';return false;">
+                                                       onclick="document.getElementById('deleteId').value='<?php echo $row['id']; ?>';document.getElementById('deleteFormId').value='<?php echo $row['id']; ?>';document.getElementById('deleteTitle').textContent='<?php echo htmlspecialchars(addslashes($row['title'])); ?>';document.getElementById('deleteModal').style.display='flex';return false;">
                                                         <i class="fa fa-trash"></i>
                                                     </a>
                                                 </div>
@@ -354,11 +355,14 @@ if (!empty($blogs)) {
 <script>
 document.getElementById('deleteConfirmBtn').addEventListener('click', function(e) {
     e.preventDefault();
-    var id = document.getElementById('deleteId').value;
-    window.location.href = 'display_blog.php?delete_id=' + id;
+    document.getElementById('deleteForm').submit();
 });
 </script>
 
+<form id="deleteForm" method="POST" action="display_blog.php" style="display:none;">
+    <?php echo csrfHiddenField(); ?>
+    <input type="hidden" name="delete_id" id="deleteFormId" value="">
+</form>
 <input type="hidden" id="deleteId" value="">
 
 <?php require_once 'include/footer.php'; ?>

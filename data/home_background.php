@@ -2,8 +2,10 @@
 ob_start();
 require_once 'include/header.php';
 require_once 'propertyMgt/config.php';
+require_once __DIR__ . '/csrf.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_background'])) {
+    requireCsrfPost();
     $image_path = $_POST['image_path'];
     $status = $_POST['status'];
 
@@ -23,8 +25,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_background'])) {
     exit();
 }
 
-if (isset($_GET['delete_id'])) {
-    $delete_id = $_GET['delete_id'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
+    requireCsrfPost();
+    $delete_id = intval($_POST['delete_id']);
 
     $sql = "DELETE FROM home_backgrounds WHERE id = :id";
     $stmt = $conn->prepare($sql);
@@ -161,7 +164,7 @@ $backgrounds = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </div>
 
                     <div class="full padding_infor_info">
-                        <form method="POST" action="home_background.php" class="flf-video-form" style="max-width:600px;">
+                        <form method="POST" action="home_background.php" class="flf-video-form" style="max-width:600px;"><?php echo csrfHiddenField(); ?>
 
                             <div class="flf-field">
                                 <label><i class="fa fa-image"></i>Image Path</label>
@@ -255,8 +258,8 @@ $backgrounds = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                                     <a href="edit_background.php?id=<?php echo $background['id']; ?>" class="btn btn-info btn-sm" title="Edit">
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
-                                                    <a href="#" class="btn btn-danger btn-sm" title="Delete"
-                                                       onclick="document.getElementById('deleteId').value='<?php echo $background['id']; ?>';document.getElementById('deleteModal').style.display='flex';return false;">
+                                                     <a href="#" class="btn btn-danger btn-sm" title="Delete"
+                                                       onclick="document.getElementById('deleteId').value='<?php echo $background['id']; ?>';document.getElementById('deleteFormId').value='<?php echo $background['id']; ?>';document.getElementById('deleteModal').style.display='flex';return false;">
                                                         <i class="fa fa-trash"></i>
                                                     </a>
                                                 </div>
@@ -298,10 +301,14 @@ $backgrounds = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <script>
 document.getElementById('deleteConfirmBtn').addEventListener('click', function(e) {
     e.preventDefault();
-    var id = document.getElementById('deleteId').value;
-    window.location.href = 'home_background.php?delete_id=' + id;
+    document.getElementById('deleteForm').submit();
 });
 </script>
+
+<form id="deleteForm" method="POST" action="home_background.php" style="display:none;">
+    <?php echo csrfHiddenField(); ?>
+    <input type="hidden" name="delete_id" id="deleteFormId" value="">
+</form>
 
 <input type="hidden" id="deleteId" value="">
 

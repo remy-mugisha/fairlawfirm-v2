@@ -6,6 +6,7 @@
 ob_start();
 require_once 'include/header.php';
 require_once 'propertyMgt/config.php';
+require_once __DIR__ . '/csrf.php';
 
 /* ----------------------------------------------------------------
    Admin-only access
@@ -18,8 +19,9 @@ if ($_SESSION['user_type'] !== 'admin') {
 /* ----------------------------------------------------------------
    Delete user (with transaction)
    ---------------------------------------------------------------- */
-if (isset($_GET['delete'])) {
-   $delete_id = (int) $_GET['delete'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
+   requireCsrfPost();
+   $delete_id = (int) $_POST['delete_id'];
 
    try {
       $conn->beginTransaction();
@@ -184,12 +186,13 @@ $userCount = count($users);
                            title="Edit user">
                            <i class="fa fa-edit"></i>
                         </a>
-                        <a href="manage_users.php?delete=<?php echo (int) $u['id']; ?>"
-                           class="btn btn-danger btn-sm"
-                           title="Delete user"
-                           onclick="return confirm('Are you sure you want to delete this user? This action cannot be undone.')">
-                           <i class="fa fa-trash"></i>
-                        </a>
+                         <form method="POST" action="manage_users.php" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this user? This action cannot be undone.');">
+                            <?php echo csrfHiddenField(); ?>
+                            <input type="hidden" name="delete_id" value="<?php echo (int) $u['id']; ?>">
+                            <button type="submit" class="btn btn-danger btn-sm" title="Delete user">
+                               <i class="fa fa-trash"></i>
+                            </button>
+                         </form>
                      </td>
                   </tr>
                   <?php endforeach; ?>

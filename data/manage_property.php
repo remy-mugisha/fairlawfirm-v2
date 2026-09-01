@@ -1,6 +1,7 @@
 <?php
 require_once 'include/header.php';
 require_once 'propertyMgt/config.php';
+require_once __DIR__ . '/csrf.php';
 ?>
 
 <style>
@@ -139,7 +140,7 @@ require_once 'propertyMgt/config.php';
                     </div>
 
                     <div class="full padding_infor_info">
-                        <form action="add_property.php" method="post" enctype="multipart/form-data" style="max-width:680px;">
+                        <form action="add_property.php" method="post" enctype="multipart/form-data" style="max-width:680px;"><?php echo csrfHiddenField(); ?>
 
                             <div class="flf-field">
                                 <label>Upload Image</label>

@@ -32,7 +32,7 @@ try {
 .flf-about-hero {
     position: relative;
     width: 100%;
-    border-radius: var(--flf-radius);
+    border-radius: var(--fl-r-md);
     overflow: hidden;
     margin-bottom: 28px;
 }
@@ -51,10 +51,10 @@ try {
     padding: 40px 32px 24px;
 }
 .flf-about-hero-overlay h2 {
-    font-family: var(--flf-font-head);
+    font-family: var(--fl-font-display);
     font-size: 30px;
     font-weight: 700;
-    color: var(--flf-white);
+    color: var(--fl-surface);
     margin: 0;
 }
 .flf-about-hero-overlay .flf-status-pill {
@@ -72,23 +72,23 @@ try {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-family: var(--flf-font-head);
+    font-family: var(--fl-font-display);
     font-size: 18px;
     font-weight: 700;
-    color: var(--flf-navy);
+    color: var(--fl-chambers-600);
     margin: 0 0 12px;
     padding-bottom: 10px;
-    border-bottom: 2px solid var(--flf-blue);
+    border-bottom: 2px solid var(--fl-chambers-100);
 }
 .flf-about-block-title i {
-    color: var(--flf-gold);
+    color: var(--fl-seal-600);
     font-size: 14px;
 }
 .flf-about-text {
-    font-family: var(--flf-font-body);
+    font-family: var(--fl-font-body);
     font-size: 14px;
     line-height: 1.7;
-    color: var(--flf-charcoal);
+    color: var(--fl-chambers-900);
     margin: 0;
     white-space: pre-wrap;
 }
@@ -103,9 +103,9 @@ try {
     align-items: center;
     gap: 14px;
     padding: 18px 20px;
-    background: var(--flf-white);
-    border: 1px solid var(--flf-blue);
-    border-radius: var(--flf-radius-sm);
+    background: var(--fl-surface);
+    border: 1px solid var(--fl-chambers-100);
+    border-radius: var(--fl-r-sm);
     transition: all 0.2s ease;
 }
 .flf-stat-card:hover {
@@ -121,24 +121,24 @@ try {
     font-size: 18px;
     flex-shrink: 0;
 }
-.flf-stat-icon i { color: var(--flf-white); }
-.flf-stat-icon-stat1 { background: linear-gradient(135deg, var(--flf-navy), var(--flf-royal)); }
+.flf-stat-icon i { color: var(--fl-surface); }
+.flf-stat-icon-stat1 { background: linear-gradient(135deg, var(--fl-chambers-600), var(--fl-chambers-600)); }
 .flf-stat-icon-stat2 { background: linear-gradient(135deg, var(--flf-success), #1a9960); }
-.flf-stat-icon-stat3 { background: linear-gradient(135deg, var(--flf-gold), #b8983e); }
-.flf-stat-icon-stat4 { background: linear-gradient(135deg, var(--flf-royal), #2a4ec0); }
+.flf-stat-icon-stat3 { background: linear-gradient(135deg, var(--fl-seal-600), #b8983e); }
+.flf-stat-icon-stat4 { background: linear-gradient(135deg, var(--fl-chambers-600), #2a4ec0); }
 .flf-stat-info { display: flex; flex-direction: column; }
 .flf-stat-value {
-    font-family: var(--flf-font-head);
+    font-family: var(--fl-font-display);
     font-size: 22px;
     font-weight: 700;
-    color: var(--flf-navy);
+    color: var(--fl-chambers-600);
     line-height: 1.2;
 }
 .flf-stat-label {
-    font-family: var(--flf-font-body);
+    font-family: var(--fl-font-body);
     font-size: 12px;
     font-weight: 600;
-    color: var(--flf-muted);
+    color: var(--fl-ink-400);
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -146,7 +146,7 @@ try {
     display: inline-block;
     padding: 4px 12px;
     border-radius: 20px;
-    font-family: var(--flf-font-body);
+    font-family: var(--fl-font-body);
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.5px;

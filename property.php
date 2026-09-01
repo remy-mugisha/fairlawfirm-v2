@@ -54,8 +54,8 @@ $selectProperties->execute();
         /* ---- Hero ---- */
         .fl-prop-hero {
             position: relative;
-            padding: var(--fl-space-24) 0 var(--fl-space-20);
-            background: var(--fl-navy-dark);
+            padding: var(--fl-sp-8) 0 var(--fl-sp-8);
+            background: var(--fl-chambers-900);
             overflow: hidden;
         }
 
@@ -77,50 +77,50 @@ $selectProperties->execute();
         .fl-prop-hero__eyebrow {
             display: inline-flex;
             align-items: center;
-            gap: var(--fl-space-3);
+            gap: var(--fl-sp-2);
             font-family: var(--fl-font-body);
-            font-size: var(--fl-text-sm);
+            font-size: var(--fl-text-body-sm);
             font-weight: 600;
             letter-spacing: 0.14em;
             text-transform: uppercase;
-            color: var(--fl-gold);
-            margin-bottom: var(--fl-space-6);
+            color: var(--fl-seal-600);
+            margin-bottom: var(--fl-sp-4);
         }
 
         .fl-prop-hero__eyebrow::before {
             content: '';
             width: 32px;
             height: 2px;
-            background: var(--fl-gold);
+            background: var(--fl-seal-600);
         }
 
         .fl-prop-hero__title {
-            font-family: var(--fl-font-heading);
+            font-family: var(--fl-font-display);
             font-size: clamp(2.5rem, 5vw, 4.25rem);
             font-weight: 700;
-            color: var(--fl-white);
+            color: var(--fl-surface);
             line-height: 1.08;
-            margin-bottom: var(--fl-space-6);
+            margin-bottom: var(--fl-sp-4);
         }
 
         .fl-prop-hero__title em {
             font-style: italic;
-            color: var(--fl-gold);
+            color: var(--fl-seal-600);
         }
 
         .fl-prop-hero__desc {
-            font-size: var(--fl-text-md);
+            font-size: var(--fl-text-body);
             color: rgba(255,255,255,0.55);
             line-height: 1.75;
             max-width: 520px;
-            margin-bottom: var(--fl-space-8);
+            margin-bottom: var(--fl-sp-5);
         }
 
         .fl-prop-hero__breadcrumb {
             display: flex;
             align-items: center;
-            gap: var(--fl-space-2);
-            font-size: var(--fl-text-sm);
+            gap: var(--fl-sp-1);
+            font-size: var(--fl-text-body-sm);
         }
 
         .fl-prop-hero__breadcrumb a {
@@ -130,42 +130,42 @@ $selectProperties->execute();
         }
 
         .fl-prop-hero__breadcrumb a:hover {
-            color: var(--fl-white);
+            color: var(--fl-surface);
         }
 
         .fl-prop-hero__breadcrumb span {
-            color: var(--fl-gold);
+            color: var(--fl-seal-600);
         }
 
         /* ---- Filter Bar ---- */
         .fl-prop-filters {
-            padding: var(--fl-space-8) 0 0;
+            padding: var(--fl-sp-5) 0 0;
         }
 
         .fl-prop-filters__bar {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: var(--fl-space-6);
-            padding-bottom: var(--fl-space-6);
-            border-bottom: 1px solid var(--fl-gray-200);
+            gap: var(--fl-sp-4);
+            padding-bottom: var(--fl-sp-4);
+            border-bottom: 1px solid var(--fl-ink-100);
         }
 
         .fl-prop-filters__tabs {
             display: flex;
-            gap: var(--fl-space-1);
-            background: var(--fl-gray-100);
-            border-radius: var(--fl-radius-md);
+            gap: var(--fl-sp-1);
+            background: var(--fl-ink-50);
+            border-radius: var(--fl-r-md);
             padding: 4px;
         }
 
         .fl-prop-filters__tab {
             font-family: var(--fl-font-body);
-            font-size: var(--fl-text-sm);
+            font-size: var(--fl-text-body-sm);
             font-weight: 500;
-            color: var(--fl-slate);
+            color: var(--fl-ink-500);
             padding: 0.6rem 1.25rem;
-            border-radius: var(--fl-radius-sm);
+            border-radius: var(--fl-r-sm);
             text-decoration: none;
             transition: all 0.2s;
             border: none;
@@ -174,42 +174,42 @@ $selectProperties->execute();
         }
 
         .fl-prop-filters__tab:hover {
-            color: var(--fl-charcoal);
+            color: var(--fl-chambers-900);
         }
 
         .fl-prop-filters__tab--active {
-            background: var(--fl-white);
-            color: var(--fl-navy);
+            background: var(--fl-surface);
+            color: var(--fl-chambers-600);
             font-weight: 600;
             box-shadow: 0 1px 3px rgba(0,0,0,0.08);
         }
 
         .fl-prop-filters__count {
-            font-size: var(--fl-text-sm);
-            color: var(--fl-gray-500);
+            font-size: var(--fl-text-body-sm);
+            color: var(--fl-ink-400);
         }
 
         .fl-prop-filters__count strong {
-            color: var(--fl-charcoal);
+            color: var(--fl-chambers-900);
             font-weight: 600;
         }
 
         /* ---- Property Grid ---- */
         .fl-prop-grid {
-            padding: var(--fl-space-10) 0 var(--fl-space-20);
+            padding: var(--fl-sp-6) 0 var(--fl-sp-8);
         }
 
         .fl-prop-grid__inner {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: var(--fl-space-6);
+            gap: var(--fl-sp-4);
         }
 
         /* ---- Premium Card ---- */
         .fl-prop-card {
-            background: var(--fl-white);
-            border: 1px solid var(--fl-gray-200);
-            border-radius: var(--fl-radius-xl);
+            background: var(--fl-surface);
+            border: 1px solid var(--fl-ink-100);
+            border-radius: var(--fl-r-md);
             overflow: hidden;
             transition: box-shadow 0.35s, transform 0.35s;
             display: flex;
@@ -240,30 +240,62 @@ $selectProperties->execute();
 
         .fl-prop-card__badge {
             position: absolute;
-            top: var(--fl-space-4);
-            left: var(--fl-space-4);
+            top: var(--fl-sp-3);
+            left: var(--fl-sp-3);
             font-family: var(--fl-font-body);
             font-size: 11px;
             font-weight: 700;
             letter-spacing: 0.06em;
             text-transform: uppercase;
             padding: 0.35rem 0.85rem;
-            border-radius: var(--fl-radius-sm);
+            border-radius: var(--fl-r-sm);
             z-index: 2;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4em;
+        }
+
+        .fl-prop-card__badge::before {
+            content: '';
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            flex-shrink: 0;
         }
 
         .fl-prop-card__badge--rent {
-            background: var(--fl-navy);
-            color: var(--fl-white);
+            background: var(--fl-status-active-bg);
+            color: var(--fl-status-active-fg);
+            border: 1px solid var(--fl-status-active-border);
+        }
+
+        .fl-prop-card__badge--rent::before {
+            background: var(--fl-status-active-fg);
         }
 
         .fl-prop-card__badge--sale {
-            background: var(--fl-gold);
-            color: var(--fl-navy-dark);
+            background: var(--fl-status-sale-bg);
+            color: var(--fl-status-sale-fg);
+            border: 1px solid var(--fl-status-sale-border);
+        }
+
+        .fl-prop-card__badge--sale::before {
+            background: var(--fl-status-sale-fg);
+        }
+
+        .fl-prop-card__badge--unavailable {
+            background: var(--fl-status-inactive-bg);
+            color: var(--fl-status-inactive-fg);
+            border: 1px solid var(--fl-status-inactive-border);
+        }
+
+        .fl-prop-card__badge--unavailable::before {
+            background: var(--fl-status-inactive-fg);
         }
 
         .fl-prop-card__body {
-            padding: var(--fl-space-5) var(--fl-space-6) var(--fl-space-6);
+            padding: var(--fl-sp-4) var(--fl-sp-4) var(--fl-sp-4);
             display: flex;
             flex-direction: column;
             flex: 1;
@@ -272,31 +304,31 @@ $selectProperties->execute();
         .fl-prop-card__location {
             display: flex;
             align-items: center;
-            gap: var(--fl-space-2);
-            font-size: var(--fl-text-xs);
-            color: var(--fl-gray-500);
+            gap: var(--fl-sp-1);
+            font-size: var(--fl-text-kicker);
+            color: var(--fl-ink-400);
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.06em;
-            margin-bottom: var(--fl-space-2);
+            margin-bottom: var(--fl-sp-1);
         }
 
         .fl-prop-card__location svg {
             width: 14px;
             height: 14px;
-            stroke: var(--fl-royal);
+            stroke: var(--fl-chambers-600);
             fill: none;
             stroke-width: 2;
             flex-shrink: 0;
         }
 
         .fl-prop-card__title {
-            font-family: var(--fl-font-heading);
-            font-size: var(--fl-text-xl);
+            font-family: var(--fl-font-display);
+            font-size: var(--fl-text-h2);
             font-weight: 600;
-            color: var(--fl-charcoal);
+            color: var(--fl-chambers-900);
             line-height: 1.25;
-            margin-bottom: var(--fl-space-3);
+            margin-bottom: var(--fl-sp-2);
         }
 
         .fl-prop-card__title a {
@@ -306,65 +338,65 @@ $selectProperties->execute();
         }
 
         .fl-prop-card__title a:hover {
-            color: var(--fl-navy);
+            color: var(--fl-chambers-600);
         }
 
         .fl-prop-card__divider {
             width: 32px;
             height: 2px;
-            background: var(--fl-gold);
-            margin-bottom: var(--fl-space-3);
+            background: var(--fl-seal-600);
+            margin-bottom: var(--fl-sp-2);
         }
 
         .fl-prop-card__price {
-            font-family: var(--fl-font-heading);
-            font-size: var(--fl-text-2xl);
+            font-family: var(--fl-font-mono);
+            font-size: var(--fl-text-h2);
             font-weight: 700;
-            color: var(--fl-navy);
-            margin-bottom: var(--fl-space-4);
+            color: var(--fl-chambers-600);
+            margin-bottom: var(--fl-sp-3);
             margin-top: auto;
         }
 
         .fl-prop-card__price small {
             font-family: var(--fl-font-body);
-            font-size: var(--fl-text-sm);
+            font-size: var(--fl-text-body-sm);
             font-weight: 400;
-            color: var(--fl-gray-500);
+            color: var(--fl-ink-400);
         }
 
         .fl-prop-card__footer {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding-top: var(--fl-space-4);
-            border-top: 1px solid var(--fl-gray-100);
+            padding-top: var(--fl-sp-3);
+            border-top: 1px solid var(--fl-ink-50);
         }
 
         .fl-prop-card__meta {
             display: flex;
-            gap: var(--fl-space-4);
+            gap: var(--fl-sp-3);
         }
 
         .fl-prop-card__meta-item {
             display: flex;
             align-items: center;
             gap: 5px;
-            font-size: var(--fl-text-xs);
-            color: var(--fl-gray-500);
+            font-size: var(--fl-text-kicker);
+            color: var(--fl-ink-400);
         }
 
         .fl-prop-card__meta-item svg {
             width: 14px;
             height: 14px;
-            stroke: var(--fl-royal);
+            stroke: var(--fl-chambers-600);
             fill: none;
             stroke-width: 2;
         }
 
         .fl-prop-card__link {
-            font-size: var(--fl-text-xs);
+            font-size: var(--fl-text-kicker);
             font-weight: 600;
-            color: var(--fl-navy);
+            color: var(--fl-chambers-600);
             text-decoration: none;
             display: flex;
             align-items: center;
@@ -373,7 +405,7 @@ $selectProperties->execute();
         }
 
         .fl-prop-card__link:hover {
-            color: var(--fl-gold);
+            color: var(--fl-seal-600);
         }
 
         .fl-prop-card__link svg {
@@ -392,15 +424,15 @@ $selectProperties->execute();
         /* ---- Empty State ---- */
         .fl-prop-empty {
             text-align: center;
-            padding: var(--fl-space-20) 0;
+            padding: var(--fl-sp-8) 0;
             grid-column: 1 / -1;
         }
 
         .fl-prop-empty__icon {
             width: 72px;
             height: 72px;
-            margin: 0 auto var(--fl-space-5);
-            background: var(--fl-gray-100);
+            margin: 0 auto var(--fl-sp-4);
+            background: var(--fl-ink-50);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -410,21 +442,21 @@ $selectProperties->execute();
         .fl-prop-empty__icon svg {
             width: 32px;
             height: 32px;
-            stroke: var(--fl-gray-400);
+            stroke: var(--fl-ink-300);
             fill: none;
             stroke-width: 1.5;
         }
 
         .fl-prop-empty__title {
-            font-family: var(--fl-font-heading);
-            font-size: var(--fl-text-2xl);
-            color: var(--fl-charcoal);
-            margin-bottom: var(--fl-space-2);
+            font-family: var(--fl-font-display);
+            font-size: var(--fl-text-h2);
+            color: var(--fl-chambers-900);
+            margin-bottom: var(--fl-sp-1);
         }
 
         .fl-prop-empty__text {
-            font-size: var(--fl-text-base);
-            color: var(--fl-slate);
+            font-size: var(--fl-text-body);
+            color: var(--fl-ink-500);
         }
 
         /* ---- Responsive ---- */
@@ -436,7 +468,7 @@ $selectProperties->execute();
 
         @media (max-width: 768px) {
             .fl-prop-hero {
-                padding: var(--fl-space-20) 0 var(--fl-space-16);
+                padding: var(--fl-sp-8) 0 var(--fl-sp-8);
             }
             .fl-prop-grid__inner {
                 grid-template-columns: 1fr;

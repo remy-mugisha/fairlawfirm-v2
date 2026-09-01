@@ -20,19 +20,19 @@ try {
     <title><?= __('About Us') ?> - Fair Law Firm LTD</title>
     <style>
         .fl-about-story {
-            padding: var(--fl-space-20) 0;
+            padding: var(--fl-sp-8) 0;
         }
 
         .fl-about-story__grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: var(--fl-space-12);
+            gap: var(--fl-sp-8);
             align-items: center;
         }
 
         .fl-about-story__image {
             position: relative;
-            border-radius: var(--fl-radius-lg);
+            border-radius: var(--fl-r-md);
             overflow: hidden;
         }
 
@@ -41,7 +41,7 @@ try {
             height: 480px;
             object-fit: cover;
             display: block;
-            border-radius: var(--fl-radius-lg);
+            border-radius: var(--fl-r-md);
         }
 
         .fl-about-story__image-accent {
@@ -50,9 +50,9 @@ try {
             right: -16px;
             width: 140px;
             height: 140px;
-            background: var(--fl-gold);
+            background: var(--fl-seal-600);
             opacity: 0.12;
-            border-radius: var(--fl-radius-lg);
+            border-radius: var(--fl-r-md);
             z-index: -1;
         }
 
@@ -61,39 +61,39 @@ try {
             font-weight: 600;
             letter-spacing: 0.12em;
             text-transform: uppercase;
-            color: var(--fl-royal);
-            margin-bottom: var(--fl-space-4);
+            color: var(--fl-chambers-600);
+            margin-bottom: var(--fl-sp-3);
             display: flex;
             align-items: center;
-            gap: var(--fl-space-3);
+            gap: var(--fl-sp-2);
         }
 
         .fl-about-story__label::before {
             content: '';
             width: 24px;
             height: 2px;
-            background: var(--fl-gold);
+            background: var(--fl-seal-600);
         }
 
         .fl-about-story__title {
-            font-family: var(--fl-font-heading);
+            font-family: var(--fl-font-display);
             font-size: var(--fl-text-4xl);
             font-weight: 600;
-            color: var(--fl-charcoal);
-            margin-bottom: var(--fl-space-5);
+            color: var(--fl-chambers-900);
+            margin-bottom: var(--fl-sp-4);
             line-height: 1.15;
         }
 
         .fl-about-story__text {
             font-size: var(--fl-text-base);
-            color: var(--fl-slate);
+            color: var(--fl-ink-500);
             line-height: 1.8;
-            margin-bottom: var(--fl-space-6);
+            margin-bottom: var(--fl-sp-4);
         }
 
         .fl-about-stats {
-            padding: var(--fl-space-16) 0;
-            background: var(--fl-navy-dark);
+            padding: var(--fl-sp-8) 0;
+            background: var(--fl-chambers-900);
             position: relative;
             overflow: hidden;
         }
@@ -105,13 +105,13 @@ try {
             right: -10%;
             width: 40%;
             height: 200%;
-            background: radial-gradient(circle, rgba(200,169,81,0.06) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(156,120,24,0.06) 0%, transparent 70%);
         }
 
         .fl-about-stats__grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: var(--fl-space-8);
+            gap: var(--fl-sp-5);
             position: relative;
             z-index: 1;
         }
@@ -121,10 +121,10 @@ try {
         }
 
         .fl-about-stats__value {
-            font-family: var(--fl-font-heading);
+            font-family: var(--fl-font-display);
             font-size: var(--fl-text-4xl);
             font-weight: 700;
-            color: var(--fl-gold);
+            color: var(--fl-seal-600);
             line-height: 1;
             margin-bottom: var(--fl-space-2);
         }
@@ -136,26 +136,26 @@ try {
         }
 
         .fl-about-values {
-            padding: var(--fl-space-20) 0;
-            background: var(--fl-gray-100);
+            padding: var(--fl-sp-8) 0;
+            background: var(--fl-ink-100);
         }
 
         .fl-about-values__grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: var(--fl-space-6);
+            gap: var(--fl-sp-4);
         }
 
         .fl-about-values__card {
-            padding: var(--fl-space-8);
-            background: var(--fl-white);
-            border: 1px solid var(--fl-gray-200);
-            border-radius: var(--fl-radius-lg);
-            transition: box-shadow var(--fl-transition);
+            padding: var(--fl-sp-5);
+            background: var(--fl-surface);
+            border: 1px solid var(--fl-ink-100);
+            border-radius: var(--fl-r-md);
+            transition: box-shadow var(--fl-transition-normal);
         }
 
         .fl-about-values__card:hover {
-            box-shadow: var(--fl-shadow-md);
+            box-shadow: var(--fl-e-2);
         }
 
         .fl-about-values__icon {
@@ -164,24 +164,24 @@ try {
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--fl-blue-soft);
-            color: var(--fl-navy);
-            border-radius: var(--fl-radius-md);
+            background: var(--fl-chambers-100);
+            color: var(--fl-chambers-600);
+            border-radius: var(--fl-r-md);
             font-size: 1.3rem;
-            margin-bottom: var(--fl-space-5);
+            margin-bottom: var(--fl-sp-4);
         }
 
         .fl-about-values__title {
-            font-family: var(--fl-font-heading);
+            font-family: var(--fl-font-display);
             font-size: var(--fl-text-xl);
             font-weight: 600;
-            color: var(--fl-charcoal);
-            margin-bottom: var(--fl-space-3);
+            color: var(--fl-chambers-900);
+            margin-bottom: var(--fl-sp-2);
         }
 
         .fl-about-values__text {
             font-size: var(--fl-text-sm);
-            color: var(--fl-slate);
+            color: var(--fl-ink-500);
             line-height: 1.75;
             margin-bottom: 0;
         }
@@ -189,7 +189,7 @@ try {
         @media (max-width: 992px) {
             .fl-about-story__grid {
                 grid-template-columns: 1fr;
-                gap: var(--fl-space-8);
+                gap: var(--fl-sp-5);
             }
             .fl-about-stats__grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -199,7 +199,7 @@ try {
         @media (max-width: 768px) {
             .fl-about-stats__grid {
                 grid-template-columns: 1fr;
-                gap: var(--fl-space-6);
+                gap: var(--fl-sp-4);
             }
             .fl-about-values__grid {
                 grid-template-columns: 1fr;
@@ -224,7 +224,7 @@ try {
     </section>
 
     <!-- Our Story -->
-    <section class="fl-about-story">
+    <section id="main-content" class="fl-about-story">
         <div class="fl-container">
             <div class="fl-about-story__grid">
                 <div class="fl-about-story__image">

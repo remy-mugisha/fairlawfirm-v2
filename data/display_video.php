@@ -1,5 +1,6 @@
 <?php
 require_once 'propertyMgt/config.php';
+require_once __DIR__ . '/csrf.php';
 
 try {
     // Fetch the active video link from the database
@@ -33,6 +34,7 @@ try {
 
 <!-- Add Video Link Form -->
 <form method="POST" action="add_video.php">
+    <?php echo csrfHiddenField(); ?>
     <div class="form-group">
         <label for="video_link">Video Link</label>
         <input type="text" class="form-control" id="video_link" name="video_link" placeholder="Enter video link" required>
@@ -60,7 +62,11 @@ try {
                 <td><?php echo $video['created_at']; ?></td>
                 <td>
                     <a href="edit_video.php?id=<?php echo $video['id']; ?>" class="btn btn-info btn-sm">Edit</a>
-                    <a href="delete_video.php?id=<?php echo $video['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this video link?')">Delete</a>
+                    <form method="POST" action="add_video.php" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this video link?');">
+                        <?php echo csrfHiddenField(); ?>
+                        <input type="hidden" name="delete_id" value="<?php echo $video['id']; ?>">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
                 </td>
             </tr>
         <?php endforeach; ?>

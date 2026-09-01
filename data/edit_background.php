@@ -1,8 +1,10 @@
 <?php
 // edit_background.php
 require_once 'propertyMgt/config.php';
+require_once __DIR__ . '/csrf.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    requireCsrfPost();
     $id = $_POST['id'];
     $image_path = $_POST['image_path'];
     $status = $_POST['status'];
@@ -47,6 +49,7 @@ if (isset($_GET['id'])) {
 <body>
     <h1>Edit Background</h1>
     <form method="POST" action="">
+        <?php echo csrfHiddenField(); ?>
         <input type="hidden" name="id" value="<?= htmlspecialchars($row['id']) ?>">
         <label for="image_path">Image Path:</label>
         <input type="text" name="image_path" id="image_path" value="<?= htmlspecialchars($row['image_path']) ?>" required>

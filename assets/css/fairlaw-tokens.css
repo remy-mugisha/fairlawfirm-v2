@@ -1,0 +1,1457 @@
+/* ================================================================
+   Fair Law Firm LTD — Design Tokens
+   "The Dossier Interface"
+   
+   Loaded AFTER firdip.css. All values are CSS custom properties
+   under :root so they override without touching vendor CSS.
+   
+   Spec: FAIR_LAW_FIRM_DESIGN_SYSTEM.md §2.4–2.6
+   ================================================================ */
+
+:root {
+   /* ────────────────────────────────────────────────────────────────
+      §2.5  COLOR SYSTEM — Raw Palette
+      ──────────────────────────────────────────────────────────────── */
+
+   /* Chambers — the firm navy */
+   --fl-chambers-950: #0B1520;
+   --fl-chambers-900: #101E2E;
+   --fl-chambers-800: #16293D;
+   --fl-chambers-700: #1D3650;
+   --fl-chambers-600: #244365;
+   --fl-chambers-500: #2F567F;
+   --fl-chambers-400: #5478A0;
+   --fl-chambers-300: #8AA3C0;
+   --fl-chambers-200: #BFD0E2;
+   --fl-chambers-100: #E1E9F1;
+   --fl-chambers-50:  #F3F6FA;
+
+   /* Seal — brass gold (verified / primary CTA only) */
+   --fl-seal-700: #7A5A12;
+   --fl-seal-600: #9C7818;
+   --fl-seal-500: #BB9330;
+   --fl-seal-400: #D2B563;
+   --fl-seal-100: #F5EAD2;
+   --fl-seal-50:  #FBF5E9;
+
+   /* Clay — property practice terracotta */
+   --fl-clay-700: #7A3018;
+   --fl-clay-600: #A3401F;
+   --fl-clay-500: #C15A32;
+   --fl-clay-400: #DC8760;
+   --fl-clay-100: #F7E2D6;
+   --fl-clay-50:  #FCF1EA;
+
+   /* Sage — active / available / functional */
+   --fl-sage-700: #245C3A;
+   --fl-sage-600: #2F7A4C;
+   --fl-sage-500: #49985F;
+   --fl-sage-100: #DDEFE3;
+   --fl-sage-50:  #F1F8F3;
+
+   /* Crit — error / rejected / withdrawn */
+   --fl-crit-700: #7A1F1B;
+   --fl-crit-600: #A32B25;
+   --fl-crit-500: #C34038;
+   --fl-crit-100: #F7E1DE;
+   --fl-crit-50:  #FCF0EF;
+
+   /* Ink — warm neutrals (parchment undertone) */
+   --fl-ink-900: #201A14;
+   --fl-ink-800: #2C241C;
+   --fl-ink-700: #423527;
+   --fl-ink-600: #5B4C3B;
+   --fl-ink-500: #776450;
+   --fl-ink-400: #94826C;
+   --fl-ink-300: #B3A28D;
+   --fl-ink-200: #D3C6B4;
+   --fl-ink-100: #E9E0D2;
+   --fl-ink-50:  #F7F2E9;
+
+   /* Surface */
+   --fl-surface: #FFFFFF;
+
+   /* ────────────────────────────────────────────────────────────────
+      §2.5  SEMANTIC COLOR MAPPING
+      ──────────────────────────────────────────────────────────────── */
+
+   /* Active / For Rent / Published */
+   --fl-status-active-bg:     var(--fl-sage-50);
+   --fl-status-active-fg:     var(--fl-sage-700);
+   --fl-status-active-border: var(--fl-sage-100);
+
+   /* For Sale */
+   --fl-status-sale-bg:     var(--fl-clay-50);
+   --fl-status-sale-fg:     var(--fl-clay-700);
+   --fl-status-sale-border: var(--fl-clay-100);
+
+   /* Pending / Under Review */
+   --fl-status-pending-bg:     var(--fl-seal-50);
+   --fl-status-pending-fg:     var(--fl-seal-700);
+   --fl-status-pending-border: var(--fl-seal-100);
+
+   /* Not Available / Inactive / Withdrawn */
+   --fl-status-inactive-bg:     var(--fl-ink-100);
+   --fl-status-inactive-fg:     var(--fl-ink-600);
+   --fl-status-inactive-border: var(--fl-ink-200);
+
+   /* Error / Rejected */
+   --fl-status-error-bg:     var(--fl-crit-50);
+   --fl-status-error-fg:     var(--fl-crit-700);
+   --fl-status-error-border: var(--fl-crit-100);
+
+   /* Info / Legal */
+   --fl-status-info-bg:     var(--fl-chambers-50);
+   --fl-status-info-fg:     var(--fl-chambers-700);
+   --fl-status-info-border: var(--fl-chambers-100);
+
+   /* Verified / Primary CTA */
+   --fl-status-verified-bg:     var(--fl-seal-600);
+   --fl-status-verified-fg:     #FFFFFF;
+   --fl-status-verified-border: var(--fl-seal-700);
+
+   /* ────────────────────────────────────────────────────────────────
+      §2.4  TYPOGRAPHY
+      ──────────────────────────────────────────────────────────────── */
+
+   /* Font families */
+   --fl-font-display: 'Source Serif 4', 'Georgia', serif;
+   --fl-font-body:    'Public Sans', 'Helvetica Neue', Arial, sans-serif;
+   --fl-font-mono:    'IBM Plex Mono', 'Consolas', monospace;
+
+   /* Font sizes */
+   --fl-text-display-1: clamp(2.4rem, 5vw, 3.2rem);
+   --fl-text-display-2: clamp(1.9rem, 4vw, 2.4rem);
+   --fl-text-h1:        clamp(1.5rem, 2.4vw, 1.9rem);
+   --fl-text-h2:        1.25rem;
+   --fl-text-h3:        1.02rem;
+   --fl-text-kicker:    0.7rem;
+   --fl-text-body:      0.9375rem;
+   --fl-text-body-sm:   0.8125rem;
+   --fl-text-data:      0.875rem;
+   --fl-text-data-lg:   1.4rem;
+
+   /* Line heights */
+   --fl-lh-body:  1.65;
+   --fl-lh-heading: 1.25;
+   --fl-lh-kicker: 1.4;
+
+   /* Letter spacing */
+   --fl-ls-kicker: 0.13em;
+
+   /* ────────────────────────────────────────────────────────────────
+      §2.6  SPACING SCALE (4px base)
+      ──────────────────────────────────────────────────────────────── */
+
+   --fl-sp-1: 0.25rem;
+   --fl-sp-2: 0.5rem;
+   --fl-sp-3: 0.75rem;
+   --fl-sp-4: 1rem;
+   --fl-sp-5: 1.5rem;
+   --fl-sp-6: 2rem;
+   --fl-sp-8: 3rem;
+
+   /* ────────────────────────────────────────────────────────────────
+      §2.6  BORDER RADIUS
+      ──────────────────────────────────────────────────────────────── */
+
+   --fl-r-sm:   2px;
+   --fl-r-md:   6px;
+   --fl-r-lg:   6px;
+   --fl-r-full: 999px;
+
+   /* ────────────────────────────────────────────────────────────────
+      §2.6  ELEVATION (warm-tinted, not cool gray)
+      ──────────────────────────────────────────────────────────────── */
+
+   --fl-e-0: none;
+   --fl-e-1: 0 1px 0 rgba(32,26,20,.05), 0 1px 3px rgba(32,26,20,.09);
+   --fl-e-2: 0 2px 0 rgba(32,26,20,.06), 0 4px 8px rgba(32,26,20,.10);
+   --fl-e-3: 0 4px 0 rgba(32,26,20,.06), 0 8px 24px rgba(32,26,20,.14);
+
+   /* ────────────────────────────────────────────────────────────────
+      §2.6  BORDERS
+      ──────────────────────────────────────────────────────────────── */
+
+   --fl-border-hairline: 1px solid var(--fl-ink-100);
+   --fl-border-chambers: 1px solid var(--fl-chambers-600);
+
+   /* ────────────────────────────────────────────────────────────────
+      §2.14 GRID & LAYOUT
+      ──────────────────────────────────────────────────────────────── */
+
+   --fl-content-max: 1160px;
+   --fl-reading-width: 72ch;
+
+   /* ────────────────────────────────────────────────────────────────
+      §2.12 TRANSITIONS / MOTION
+      ──────────────────────────────────────────────────────────────── */
+
+   --fl-transition-fast:   180ms ease;
+   --fl-transition-normal: 260ms cubic-bezier(.2,.7,.2,1);
+   --fl-transition-slow:   300ms ease-out;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   §2.13 REDUCED MOTION
+   ──────────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+   :root {
+      --fl-transition-fast:   0ms;
+      --fl-transition-normal: 0ms;
+      --fl-transition-slow:   0ms;
+   }
+}
+
+/* ────────────────────────────────────────────────────────────────
+   §2.4  GLOBAL FONT / TYPE RESETS
+   Apply the new type system over Firdip/Bootstrap defaults
+   ──────────────────────────────────────────────────────────────── */
+
+body {
+   font-family: var(--fl-font-body);
+   font-size: var(--fl-text-body);
+   line-height: var(--fl-lh-body);
+   color: var(--fl-ink-800);
+   background-color: var(--fl-ink-50);
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+}
+
+h1, .h1 {
+   font-family: var(--fl-font-display);
+   font-weight: 600;
+   font-size: var(--fl-text-h1);
+   line-height: var(--fl-lh-heading);
+   color: var(--fl-chambers-900);
+}
+
+h2, .h2 {
+   font-family: var(--fl-font-display);
+   font-weight: 600;
+   font-size: var(--fl-text-h2);
+   line-height: var(--fl-lh-heading);
+   color: var(--fl-chambers-900);
+}
+
+h3, .h3 {
+   font-family: var(--fl-font-body);
+   font-weight: 600;
+   font-size: var(--fl-text-h3);
+   line-height: var(--fl-lh-heading);
+   color: var(--fl-chambers-800);
+}
+
+h4, h5, h6 {
+   font-family: var(--fl-font-body);
+   font-weight: 600;
+   color: var(--fl-chambers-800);
+}
+
+a {
+   color: var(--fl-chambers-600);
+   text-decoration: none;
+}
+
+a:hover {
+   color: var(--fl-chambers-700);
+   text-decoration: underline;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   COMPONENT FOUNDATIONS — loaded as base-layer styles
+   These provide the building blocks for Step 2+ components
+   ──────────────────────────────────────────────────────────────── */
+
+/* Kicker / eyebrow label */
+.fl-kicker {
+   display: block;
+   font-family: var(--fl-font-body);
+   font-weight: 600;
+   font-size: var(--fl-text-kicker);
+   letter-spacing: var(--fl-ls-kicker);
+   text-transform: uppercase;
+   line-height: var(--fl-lh-kicker);
+   color: var(--fl-ink-500);
+}
+
+/* Mono / data text */
+.fl-data {
+   font-family: var(--fl-font-mono);
+   font-size: var(--fl-text-data);
+   font-weight: 400;
+}
+
+.fl-data-lg {
+   font-family: var(--fl-font-mono);
+   font-size: var(--fl-text-data-lg);
+   font-weight: 500;
+}
+
+/* Status chips — §2.9 */
+.fl-chip {
+   display: inline-flex;
+   align-items: center;
+   gap: var(--fl-sp-1);
+   padding: var(--fl-sp-1) var(--fl-sp-2);
+   font-family: var(--fl-font-body);
+   font-size: var(--fl-text-body-sm);
+   font-weight: 500;
+   line-height: 1;
+   border-radius: var(--fl-r-sm);
+   border: 1px solid transparent;
+   white-space: nowrap;
+}
+
+.fl-chip::before {
+   content: '';
+   display: inline-block;
+   width: 6px;
+   height: 6px;
+   border-radius: var(--fl-r-full);
+   flex-shrink: 0;
+}
+
+.fl-chip--active {
+   background: var(--fl-status-active-bg);
+   color: var(--fl-status-active-fg);
+   border-color: var(--fl-status-active-border);
+}
+.fl-chip--active::before { background: var(--fl-status-active-fg); }
+
+.fl-chip--sale {
+   background: var(--fl-status-sale-bg);
+   color: var(--fl-status-sale-fg);
+   border-color: var(--fl-status-sale-border);
+}
+.fl-chip--sale::before { background: var(--fl-status-sale-fg); }
+
+.fl-chip--pending {
+   background: var(--fl-status-pending-bg);
+   color: var(--fl-status-pending-fg);
+   border-color: var(--fl-status-pending-border);
+}
+.fl-chip--pending::before { background: var(--fl-status-pending-fg); }
+
+.fl-chip--inactive {
+   background: var(--fl-status-inactive-bg);
+   color: var(--fl-status-inactive-fg);
+   border-color: var(--fl-status-inactive-border);
+}
+.fl-chip--inactive::before { background: var(--fl-status-inactive-fg); }
+
+.fl-chip--error {
+   background: var(--fl-status-error-bg);
+   color: var(--fl-status-error-fg);
+   border-color: var(--fl-status-error-border);
+}
+.fl-chip--error::before { background: var(--fl-status-error-fg); }
+
+.fl-chip--info {
+   background: var(--fl-status-info-bg);
+   color: var(--fl-status-info-fg);
+   border-color: var(--fl-status-info-border);
+}
+.fl-chip--info::before { background: var(--fl-status-info-fg); }
+
+/* Icon tile — §2.8 */
+.fl-icon-tile {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   width: 40px;
+   height: 40px;
+   border-radius: var(--fl-r-md);
+   border: 1px solid transparent;
+   flex-shrink: 0;
+}
+
+.fl-icon-tile--chambers {
+   background: var(--fl-chambers-100);
+   color: var(--fl-chambers-600);
+   border-color: var(--fl-chambers-200);
+}
+
+.fl-icon-tile--clay {
+   background: var(--fl-clay-100);
+   color: var(--fl-clay-600);
+   border-color: var(--fl-clay-100);
+}
+
+.fl-icon-tile--seal {
+   background: var(--fl-seal-100);
+   color: var(--fl-seal-600);
+   border-color: var(--fl-seal-100);
+}
+
+.fl-icon-tile--ink {
+   background: var(--fl-ink-100);
+   color: var(--fl-ink-600);
+   border-color: var(--fl-ink-200);
+}
+
+.fl-icon-tile--sage {
+   background: var(--fl-sage-100);
+   color: var(--fl-sage-600);
+   border-color: var(--fl-sage-100);
+}
+
+/* Buttons — §2.9 */
+.fl-btn {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   gap: var(--fl-sp-1);
+   padding: 0 var(--fl-sp-5);
+   height: 40px;
+   font-family: var(--fl-font-body);
+   font-size: var(--fl-text-body);
+   font-weight: 500;
+   line-height: 1;
+   border-radius: var(--fl-r-sm);
+   border: 1px solid transparent;
+   cursor: pointer;
+   text-decoration: none;
+   white-space: nowrap;
+   transition: background var(--fl-transition-fast), border-color var(--fl-transition-fast), color var(--fl-transition-fast), box-shadow var(--fl-transition-fast);
+}
+
+.fl-btn:focus-visible {
+   outline: 2px solid var(--fl-chambers-400);
+   outline-offset: 2px;
+}
+
+.fl-btn--primary {
+   background: var(--fl-seal-600);
+   color: #FFFFFF;
+   border-color: var(--fl-seal-700);
+}
+.fl-btn--primary:hover {
+   background: var(--fl-seal-700);
+   color: #FFFFFF;
+   text-decoration: none;
+}
+
+.fl-btn--secondary {
+   background: var(--fl-surface);
+   color: var(--fl-chambers-700);
+   border-color: var(--fl-chambers-600);
+}
+.fl-btn--secondary:hover {
+   background: var(--fl-chambers-50);
+   color: var(--fl-chambers-700);
+   text-decoration: none;
+}
+
+.fl-btn--ghost {
+   background: transparent;
+   color: var(--fl-ink-600);
+   border-color: transparent;
+}
+.fl-btn--ghost:hover {
+   background: var(--fl-ink-50);
+   color: var(--fl-ink-700);
+   text-decoration: none;
+}
+
+.fl-btn--danger {
+   background: var(--fl-crit-600);
+   color: #FFFFFF;
+   border-color: var(--fl-crit-700);
+}
+.fl-btn--danger:hover {
+   background: var(--fl-crit-700);
+   color: #FFFFFF;
+   text-decoration: none;
+}
+
+.fl-btn--sm {
+   height: 34px;
+   padding: 0 var(--fl-sp-4);
+   font-size: var(--fl-text-body-sm);
+}
+
+/* Panels / Cards — §2.9 */
+.fl-panel {
+   background: var(--fl-surface);
+   border: var(--fl-border-hairline);
+   border-radius: var(--fl-r-md);
+   box-shadow: var(--fl-e-1);
+   padding: var(--fl-sp-5);
+}
+
+/* Form inputs — §2.9 */
+.fl-input {
+   display: block;
+   width: 100%;
+   height: 40px;
+   padding: 0 var(--fl-sp-3);
+   font-family: var(--fl-font-body);
+   font-size: var(--fl-text-body);
+   color: var(--fl-ink-800);
+   background: transparent;
+   border: 1px solid var(--fl-ink-100);
+   border-radius: var(--fl-r-sm);
+   transition: border-color var(--fl-transition-fast), box-shadow var(--fl-transition-fast);
+}
+
+.fl-input:hover {
+   border-color: var(--fl-ink-200);
+}
+
+.fl-input:focus {
+   outline: none;
+   border-color: var(--fl-chambers-400);
+   box-shadow: 0 0 0 2px var(--fl-chambers-400);
+}
+
+.fl-input--error {
+   border-color: var(--fl-crit-600);
+   background: var(--fl-crit-50);
+}
+
+.fl-input--error:focus {
+   box-shadow: 0 0 0 2px var(--fl-crit-500);
+}
+
+textarea.fl-input {
+   height: auto;
+   min-height: 100px;
+   padding: var(--fl-sp-3);
+}
+
+/* Select input */
+select.fl-input {
+   appearance: none;
+   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235B4C3B' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+   background-repeat: no-repeat;
+   background-position: right 12px center;
+   padding-right: 36px;
+}
+
+/* Form labels — kicker style */
+.fl-label {
+   display: block;
+   font-family: var(--fl-font-body);
+   font-weight: 600;
+   font-size: var(--fl-text-kicker);
+   letter-spacing: var(--fl-ls-kicker);
+   text-transform: uppercase;
+   line-height: var(--fl-lh-kicker);
+   color: var(--fl-ink-500);
+   margin-bottom: var(--fl-sp-1);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   FOCUS RING — global accessible focus
+   ──────────────────────────────────────────────────────────────── */
+
+:focus-visible {
+   outline: 2px solid var(--fl-chambers-400);
+   outline-offset: 2px;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   SKIP TO CONTENT — §2.13
+   ──────────────────────────────────────────────────────────────── */
+
+.fl-skip-link {
+   position: absolute;
+   top: -100px;
+   left: var(--fl-sp-4);
+   z-index: 10000;
+   padding: var(--fl-sp-2) var(--fl-sp-4);
+   background: var(--fl-chambers-600);
+   color: #FFFFFF;
+   font-family: var(--fl-font-body);
+   font-weight: 500;
+   border-radius: var(--fl-r-sm);
+   text-decoration: none;
+   transition: top var(--fl-transition-fast);
+}
+
+.fl-skip-link:focus {
+   top: var(--fl-sp-4);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   SECTION WRAPPER — standard content max-width
+   ──────────────────────────────────────────────────────────────── */
+
+.fl-section {
+   width: 100%;
+   max-width: var(--fl-content-max);
+   margin-left: auto;
+   margin-right: auto;
+   padding-left: var(--fl-sp-5);
+   padding-right: var(--fl-sp-5);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   TABLE BASE — for admin tables
+   ──────────────────────────────────────────────────────────────── */
+
+.fl-table {
+   width: 100%;
+   border-collapse: collapse;
+   font-family: var(--fl-font-body);
+   font-size: var(--fl-text-body);
+}
+
+.fl-table th {
+   font-family: var(--fl-font-body);
+   font-weight: 600;
+   font-size: var(--fl-text-kicker);
+   letter-spacing: var(--fl-ls-kicker);
+   text-transform: uppercase;
+   color: var(--fl-ink-500);
+   padding: var(--fl-sp-3) var(--fl-sp-4);
+   border-bottom: var(--fl-border-hairline);
+   text-align: left;
+}
+
+.fl-table td {
+   padding: var(--fl-sp-3) var(--fl-sp-4);
+   border-bottom: var(--fl-border-hairline);
+   vertical-align: middle;
+}
+
+.fl-table tbody tr:hover {
+   background: var(--fl-ink-50);
+}
+
+/* Mono columns (numeric, date, price) */
+.fl-table .fl-col-mono {
+   font-family: var(--fl-font-mono);
+   font-size: var(--fl-text-data);
+   text-align: right;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   DIALOG / MODAL — §2.9
+   ──────────────────────────────────────────────────────────────── */
+
+.fl-dialog-backdrop {
+   position: fixed;
+   inset: 0;
+   z-index: 9998;
+   background: rgba(11, 21, 32, 0.4);
+}
+
+.fl-dialog {
+   position: fixed;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   z-index: 9999;
+   width: 90%;
+   max-width: 600px;
+   max-height: 85vh;
+   overflow-y: auto;
+   background: var(--fl-surface);
+   border-radius: var(--fl-r-lg);
+   box-shadow: var(--fl-e-3);
+   padding: var(--fl-sp-6);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   PAGE-LEVEL UTILITIES
+   ──────────────────────────────────────────────────────────────── */
+
+.fl-page-bg {
+   background: var(--fl-ink-50);
+}
+
+.fl-text-chambers { color: var(--fl-chambers-600); }
+.fl-text-seal     { color: var(--fl-seal-600); }
+.fl-text-clay     { color: var(--fl-clay-600); }
+.fl-text-sage     { color: var(--fl-sage-600); }
+.fl-text-crit     { color: var(--fl-crit-600); }
+.fl-text-ink      { color: var(--fl-ink-500); }
+
+.fl-bg-chambers { background: var(--fl-chambers-600); }
+.fl-bg-seal     { background: var(--fl-seal-600); }
+.fl-bg-clay     { background: var(--fl-clay-600); }
+.fl-bg-sage     { background: var(--fl-sage-600); }
+.fl-bg-ink-50   { background: var(--fl-ink-50); }
+
+/* ================================================================
+   §2.15  SHELL — Public Header & Footer
+   Restyled from Firdip template defaults.
+   All existing class names preserved; new overrides only.
+   ================================================================ */
+
+/* ── Utility Bar ── */
+.fl-utility-bar {
+   background: var(--fl-chambers-900);
+   color: var(--fl-chambers-200);
+   font-family: var(--fl-font-body);
+   font-size: var(--fl-text-body-sm);
+   padding: 0;
+}
+
+.fl-utility-bar__inner {
+   max-width: var(--fl-content-max);
+   margin: 0 auto;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: var(--fl-sp-2) var(--fl-sp-5);
+}
+
+.fl-utility-bar__left {
+   display: flex;
+   align-items: center;
+   gap: var(--fl-sp-4);
+}
+
+.fl-utility-bar__item {
+   display: flex;
+   align-items: center;
+   gap: var(--fl-sp-1);
+}
+
+.fl-utility-bar__item a {
+   color: var(--fl-chambers-200);
+   text-decoration: none;
+}
+
+.fl-utility-bar__item a:hover {
+   color: var(--fl-seal-400);
+   text-decoration: none;
+}
+
+.fl-utility-bar__divider {
+   width: 1px;
+   height: 14px;
+   background: var(--fl-chambers-600);
+}
+
+.fl-utility-bar__right {
+   display: flex;
+   align-items: center;
+}
+
+.fl-utility-bar__right a {
+   color: var(--fl-chambers-300);
+   padding: var(--fl-sp-1);
+   transition: color var(--fl-transition-fast);
+}
+
+.fl-utility-bar__right a:hover {
+   color: var(--fl-seal-400);
+   text-decoration: none;
+}
+
+/* ── Navigation Bar ── */
+.fl-nav {
+   background: var(--fl-chambers-800);
+   position: sticky;
+   top: 0;
+   z-index: var(--fl-z-sticky);
+   transition: box-shadow var(--fl-transition-fast);
+}
+
+.fl-nav__inner {
+   max-width: var(--fl-content-max);
+   margin: 0 auto;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 0 var(--fl-sp-5);
+   height: 64px;
+}
+
+.fl-nav__logo img {
+   height: 42px;
+   width: auto;
+}
+
+.fl-nav__links {
+   display: flex;
+   list-style: none;
+   margin: 0;
+   padding: 0;
+   gap: 0;
+}
+
+.fl-nav__links li {
+   position: relative;
+}
+
+.fl-nav__link {
+   display: flex;
+   align-items: center;
+   padding: 0 var(--fl-sp-4);
+   height: 64px;
+   color: var(--fl-chambers-100);
+   font-family: var(--fl-font-body);
+   font-size: var(--fl-text-body);
+   font-weight: 500;
+   text-decoration: none;
+   transition: color var(--fl-transition-fast), background var(--fl-transition-fast);
+}
+
+.fl-nav__link:hover,
+.fl-nav__link--active {
+   color: var(--fl-seal-400);
+   background: rgba(255,255,255,0.04);
+   text-decoration: none;
+}
+
+/* Dropdown */
+.fl-nav__dropdown-menu {
+   display: none;
+   position: absolute;
+   top: 64px;
+   left: 0;
+   min-width: 220px;
+   background: var(--fl-surface);
+   border: var(--fl-border-hairline);
+   border-radius: var(--fl-r-md);
+   box-shadow: var(--fl-e-2);
+   list-style: none;
+   margin: 0;
+   padding: var(--fl-sp-2) 0;
+   z-index: var(--fl-z-dropdown);
+}
+
+.fl-nav__dropdown:hover .fl-nav__dropdown-menu {
+   display: block;
+}
+
+.fl-nav__dropdown-item a {
+   display: block;
+   padding: var(--fl-sp-2) var(--fl-sp-4);
+   color: var(--fl-ink-700);
+   font-family: var(--fl-font-body);
+   font-size: var(--fl-text-body);
+   font-weight: 400;
+   text-decoration: none;
+   transition: background var(--fl-transition-fast), color var(--fl-transition-fast);
+}
+
+.fl-nav__dropdown-item a:hover {
+   background: var(--fl-ink-50);
+   color: var(--fl-chambers-700);
+   text-decoration: none;
+}
+
+/* Language Switcher */
+.fl-lang-switch {
+   display: flex;
+   align-items: center;
+   gap: var(--fl-sp-1);
+}
+
+.fl-lang-switch a {
+   font-family: var(--fl-font-body);
+   font-size: var(--fl-text-body-sm);
+   font-weight: 500;
+   color: var(--fl-chambers-300);
+   text-decoration: none;
+   padding: var(--fl-sp-1);
+   transition: color var(--fl-transition-fast);
+}
+
+.fl-lang-switch a:hover,
+.fl-lang-active {
+   color: var(--fl-seal-400) !important;
+}
+
+/* CTA Button in Nav */
+.fl-nav__cta {
+   font-size: var(--fl-text-body-sm) !important;
+}
+
+/* Mobile Toggle */
+.fl-nav__toggle {
+   display: none;
+   background: none;
+   border: none;
+   color: var(--fl-chambers-100);
+   font-size: 22px;
+   cursor: pointer;
+   padding: var(--fl-sp-2);
+}
+
+/* ── Mobile Nav ── */
+.fl-mobile-nav__overlay {
+   display: none;
+   position: fixed;
+   inset: 0;
+   background: rgba(11, 21, 32, 0.5);
+   z-index: var(--fl-z-overlay);
+}
+
+.fl-mobile-nav__overlay--visible {
+   display: block;
+}
+
+.fl-mobile-nav {
+   position: fixed;
+   top: 0;
+   right: -320px;
+   width: 300px;
+   height: 100vh;
+   background: var(--fl-chambers-900);
+   z-index: calc(var(--fl-z-overlay) + 1);
+   overflow-y: auto;
+   transition: right var(--fl-transition-normal);
+}
+
+.fl-mobile-nav--open {
+   right: 0;
+}
+
+.fl-mobile-nav__header {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: var(--fl-sp-4) var(--fl-sp-5);
+   border-bottom: 1px solid var(--fl-chambers-700);
+}
+
+.fl-mobile-nav__close {
+   background: none;
+   border: none;
+   color: var(--fl-chambers-200);
+   font-size: 20px;
+   cursor: pointer;
+}
+
+.fl-mobile-nav__links {
+   list-style: none;
+   padding: var(--fl-sp-4) 0;
+   margin: 0;
+}
+
+.fl-mobile-nav__links li a {
+   display: block;
+   padding: var(--fl-sp-3) var(--fl-sp-5);
+   color: var(--fl-chambers-100);
+   font-family: var(--fl-font-body);
+   font-size: var(--fl-text-body);
+   font-weight: 500;
+   text-decoration: none;
+   transition: background var(--fl-transition-fast);
+}
+
+.fl-mobile-nav__links li a:hover,
+.fl-mobile-nav__links li a.fl-nav__link--active {
+   background: rgba(255,255,255,0.06);
+   color: var(--fl-seal-400);
+   text-decoration: none;
+}
+
+.fl-mobile-nav__lang {
+   padding: var(--fl-sp-3) var(--fl-sp-5);
+   border-top: 1px solid var(--fl-chambers-700);
+   display: flex;
+   gap: var(--fl-sp-2);
+}
+
+.fl-mobile-nav__lang a {
+   color: var(--fl-chambers-300);
+   text-decoration: none;
+   font-weight: 500;
+}
+
+.fl-mobile-nav__contact {
+   list-style: none;
+   padding: var(--fl-sp-4) var(--fl-sp-5);
+   margin: 0;
+   border-top: 1px solid var(--fl-chambers-700);
+}
+
+.fl-mobile-nav__contact li {
+   display: flex;
+   align-items: center;
+   gap: var(--fl-sp-2);
+   padding: var(--fl-sp-2) 0;
+   color: var(--fl-chambers-300);
+   font-size: var(--fl-text-body-sm);
+}
+
+.fl-mobile-nav__contact li a {
+   color: var(--fl-chambers-200);
+   text-decoration: none;
+}
+
+.fl-mobile-nav__contact li a:hover {
+   color: var(--fl-seal-400);
+}
+
+/* ── Footer ── */
+.fl-footer {
+   background: var(--fl-chambers-900);
+   color: var(--fl-chambers-200);
+   padding-top: var(--fl-sp-8);
+}
+
+.fl-container {
+   max-width: var(--fl-content-max);
+   margin: 0 auto;
+   padding: 0 var(--fl-sp-5);
+}
+
+.fl-footer__grid {
+   display: grid;
+   grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+   gap: var(--fl-sp-8);
+   padding-bottom: var(--fl-sp-8);
+}
+
+.fl-footer__logo img {
+   height: 40px;
+   width: auto;
+   margin-bottom: var(--fl-sp-4);
+}
+
+.fl-footer__brand-desc {
+   font-size: var(--fl-text-body-sm);
+   line-height: var(--fl-lh-body);
+   color: var(--fl-chambers-300);
+   margin-bottom: var(--fl-sp-4);
+}
+
+.fl-footer__social {
+   display: flex;
+   gap: var(--fl-sp-3);
+}
+
+.fl-footer__social a {
+   width: 36px;
+   height: 36px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: var(--fl-r-sm);
+   background: var(--fl-chambers-800);
+   color: var(--fl-chambers-300);
+   transition: background var(--fl-transition-fast), color var(--fl-transition-fast);
+}
+
+.fl-footer__social a:hover {
+   background: var(--fl-seal-600);
+   color: #fff;
+   text-decoration: none;
+}
+
+.fl-footer__heading {
+   font-family: var(--fl-font-display);
+   font-weight: 600;
+   font-size: var(--fl-text-body);
+   color: var(--fl-chambers-50);
+   margin-bottom: var(--fl-sp-4);
+}
+
+.fl-footer__links {
+   list-style: none;
+   padding: 0;
+   margin: 0;
+}
+
+.fl-footer__links li {
+   margin-bottom: var(--fl-sp-2);
+}
+
+.fl-footer__links a {
+   color: var(--fl-chambers-300);
+   font-size: var(--fl-text-body-sm);
+   text-decoration: none;
+   transition: color var(--fl-transition-fast);
+}
+
+.fl-footer__links a:hover {
+   color: var(--fl-seal-400);
+   text-decoration: none;
+}
+
+.fl-footer__contact-item {
+   display: flex;
+   gap: var(--fl-sp-3);
+   margin-bottom: var(--fl-sp-3);
+   font-size: var(--fl-text-body-sm);
+   color: var(--fl-chambers-300);
+}
+
+.fl-footer__contact-item i {
+   color: var(--fl-seal-500);
+   margin-top: 3px;
+}
+
+.fl-footer__contact-item a {
+   color: var(--fl-chambers-200);
+   text-decoration: none;
+}
+
+.fl-footer__contact-item a:hover {
+   color: var(--fl-seal-400);
+}
+
+/* Footer Bottom */
+.fl-footer__bottom {
+   border-top: 1px solid var(--fl-chambers-700);
+}
+
+.fl-footer__bottom-inner {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: var(--fl-sp-4) 0;
+}
+
+.fl-footer__bottom p {
+   margin: 0;
+   font-size: var(--fl-text-body-sm);
+   color: var(--fl-chambers-400);
+}
+
+.fl-footer__bottom-links {
+   display: flex;
+   align-items: center;
+   gap: var(--fl-sp-3);
+}
+
+.fl-footer__bottom-links a {
+   color: var(--fl-chambers-400);
+   font-size: var(--fl-text-body-sm);
+   text-decoration: none;
+}
+
+.fl-footer__bottom-links a:hover {
+   color: var(--fl-seal-400);
+}
+
+.fl-footer__bottom-divider {
+   width: 1px;
+   height: 12px;
+   background: var(--fl-chambers-600);
+}
+
+.fl-footer__lang-switch {
+   display: flex;
+   align-items: center;
+   gap: var(--fl-sp-1);
+}
+
+.fl-footer__lang {
+   font-size: var(--fl-text-body-sm);
+   color: var(--fl-chambers-400);
+   text-decoration: none;
+}
+
+.fl-footer__lang--active {
+   color: var(--fl-seal-400);
+   font-weight: 600;
+}
+
+.fl-footer__lang-sep {
+   color: var(--fl-chambers-600);
+}
+
+/* ── WhatsApp Float ── */
+.fl-whatsapp {
+   position: fixed;
+   bottom: 24px;
+   right: 24px;
+   width: 56px;
+   height: 56px;
+   border-radius: var(--fl-r-full);
+   background: #25D366;
+   color: #fff;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 28px;
+   box-shadow: var(--fl-e-2);
+   z-index: var(--fl-z-sticky);
+   transition: transform var(--fl-transition-fast), box-shadow var(--fl-transition-fast);
+   text-decoration: none;
+}
+
+.fl-whatsapp:hover {
+   transform: scale(1.08);
+   box-shadow: var(--fl-e-3);
+   color: #fff;
+   text-decoration: none;
+}
+
+/* ── Scroll to Top ── */
+.fl-scroll-top {
+   position: fixed;
+   bottom: 90px;
+   right: 28px;
+   width: 40px;
+   height: 40px;
+   border-radius: var(--fl-r-sm);
+   background: var(--fl-chambers-600);
+   color: #fff;
+   border: none;
+   cursor: pointer;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 16px;
+   opacity: 0;
+   pointer-events: none;
+   z-index: var(--fl-z-sticky);
+   transition: opacity var(--fl-transition-fast), background var(--fl-transition-fast);
+}
+
+.fl-scroll-top--visible {
+   opacity: 1;
+   pointer-events: auto;
+}
+
+.fl-scroll-top:hover {
+   background: var(--fl-chambers-700);
+}
+
+/* ── Responsive: Public Shell ── */
+@media (max-width: 959px) {
+   .fl-nav__links { display: none; }
+   .fl-nav__cta { display: none; }
+   .fl-nav__lang-desktop { display: none; }
+   .fl-nav__toggle { display: flex; }
+   .fl-footer__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--fl-sp-6);
+   }
+}
+
+@media (max-width: 639px) {
+   .fl-utility-bar { display: none; }
+   .fl-footer__grid {
+      grid-template-columns: 1fr;
+      gap: var(--fl-sp-6);
+   }
+   .fl-footer__bottom-inner {
+      flex-direction: column;
+      gap: var(--fl-sp-3);
+      text-align: center;
+   }
+}
+
+/* ================================================================
+   §2.7  SEAL & LEDGER — Signature Element
+   ================================================================ */
+
+/* ── Seal Badge ── */
+.fl-seal {
+   color: var(--fl-seal-600);
+}
+
+.fl-seal--hero {
+   position: absolute;
+   bottom: var(--fl-sp-8);
+   right: var(--fl-sp-6);
+   width: 140px;
+   height: 140px;
+   opacity: 0.85;
+   z-index: 2;
+}
+
+.fl-seal--dashboard {
+   width: 120px;
+   height: 120px;
+   flex-shrink: 0;
+}
+
+.fl-seal__svg {
+   width: 100%;
+   height: 100%;
+   display: block;
+}
+
+.fl-seal__perimeter-text {
+   font-family: var(--fl-font-body);
+   font-weight: 600;
+   font-size: 11px;
+   letter-spacing: 0.18em;
+   text-transform: uppercase;
+   fill: currentColor;
+}
+
+.fl-seal__mark {
+   stroke: currentColor;
+}
+
+.fl-seal__center-value {
+   font-family: var(--fl-font-mono);
+   font-weight: 500;
+   font-size: 32px;
+   fill: var(--fl-sage-700);
+}
+
+.fl-seal__center-label {
+   font-family: var(--fl-font-body);
+   font-weight: 600;
+   font-size: 9px;
+   letter-spacing: 0.15em;
+   text-transform: uppercase;
+   fill: var(--fl-ink-500);
+}
+
+.fl-seal__sr-only {
+   position: absolute;
+   width: 1px;
+   height: 1px;
+   padding: 0;
+   margin: -1px;
+   overflow: hidden;
+   clip: rect(0, 0, 0, 0);
+   border: 0;
+}
+
+/* ── Seal & Ledger Instrument (Dashboard) ── */
+.fl-seal-ledger {
+   display: flex;
+   align-items: center;
+   gap: var(--fl-sp-6);
+   padding: var(--fl-sp-5);
+   background: var(--fl-surface);
+   border: var(--fl-border-hairline);
+   border-radius: var(--fl-r-md);
+   box-shadow: var(--fl-e-1);
+   margin-bottom: var(--fl-sp-5);
+}
+
+.fl-seal-ledger__seal-wrap {
+   flex-shrink: 0;
+}
+
+/* Ledger Bar */
+.fl-seal-ledger__ledger {
+   flex: 1;
+   min-width: 0;
+}
+
+.fl-seal-ledger__ledger-label {
+   margin-bottom: var(--fl-sp-2);
+}
+
+.fl-ledger-bar {
+   display: flex;
+   height: 8px;
+   border-radius: var(--fl-r-full);
+   overflow: hidden;
+   background: var(--fl-ink-100);
+}
+
+.fl-ledger-bar__segment {
+   height: 100%;
+   transition: width var(--fl-transition-normal);
+}
+
+.fl-ledger-bar__segment--legal {
+   background: var(--fl-chambers-600);
+}
+
+.fl-ledger-bar__segment--property {
+   background: var(--fl-clay-500);
+}
+
+.fl-seal-ledger__ledger-legend {
+   display: flex;
+   gap: var(--fl-sp-4);
+   margin-top: var(--fl-sp-2);
+}
+
+.fl-seal-ledger__legend-item {
+   display: flex;
+   align-items: center;
+   gap: var(--fl-sp-1);
+   font-size: var(--fl-text-body-sm);
+   color: var(--fl-ink-500);
+}
+
+.fl-seal-ledger__legend-dot {
+   width: 8px;
+   height: 8px;
+   border-radius: var(--fl-r-full);
+   flex-shrink: 0;
+}
+
+.fl-seal-ledger__legend-dot--legal {
+   background: var(--fl-chambers-600);
+}
+
+.fl-seal-ledger__legend-dot--property {
+   background: var(--fl-clay-500);
+}
+
+/* Registry Watch */
+.fl-seal-ledger__watch {
+   flex-shrink: 0;
+   text-align: right;
+}
+
+.fl-seal-ledger__watch-items {
+   display: flex;
+   gap: var(--fl-sp-5);
+   margin-top: var(--fl-sp-2);
+}
+
+.fl-seal-ledger__watch-item {
+   display: flex;
+   flex-direction: column;
+}
+
+.fl-seal-ledger__watch-value {
+   color: var(--fl-chambers-800);
+}
+
+.fl-seal-ledger__watch-label {
+   font-size: var(--fl-text-body-sm);
+   color: var(--fl-ink-400);
+}
+
+/* ── Seal responsive ── */
+@media (max-width: 959px) {
+   .fl-seal--hero {
+      position: relative;
+      bottom: auto;
+      right: auto;
+      width: 100px;
+      height: 100px;
+      margin-top: var(--fl-sp-5);
+   }
+
+   .fl-seal-ledger {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--fl-sp-4);
+   }
+
+   .fl-seal-ledger__seal-wrap {
+      display: flex;
+      justify-content: center;
+   }
+
+   .fl-seal-ledger__watch {
+      text-align: left;
+   }
+
+   .fl-seal-ledger__watch-items {
+      justify-content: flex-start;
+   }
+}
+
+@media (max-width: 639px) {
+   .fl-seal--hero {
+      width: 80px;
+      height: 80px;
+   }
+
+   .fl-seal--dashboard {
+      width: 90px;
+      height: 90px;
+   }
+
+   .fl-seal-ledger__watch-items {
+      flex-wrap: wrap;
+   }
+}

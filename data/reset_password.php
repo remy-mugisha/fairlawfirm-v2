@@ -4,6 +4,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 require_once 'propertyMgt/config.php';
+require_once __DIR__ . '/csrf.php';
 
 date_default_timezone_set('UTC');
 
@@ -44,6 +45,7 @@ if ($token) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token'])) {
+    requireCsrfPost();
     $token = $_POST['token'];
     $new_password = $_POST['new_password'];
     $confirm_password = $_POST['confirm_password'];
@@ -105,21 +107,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token'])) {
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <style>
         :root {
-            --flf-navy: #01166A;
-            --flf-midnight: #07143F;
-            --flf-royal: #18358F;
-            --flf-blue: #E9EEFA;
-            --flf-white: #FFFFFF;
-            --flf-gold: #C8A951;
-            --flf-slate: #536174;
-            --flf-charcoal: #172033;
-            --flf-muted: #6b7699;
-            --flf-danger: #a12734;
-            --flf-success: #1a7a4c;
-            --flf-font-head: 'Cormorant Garamond', serif;
-            --flf-font-body: 'DM Sans', sans-serif;
-            --flf-radius: 14px;
-            --flf-radius-sm: 8px;
+            --fl-chambers-900: #172033;
+            --fl-chambers-600: #01166A;
+            --fl-chambers-100: #E9EEFA;
+            --fl-seal-600: #9C7818;
+            --fl-seal-500: #C8A951;
+            --fl-ink-500: #536174;
+            --fl-ink-400: #6b7699;
+            --fl-surface: #FFFFFF;
+            --fl-crit-500: #a12734;
+            --fl-sage-500: #1a7a4c;
+            --fl-font-display: 'Source Serif 4', Georgia, serif;
+            --fl-font-body: 'Public Sans', system-ui, sans-serif;
+            --fl-r-md: 6px;
+            --fl-r-sm: 4px;
         }
         *, *::before, *::after { box-sizing: border-box; }
         body {
@@ -279,7 +280,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token'])) {
                 <?php endif; ?>
 
                 <?php if ($valid_token): ?>
-                    <form method="POST" action="">
+                    <form method="POST" action=""><?php echo csrfHiddenField(); ?>
                         <input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>">
 
                         <div class="flf-field">

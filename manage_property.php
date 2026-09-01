@@ -31,25 +31,25 @@ try {
     <title><?= __('Property Management') ?> - Fair Law Firm LTD</title>
     <style>
         .fl-manage-props {
-            padding: var(--fl-space-20) 0;
+            padding: var(--fl-sp-8) 0;
         }
 
         .fl-manage-props__grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: var(--fl-space-6);
+            gap: var(--fl-sp-4);
         }
 
         .fl-manage-props__card {
-            border-radius: var(--fl-radius-lg);
+            border-radius: var(--fl-r-md);
             overflow: hidden;
-            background: var(--fl-white);
-            border: 1px solid var(--fl-gray-200);
-            transition: box-shadow var(--fl-transition), transform var(--fl-transition);
+            background: var(--fl-surface);
+            border: 1px solid var(--fl-ink-200);
+            transition: box-shadow var(--fl-transition-normal), transform var(--fl-transition-normal);
         }
 
         .fl-manage-props__card:hover {
-            box-shadow: var(--fl-shadow-lg);
+            box-shadow: var(--fl-e-lg);
             transform: translateY(-4px);
         }
 
@@ -61,40 +61,40 @@ try {
         }
 
         .fl-manage-props__card-body {
-            padding: var(--fl-space-5) var(--fl-space-6);
+            padding: var(--fl-sp-4) var(--fl-sp-4);
         }
 
         .fl-manage-props__card-location {
             font-size: var(--fl-text-sm);
-            color: var(--fl-royal);
+            color: var(--fl-chambers-600);
             display: flex;
             align-items: center;
-            gap: var(--fl-space-2);
-            margin-bottom: var(--fl-space-2);
+            gap: var(--fl-sp-1);
+            margin-bottom: var(--fl-sp-1);
         }
 
         .fl-manage-props__card-title {
-            font-family: var(--fl-font-heading);
+            font-family: var(--fl-font-display);
             font-size: var(--fl-text-lg);
             font-weight: 600;
-            color: var(--fl-charcoal);
+            color: var(--fl-chambers-900);
             margin-bottom: 0;
         }
 
         .fl-manage-props__empty {
             text-align: center;
-            padding: var(--fl-space-16) 0;
+            padding: var(--fl-sp-8) 0;
         }
 
         .fl-manage-props__empty-icon {
             font-size: 3rem;
-            color: var(--fl-gray-300);
-            margin-bottom: var(--fl-space-4);
+            color: var(--fl-ink-300);
+            margin-bottom: var(--fl-sp-3);
         }
 
         .fl-manage-props__empty-text {
             font-size: var(--fl-text-lg);
-            color: var(--fl-slate);
+            color: var(--fl-ink-500);
         }
 
         @media (max-width: 992px) {
@@ -145,7 +145,7 @@ try {
                 </div>
 
                 <?php if ($total_pages > 1): ?>
-                <nav aria-label="<?= __('Page navigation') ?>" style="margin-top:var(--fl-space-10);">
+                <nav aria-label="<?= __('Page navigation') ?>" style="margin-top:var(--fl-sp-6);">
                     <ul class="fl-pagination">
                         <?php if ($page > 1): ?>
                             <li><a class="fl-pagination__link" href="?page=<?= $page - 1 ?>">&laquo;</a></li>

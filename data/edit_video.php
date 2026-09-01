@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once 'propertyMgt/config.php';
+require_once __DIR__ . '/csrf.php';
 
 if (!isset($_GET['id'])) {
     header("Location: dashboard.php");
@@ -10,6 +11,7 @@ if (!isset($_GET['id'])) {
 $id = $_GET['id'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    requireCsrfPost();
     $video_link = $_POST['video_link'];
     $status = $_POST['status'];
 
@@ -62,7 +64,7 @@ try {
 <?php endif; ?>
 
 <!-- Edit Video Link Form -->
-<form method="POST" action="edit_video.php?id=<?php echo $id; ?>">
+<form method="POST" action="edit_video.php?id=<?php echo $id; ?>"><?php echo csrfHiddenField(); ?>
     <div class="form-group">
         <label for="video_link">Video Link</label>
         <input type="text" class="form-control" id="video_link" name="video_link" value="<?php echo htmlspecialchars($video['video_link']); ?>" required>

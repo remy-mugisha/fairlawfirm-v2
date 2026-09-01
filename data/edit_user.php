@@ -6,6 +6,7 @@
 ob_start();
 require_once 'include/header.php';
 require_once 'propertyMgt/config.php';
+require_once __DIR__ . '/csrf.php';
 
 /* ----------------------------------------------------------------
    Admin-only access
@@ -53,6 +54,7 @@ try {
    Handle form submission
    ---------------------------------------------------------------- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+   requireCsrfPost();
    $first_name = trim($_POST['first_name'] ?? '');
    $last_name  = trim($_POST['last_name'] ?? '');
    $email      = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
@@ -197,7 +199,7 @@ try {
    <div class="white_shd full">
       <div class="full padding_infor_info">
 
-         <form method="POST" action="" enctype="multipart/form-data" id="flfEditUserForm">
+         <form method="POST" action="" enctype="multipart/form-data" id="flfEditUserForm"><?php echo csrfHiddenField(); ?>
 
             <!-- Profile Image -->
             <div class="field">
@@ -224,7 +226,7 @@ try {
                </div>
             </div>
 
-            <hr style="border-color: var(--flf-blue); margin: 24px 0;">
+            <hr style="border-color: var(--fl-chambers-100); margin: 24px 0;">
 
             <!-- First / Last Name -->
             <div class="row">
@@ -290,7 +292,7 @@ try {
                </div>
             </div>
 
-            <hr style="border-color: var(--flf-blue); margin: 24px 0;">
+            <hr style="border-color: var(--fl-chambers-100); margin: 24px 0;">
 
             <!-- Role + Status -->
             <div class="row">
@@ -322,7 +324,7 @@ try {
                </div>
             </div>
 
-            <hr style="border-color: var(--flf-blue); margin: 24px 0;">
+            <hr style="border-color: var(--fl-chambers-100); margin: 24px 0;">
 
             <!-- Submit -->
             <div class="field mb-0">
@@ -369,9 +371,9 @@ try {
       height: 80px;
       border-radius: 50%;
       overflow: hidden;
-      border: 3px solid var(--flf-blue);
+      border: 3px solid var(--fl-chambers-100);
       flex-shrink: 0;
-      background: var(--flf-blue);
+      background: var(--fl-chambers-100);
    }
    .flf-avatar-preview img {
       width: 100%;

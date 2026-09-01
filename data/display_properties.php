@@ -2,11 +2,12 @@
 require_once 'include/header.php';
 require_once 'propertyMgt/config.php';
 
-if (isset($_GET['delete'])) {
-    $id = $_GET['delete'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
+    requireCsrfPost();
+    $id = intval($_POST['delete_id']);
     try {
         $stmt = $conn->prepare("SELECT image FROM add_property WHERE id = :id");
-        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         $property = $stmt->fetch(PDO::FETCH_ASSOC);
         
@@ -15,7 +16,7 @@ if (isset($_GET['delete'])) {
         }
         
         $stmt = $conn->prepare("DELETE FROM add_property WHERE id = :id");
-        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         
         $_SESSION['success_message'] = "Property deleted successfully!";
@@ -41,25 +42,25 @@ try {
     border-spacing: 0;
 }
 .flf-prop-table th {
-    font-family: var(--flf-font-body);
+    font-family: var(--fl-font-body);
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.8px;
     text-transform: uppercase;
-    color: var(--flf-white);
+    color: var(--fl-surface);
     background: var(--flf-midnight);
     padding: 14px 18px;
-    border-bottom: 2px solid var(--flf-gold);
+    border-bottom: 2px solid var(--fl-seal-600);
     white-space: nowrap;
 }
 .flf-prop-table th:first-child { border-radius: 10px 0 0 0; }
 .flf-prop-table th:last-child  { border-radius: 0 10px 0 0; }
 .flf-prop-table td {
-    font-family: var(--flf-font-body);
+    font-family: var(--fl-font-body);
     font-size: 14px;
-    color: var(--flf-charcoal);
+    color: var(--fl-chambers-900);
     padding: 16px 18px;
-    border-bottom: 1px solid var(--flf-blue);
+    border-bottom: 1px solid var(--fl-chambers-100);
     vertical-align: middle;
 }
 .flf-prop-table tbody tr {
@@ -76,15 +77,15 @@ try {
     height: 54px;
     object-fit: cover;
     border-radius: 8px;
-    border: 2px solid var(--flf-blue);
+    border: 2px solid var(--fl-chambers-100);
 }
 .flf-prop-id {
     font-weight: 700;
-    color: var(--flf-navy);
+    color: var(--fl-chambers-600);
 }
 .flf-prop-location,
 .flf-prop-title {
-    color: var(--flf-charcoal);
+    color: var(--fl-chambers-900);
 }
 .flf-action-group {
     display: flex;
@@ -106,14 +107,14 @@ try {
 }
 .flf-empty-state i {
     font-size: 48px;
-    color: var(--flf-blue);
+    color: var(--fl-chambers-100);
     margin-bottom: 16px;
     display: block;
 }
 .flf-empty-state p {
-    font-family: var(--flf-font-body);
+    font-family: var(--fl-font-body);
     font-size: 15px;
-    color: var(--flf-muted);
+    color: var(--fl-ink-400);
     margin: 0;
 }
 .flf-empty-state a {
@@ -216,7 +217,7 @@ try {
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
                                                     <a href="#" class="btn btn-danger btn-sm" title="Delete"
-                                                       onclick="document.getElementById('deleteId').value='<?php echo $property['id']; ?>';document.getElementById('deleteTitle').textContent='<?php echo htmlspecialchars(addslashes($property['title'])); ?>';document.getElementById('deleteModal').style.display='flex';return false;">
+                                                       onclick="document.getElementById('deleteId').value='<?php echo $property['id']; ?>';document.getElementById('deleteFormId').value='<?php echo $property['id']; ?>';document.getElementById('deleteTitle').textContent='<?php echo htmlspecialchars(addslashes($property['title'])); ?>';document.getElementById('deleteModal').style.display='flex';return false;">
                                                         <i class="fa fa-trash"></i>
                                                     </a>
                                                 </div>
@@ -258,11 +259,14 @@ try {
 <script>
 document.getElementById('deleteConfirmBtn').addEventListener('click', function(e) {
     e.preventDefault();
-    var id = document.getElementById('deleteId').value;
-    window.location.href = 'display_properties.php?delete=' + id;
+    document.getElementById('deleteForm').submit();
 });
 </script>
 
+<form id="deleteForm" method="POST" action="display_properties.php" style="display:none;">
+    <?php echo csrfHiddenField(); ?>
+    <input type="hidden" name="delete_id" id="deleteFormId" value="">
+</form>
 <input type="hidden" id="deleteId" value="">
 
 <?php

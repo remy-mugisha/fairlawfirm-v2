@@ -55,14 +55,14 @@ if (strlen($initials) > 2) $initials = mb_substr($initials, 0, 2);
 
 <style>
 .flf-profile-card {
-    background: var(--flf-white);
-    border: 1px solid var(--flf-blue);
-    border-radius: var(--flf-radius);
+    background: var(--fl-surface);
+    border: 1px solid var(--fl-chambers-100);
+    border-radius: var(--fl-r-md);
     box-shadow: 0 4px 14px rgba(1, 22, 106, 0.06);
     overflow: hidden;
 }
 .flf-profile-header {
-    background: linear-gradient(135deg, var(--flf-navy) 0%, var(--flf-royal) 100%);
+    background: linear-gradient(135deg, var(--fl-chambers-600) 0%, var(--fl-chambers-600) 100%);
     padding: 28px 32px 22px;
     display: flex;
     align-items: center;
@@ -77,19 +77,19 @@ if (strlen($initials) > 2) $initials = mb_substr($initials, 0, 2);
     height: 110px;
     border-radius: 50%;
     object-fit: cover;
-    border: 4px solid var(--flf-gold);
+    border: 4px solid var(--fl-seal-600);
     box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
-    background: var(--flf-white);
+    background: var(--fl-surface);
 }
 .flf-profile-initials {
     width: 110px;
     height: 110px;
     border-radius: 50%;
-    border: 4px solid var(--flf-gold);
+    border: 4px solid var(--fl-seal-600);
     box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
     background: var(--flf-midnight);
-    color: var(--flf-gold);
-    font-family: var(--flf-font-head);
+    color: var(--fl-seal-600);
+    font-family: var(--fl-font-display);
     font-size: 38px;
     font-weight: 700;
     display: flex;
@@ -98,10 +98,10 @@ if (strlen($initials) > 2) $initials = mb_substr($initials, 0, 2);
 }
 .flf-profile-header-text h2 {
     margin: 0;
-    font-family: var(--flf-font-head);
+    font-family: var(--fl-font-display);
     font-size: 28px;
     font-weight: 700;
-    color: var(--flf-white);
+    color: var(--fl-surface);
     line-height: 1.2;
 }
 .flf-profile-header-text .flf-role-badge {
@@ -110,8 +110,8 @@ if (strlen($initials) > 2) $initials = mb_substr($initials, 0, 2);
     padding: 4px 14px;
     border-radius: var(--flf-radius-pill);
     background: rgba(200, 169, 81, 0.2);
-    color: var(--flf-gold);
-    font-family: var(--flf-font-body);
+    color: var(--fl-seal-600);
+    font-family: var(--fl-font-body);
     font-size: 13px;
     font-weight: 600;
     letter-spacing: 0.5px;
@@ -127,7 +127,7 @@ if (strlen($initials) > 2) $initials = mb_substr($initials, 0, 2);
 }
 .flf-info-item {
     padding: 16px 0;
-    border-bottom: 1px solid var(--flf-blue);
+    border-bottom: 1px solid var(--fl-chambers-100);
 }
 .flf-info-item:nth-last-child(-n+2) {
     border-bottom: none;
@@ -135,19 +135,19 @@ if (strlen($initials) > 2) $initials = mb_substr($initials, 0, 2);
 .flf-info-item label {
     display: block;
     margin: 0 0 4px;
-    font-family: var(--flf-font-body);
+    font-family: var(--fl-font-body);
     font-size: 12px;
     font-weight: 600;
-    color: var(--flf-muted);
+    color: var(--fl-ink-400);
     text-transform: uppercase;
     letter-spacing: 0.6px;
 }
 .flf-info-item p {
     margin: 0;
-    font-family: var(--flf-font-body);
+    font-family: var(--fl-font-body);
     font-size: 15px;
     font-weight: 500;
-    color: var(--flf-charcoal);
+    color: var(--fl-chambers-900);
 }
 .flf-info-item .flf-status-active {
     display: inline-block;
@@ -163,7 +163,7 @@ if (strlen($initials) > 2) $initials = mb_substr($initials, 0, 2);
     .flf-profile-header-text h2 { font-size: 22px; }
     .flf-profile-body { padding: 24px 20px; }
     .flf-info-grid { grid-template-columns: 1fr; }
-    .flf-info-item { border-bottom: 1px solid var(--flf-blue); }
+    .flf-info-item { border-bottom: 1px solid var(--fl-chambers-100); }
     .flf-info-item:last-child { border-bottom: none; }
 }
 </style>

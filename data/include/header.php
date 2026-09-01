@@ -115,10 +115,13 @@ $flfIsAdmin = isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin
    <!-- Brand fonts -->
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-   <!-- Dashboard brand overrides (loaded last to win specificity) -->
+   <!-- Dashboard brand overrides -->
    <link rel="stylesheet" href="css/dashboard.css">
+
+   <!-- Design System Tokens (loaded last to override) -->
+   <link rel="stylesheet" href="css/fairlaw-tokens.css">
 
    <!--[if lt IE 9]>
    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -126,6 +129,10 @@ $flfIsAdmin = isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin
    <![endif]-->
 </head>
 <body class="dashboard dashboard_1">
+
+<!-- Skip to content -->
+<a href="#content" class="fl-skip-link">Skip to content</a>
+
 <div class="full_container">
 <div class="inner_container">
 

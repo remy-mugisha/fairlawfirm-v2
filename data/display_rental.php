@@ -2,8 +2,9 @@
 require_once 'include/header.php';
 require_once 'propertyMgt/config.php';
 
-if (isset($_GET['delete_id']) && !empty($_GET['delete_id'])) {
-    $delete_id = intval($_GET['delete_id']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id']) && !empty($_POST['delete_id'])) {
+    requireCsrfPost();
+    $delete_id = intval($_POST['delete_id']);
     
     try {
         $image_query = "SELECT image_path FROM property_images WHERE property_id = :id";
@@ -59,25 +60,25 @@ function formatDisplayPrice($price) {
     border-spacing: 0;
 }
 .flf-rental-table th {
-    font-family: var(--flf-font-body);
+    font-family: var(--fl-font-body);
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.8px;
     text-transform: uppercase;
-    color: var(--flf-white);
+    color: var(--fl-surface);
     background: var(--flf-midnight);
     padding: 14px 18px;
-    border-bottom: 2px solid var(--flf-gold);
+    border-bottom: 2px solid var(--fl-seal-600);
     white-space: nowrap;
 }
 .flf-rental-table th:first-child { border-radius: 10px 0 0 0; }
 .flf-rental-table th:last-child  { border-radius: 0 10px 0 0; }
 .flf-rental-table td {
-    font-family: var(--flf-font-body);
+    font-family: var(--fl-font-body);
     font-size: 14px;
-    color: var(--flf-charcoal);
+    color: var(--fl-chambers-900);
     padding: 16px 18px;
-    border-bottom: 1px solid var(--flf-blue);
+    border-bottom: 1px solid var(--fl-chambers-100);
     vertical-align: middle;
 }
 .flf-rental-table tbody tr {
@@ -93,7 +94,7 @@ function formatDisplayPrice($price) {
     display: inline-block;
     padding: 4px 12px;
     border-radius: 20px;
-    font-family: var(--flf-font-body);
+    font-family: var(--fl-font-body);
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.5px;
@@ -101,21 +102,21 @@ function formatDisplayPrice($price) {
 }
 .flf-status-rent  { background: rgba(26, 122, 76, 0.1);  color: var(--flf-success); }
 .flf-status-sale  { background: rgba(200, 169, 81, 0.15); color: #947a2e; }
-.flf-status-na    { background: rgba(107, 118, 153, 0.1); color: var(--flf-muted); }
+.flf-status-na    { background: rgba(107, 118, 153, 0.1); color: var(--fl-ink-400); }
 .flf-price-cell {
     font-weight: 600;
-    color: var(--flf-navy);
+    color: var(--fl-chambers-600);
     white-space: nowrap;
 }
 .flf-bed-bath {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-family: var(--flf-font-body);
+    font-family: var(--fl-font-body);
     font-size: 13px;
-    color: var(--flf-slate);
+    color: var(--fl-ink-500);
 }
-.flf-bed-bath i { color: var(--flf-gold); font-size: 12px; }
+.flf-bed-bath i { color: var(--fl-seal-600); font-size: 12px; }
 .flf-action-group {
     display: flex;
     gap: 5px;
@@ -137,14 +138,14 @@ function formatDisplayPrice($price) {
 }
 .flf-empty-state i {
     font-size: 48px;
-    color: var(--flf-blue);
+    color: var(--fl-chambers-100);
     margin-bottom: 16px;
     display: block;
 }
 .flf-empty-state p {
-    font-family: var(--flf-font-body);
+    font-family: var(--fl-font-body);
     font-size: 15px;
-    color: var(--flf-muted);
+    color: var(--fl-ink-400);
     margin: 0;
 }
 .flf-empty-state a {
@@ -185,7 +186,7 @@ function formatDisplayPrice($price) {
                 <div class="white_shd full margin_bottom_30">
                     <div class="full graph_head">
                         <div class="heading1 margin_0 d-flex justify-content-between align-items-center">
-                            <h2><i class="fa fa-building" style="color:var(--flf-gold);margin-right:10px;font-size:20px;"></i>Rental Properties</h2>
+                            <h2><i class="fa fa-building" style="color:var(--fl-seal-600);margin-right:10px;font-size:20px;"></i>Rental Properties</h2>
                             <a href="add_rental_property.php" class="btn btn-info btn-sm">
                                 <i class="fa fa-plus" style="margin-right:5px;"></i>Add New Property
                             </a>
@@ -218,7 +219,7 @@ function formatDisplayPrice($price) {
                                         <?php foreach ($properties as $row): ?>
                                         <tr>
                                             <td>
-                                                <span style="font-weight:600;color:var(--flf-navy);"><?php echo htmlspecialchars($row['title']); ?></span>
+                                                <span style="font-weight:600;color:var(--fl-chambers-600);"><?php echo htmlspecialchars($row['title']); ?></span>
                                             </td>
                                             <td><?php echo htmlspecialchars($row['property_type']); ?></td>
                                             <td>
@@ -256,7 +257,7 @@ function formatDisplayPrice($price) {
                                                         <i class="fa fa-image"></i>
                                                     </a>
                                                     <a href="#" class="btn btn-danger btn-sm" title="Delete"
-                                                       onclick="document.getElementById('deleteId').value='<?php echo $row['id']; ?>';document.getElementById('deleteTitle').textContent='<?php echo htmlspecialchars(addslashes($row['title'])); ?>';document.getElementById('deleteModal').style.display='flex';return false;">
+                                                       onclick="document.getElementById('deleteId').value='<?php echo $row['id']; ?>';document.getElementById('deleteFormId').value='<?php echo $row['id']; ?>';document.getElementById('deleteTitle').textContent='<?php echo htmlspecialchars(addslashes($row['title'])); ?>';document.getElementById('deleteModal').style.display='flex';return false;">
                                                         <i class="fa fa-trash"></i>
                                                     </a>
                                                 </div>
@@ -276,14 +277,14 @@ function formatDisplayPrice($price) {
 </div>
 
 <div id="deleteModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center;">
-    <div style="background:var(--flf-white);border-radius:var(--flf-radius);box-shadow:0 20px 60px rgba(0,0,0,0.3);max-width:420px;width:90%;padding:0;overflow:hidden;">
+    <div style="background:var(--fl-surface);border-radius:var(--flf-radius);box-shadow:0 20px 60px rgba(0,0,0,0.3);max-width:420px;width:90%;padding:0;overflow:hidden;">
         <div style="padding:28px 28px 0;text-align:center;">
             <div style="width:60px;height:60px;border-radius:50%;background:rgba(161,39,52,0.1);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
                 <i class="fa fa-trash" style="font-size:24px;color:var(--flf-danger);"></i>
             </div>
-            <h4 style="font-family:var(--flf-font-head);color:var(--flf-navy);margin:0 0 8px;font-size:22px;">Delete Property</h4>
-            <p style="font-family:var(--flf-font-body);color:var(--flf-muted);font-size:14px;margin:0;">
-                Are you sure you want to delete "<strong id="deleteTitle" style="color:var(--flf-charcoal);"></strong>"? This will also remove all associated images. This action cannot be undone.
+            <h4 style="font-family:var(--flf-font-head);color:var(--fl-chambers-600);margin:0 0 8px;font-size:22px;">Delete Property</h4>
+            <p style="font-family:var(--fl-font-body);color:var(--fl-ink-400);font-size:14px;margin:0;">
+                Are you sure you want to delete "<strong id="deleteTitle" style="color:var(--fl-chambers-900);"></strong>"? This will also remove all associated images. This action cannot be undone.
             </p>
         </div>
         <div style="padding:20px 28px 28px;display:flex;gap:12px;justify-content:center;">
@@ -298,11 +299,14 @@ function formatDisplayPrice($price) {
 <script>
 document.getElementById('deleteConfirmBtn').addEventListener('click', function(e) {
     e.preventDefault();
-    var id = document.getElementById('deleteId').value;
-    window.location.href = 'display_rental.php?delete_id=' + id;
+    document.getElementById('deleteForm').submit();
 });
 </script>
 
+<form id="deleteForm" method="POST" action="display_rental.php" style="display:none;">
+    <?php echo csrfHiddenField(); ?>
+    <input type="hidden" name="delete_id" id="deleteFormId" value="">
+</form>
 <input type="hidden" id="deleteId" value="">
 
 <?php require_once 'include/footer.php'; ?>

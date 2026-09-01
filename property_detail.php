@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/csrf.php';
 require_once 'include/header.php';
 require_once 'data/propertyMgt/config.php';
 
@@ -41,13 +42,13 @@ foreach ($property_images as $image) {
     <title><?= htmlspecialchars($property['title']) ?> - Fair Law Firm LTD</title>
     <style>
         .fl-prop-detail {
-            padding: var(--fl-space-16) 0 var(--fl-space-20);
+            padding: var(--fl-sp-8) 0 var(--fl-sp-8);
         }
 
         .fl-prop-detail__grid {
             display: grid;
             grid-template-columns: 1fr 380px;
-            gap: var(--fl-space-10);
+            gap: var(--fl-sp-6);
             align-items: start;
         }
 
@@ -57,56 +58,56 @@ foreach ($property_images as $image) {
             width: 100%;
             height: 480px;
             object-fit: cover;
-            border-radius: var(--fl-radius-lg);
-            margin-bottom: var(--fl-space-8);
+            border-radius: var(--fl-r-md);
+            margin-bottom: var(--fl-sp-5);
         }
 
         .fl-prop-detail__placeholder {
             width: 100%;
             height: 480px;
-            background: var(--fl-gray-100);
-            border-radius: var(--fl-radius-lg);
+            background: var(--fl-ink-100);
+            border-radius: var(--fl-r-md);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--fl-gray-400);
+            color: var(--fl-ink-400);
             font-size: var(--fl-text-lg);
-            margin-bottom: var(--fl-space-8);
+            margin-bottom: var(--fl-sp-5);
         }
 
         .fl-prop-detail__section {
-            margin-bottom: var(--fl-space-8);
+            margin-bottom: var(--fl-sp-5);
         }
 
         .fl-prop-detail__section-title {
-            font-family: var(--fl-font-heading);
-            font-size: var(--fl-text-xl);
+            font-family: var(--fl-font-display);
+            font-size: var(--fl-h2);
             font-weight: 600;
-            color: var(--fl-charcoal);
-            margin-bottom: var(--fl-space-5);
-            padding-bottom: var(--fl-space-3);
-            border-bottom: 2px solid var(--fl-gray-200);
+            color: var(--fl-chambers-900);
+            margin-bottom: var(--fl-sp-4);
+            padding-bottom: var(--fl-sp-2);
+            border-bottom: 2px solid var(--fl-ink-200);
         }
 
         .fl-prop-detail__desc {
-            font-size: var(--fl-text-base);
-            color: var(--fl-slate);
+            font-size: var(--fl-body);
+            color: var(--fl-ink-500);
             line-height: 1.8;
         }
 
         .fl-prop-detail__gallery {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: var(--fl-space-4);
+            gap: var(--fl-sp-3);
         }
 
         .fl-prop-detail__gallery-img {
             width: 100%;
             height: 140px;
             object-fit: cover;
-            border-radius: var(--fl-radius-md);
+            border-radius: var(--fl-r-md);
             cursor: pointer;
-            transition: transform var(--fl-transition);
+            transition: transform var(--fl-transition-normal);
         }
 
         .fl-prop-detail__gallery-img:hover {
@@ -119,26 +120,26 @@ foreach ($property_images as $image) {
         }
 
         .fl-prop-detail__sidebar-card {
-            background: var(--fl-white);
-            border: 1px solid var(--fl-gray-200);
-            border-radius: var(--fl-radius-lg);
-            padding: var(--fl-space-8);
-            margin-bottom: var(--fl-space-6);
+            background: var(--fl-surface);
+            border: 1px solid var(--fl-ink-200);
+            border-radius: var(--fl-r-md);
+            padding: var(--fl-sp-5);
+            margin-bottom: var(--fl-sp-4);
         }
 
         .fl-prop-detail__sidebar-title {
-            font-family: var(--fl-font-heading);
+            font-family: var(--fl-font-display);
             font-size: var(--fl-text-lg);
             font-weight: 600;
-            color: var(--fl-charcoal);
-            margin-bottom: var(--fl-space-5);
+            color: var(--fl-chambers-900);
+            margin-bottom: var(--fl-sp-4);
         }
 
         .fl-prop-detail__contact-item {
             display: flex;
             align-items: flex-start;
-            gap: var(--fl-space-3);
-            padding: var(--fl-space-3) 0;
+            gap: var(--fl-sp-2);
+            padding: var(--fl-sp-2) 0;
         }
 
         .fl-prop-detail__contact-icon {
@@ -147,25 +148,25 @@ foreach ($property_images as $image) {
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--fl-blue-soft);
-            color: var(--fl-navy);
-            border-radius: var(--fl-radius-md);
+            background: var(--fl-chambers-100);
+            color: var(--fl-chambers-600);
+            border-radius: var(--fl-r-md);
             flex-shrink: 0;
         }
 
         .fl-prop-detail__contact-text {
-            font-size: var(--fl-text-sm);
-            color: var(--fl-slate);
+            font-size: var(--fl-body-sm);
+            color: var(--fl-ink-500);
             line-height: 1.6;
         }
 
         .fl-prop-detail__contact-text a {
-            color: var(--fl-navy);
+            color: var(--fl-chambers-600);
             text-decoration: none;
         }
 
         .fl-prop-detail__contact-text a:hover {
-            color: var(--fl-gold);
+            color: var(--fl-seal-600);
         }
 
         @media (max-width: 992px) {
@@ -341,6 +342,7 @@ foreach ($property_images as $image) {
                     <div class="fl-prop-detail__sidebar-card">
                         <h4 class="fl-prop-detail__sidebar-title"><?= __('Book This Property') ?></h4>
                         <form method="POST" action="bookingEmail.php">
+                            <?php echo csrfHiddenField(); ?>
                             <input type="hidden" name="property_id" value="<?= htmlspecialchars($property_id) ?>">
                             <div class="fl-form-group">
                                 <input type="text" name="name" class="fl-input" placeholder="<?= __('Full name') ?>" required>
@@ -359,7 +361,7 @@ foreach ($property_images as $image) {
                             <div class="fl-form-group">
                                 <textarea name="comments" class="fl-textarea" rows="4" placeholder="<?= __('Write a message') ?>"></textarea>
                             </div>
-                            <button type="submit" name="submit" class="fl-btn fl-btn--gold" style="width:100%;justify-content:center;"><?= __('Send Inquiry') ?></button>
+                            <button type="submit" name="submit" class="fl-btn fl-btn--primary" style="width:100%;justify-content:center;"><?= __('Send Inquiry') ?></button>
                         </form>
                     </div>
                 </div>

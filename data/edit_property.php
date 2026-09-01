@@ -1,6 +1,7 @@
 <?php
 require_once 'include/header.php';
 require_once 'propertyMgt/config.php';
+require_once __DIR__ . '/csrf.php';
 
 if (!isset($_GET['id']) || empty($_GET['id'])) {
     $_SESSION['error_message'] = "No property ID specified.";
@@ -10,6 +11,7 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
 
 $id = $_GET['id'];
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
+    requireCsrfPost();
     $location = $_POST['location'];
     $title = $_POST['title'];
     
@@ -232,7 +234,7 @@ try {
                     </div>
 
                     <div class="full padding_infor_info">
-                        <form action="" method="post" enctype="multipart/form-data" style="max-width:820px;">
+                        <form action="" method="post" enctype="multipart/form-data" style="max-width:820px;"><?php echo csrfHiddenField(); ?>
 
                             <div class="flf-field">
                                 <span class="flf-img-label"><i class="fa fa-image" style="color:var(--flf-gold);margin-right:5px;"></i>Property Image</span>

@@ -1,0 +1,1110 @@
+/* ================================================================
+   Fair Law Firm LTD — Design Tokens (Admin Dashboard)
+   "The Dossier Interface"
+   
+   Loaded AFTER dashboard.css. All values are CSS custom properties
+   under :root so they override without touching vendor CSS.
+   
+   Spec: FAIR_LAW_FIRM_DESIGN_SYSTEM.md §2.4–2.6
+   ================================================================ */
+
+:root {
+   /* ────────────────────────────────────────────────────────────────
+      §2.5  COLOR SYSTEM — Raw Palette
+      ──────────────────────────────────────────────────────────────── */
+
+   /* Chambers — the firm navy */
+   --fl-chambers-950: #0B1520;
+   --fl-chambers-900: #101E2E;
+   --fl-chambers-800: #16293D;
+   --fl-chambers-700: #1D3650;
+   --fl-chambers-600: #244365;
+   --fl-chambers-500: #2F567F;
+   --fl-chambers-400: #5478A0;
+   --fl-chambers-300: #8AA3C0;
+   --fl-chambers-200: #BFD0E2;
+   --fl-chambers-100: #E1E9F1;
+   --fl-chambers-50:  #F3F6FA;
+
+   /* Seal — brass gold (verified / primary CTA only) */
+   --fl-seal-700: #7A5A12;
+   --fl-seal-600: #9C7818;
+   --fl-seal-500: #BB9330;
+   --fl-seal-400: #D2B563;
+   --fl-seal-100: #F5EAD2;
+   --fl-seal-50:  #FBF5E9;
+
+   /* Clay — property practice terracotta */
+   --fl-clay-700: #7A3018;
+   --fl-clay-600: #A3401F;
+   --fl-clay-500: #C15A32;
+   --fl-clay-400: #DC8760;
+   --fl-clay-100: #F7E2D6;
+   --fl-clay-50:  #FCF1EA;
+
+   /* Sage — active / available / functional */
+   --fl-sage-700: #245C3A;
+   --fl-sage-600: #2F7A4C;
+   --fl-sage-500: #49985F;
+   --fl-sage-100: #DDEFE3;
+   --fl-sage-50:  #F1F8F3;
+
+   /* Crit — error / rejected / withdrawn */
+   --fl-crit-700: #7A1F1B;
+   --fl-crit-600: #A32B25;
+   --fl-crit-500: #C34038;
+   --fl-crit-100: #F7E1DE;
+   --fl-crit-50:  #FCF0EF;
+
+   /* Ink — warm neutrals (parchment undertone) */
+   --fl-ink-900: #201A14;
+   --fl-ink-800: #2C241C;
+   --fl-ink-700: #423527;
+   --fl-ink-600: #5B4C3B;
+   --fl-ink-500: #776450;
+   --fl-ink-400: #94826C;
+   --fl-ink-300: #B3A28D;
+   --fl-ink-200: #D3C6B4;
+   --fl-ink-100: #E9E0D2;
+   --fl-ink-50:  #F7F2E9;
+
+   /* Surface */
+   --fl-surface: #FFFFFF;
+
+   /* ────────────────────────────────────────────────────────────────
+      §2.5  SEMANTIC COLOR MAPPING
+      ──────────────────────────────────────────────────────────────── */
+
+   /* Active / For Rent / Published */
+   --fl-status-active-bg:     var(--fl-sage-50);
+   --fl-status-active-fg:     var(--fl-sage-700);
+   --fl-status-active-border: var(--fl-sage-100);
+
+   /* For Sale */
+   --fl-status-sale-bg:     var(--fl-clay-50);
+   --fl-status-sale-fg:     var(--fl-clay-700);
+   --fl-status-sale-border: var(--fl-clay-100);
+
+   /* Pending / Under Review */
+   --fl-status-pending-bg:     var(--fl-seal-50);
+   --fl-status-pending-fg:     var(--fl-seal-700);
+   --fl-status-pending-border: var(--fl-seal-100);
+
+   /* Not Available / Inactive / Withdrawn */
+   --fl-status-inactive-bg:     var(--fl-ink-100);
+   --fl-status-inactive-fg:     var(--fl-ink-600);
+   --fl-status-inactive-border: var(--fl-ink-200);
+
+   /* Error / Rejected */
+   --fl-status-error-bg:     var(--fl-crit-50);
+   --fl-status-error-fg:     var(--fl-crit-700);
+   --fl-status-error-border: var(--fl-crit-100);
+
+   /* Info / Legal */
+   --fl-status-info-bg:     var(--fl-chambers-50);
+   --fl-status-info-fg:     var(--fl-chambers-700);
+   --fl-status-info-border: var(--fl-chambers-100);
+
+   /* Verified / Primary CTA */
+   --fl-status-verified-bg:     var(--fl-seal-600);
+   --fl-status-verified-fg:     #FFFFFF;
+   --fl-status-verified-border: var(--fl-seal-700);
+
+   /* ────────────────────────────────────────────────────────────────
+      §2.4  TYPOGRAPHY
+      ──────────────────────────────────────────────────────────────── */
+
+   /* Font families */
+   --fl-font-display: 'Source Serif 4', 'Georgia', serif;
+   --fl-font-body:    'Public Sans', 'Helvetica Neue', Arial, sans-serif;
+   --fl-font-mono:    'IBM Plex Mono', 'Consolas', monospace;
+
+   /* Font sizes */
+   --fl-text-display-1: clamp(2.4rem, 5vw, 3.2rem);
+   --fl-text-display-2: clamp(1.9rem, 4vw, 2.4rem);
+   --fl-text-h1:        clamp(1.5rem, 2.4vw, 1.9rem);
+   --fl-text-h2:        1.25rem;
+   --fl-text-h3:        1.02rem;
+   --fl-text-kicker:    0.7rem;
+   --fl-text-body:      0.9375rem;
+   --fl-text-body-sm:   0.8125rem;
+   --fl-text-data:      0.875rem;
+   --fl-text-data-lg:   1.4rem;
+
+   /* Line heights */
+   --fl-lh-body:  1.65;
+   --fl-lh-heading: 1.25;
+   --fl-lh-kicker: 1.4;
+
+   /* Letter spacing */
+   --fl-ls-kicker: 0.13em;
+
+   /* ────────────────────────────────────────────────────────────────
+      §2.6  SPACING SCALE (4px base)
+      ──────────────────────────────────────────────────────────────── */
+
+   --fl-sp-1: 0.25rem;
+   --fl-sp-2: 0.5rem;
+   --fl-sp-3: 0.75rem;
+   --fl-sp-4: 1rem;
+   --fl-sp-5: 1.5rem;
+   --fl-sp-6: 2rem;
+   --fl-sp-8: 3rem;
+
+   /* ────────────────────────────────────────────────────────────────
+      §2.6  BORDER RADIUS
+      ──────────────────────────────────────────────────────────────── */
+
+   --fl-r-sm:   2px;
+   --fl-r-md:   6px;
+   --fl-r-lg:   6px;
+   --fl-r-full: 999px;
+
+   /* ────────────────────────────────────────────────────────────────
+      §2.6  ELEVATION (warm-tinted, not cool gray)
+      ──────────────────────────────────────────────────────────────── */
+
+   --fl-e-0: none;
+   --fl-e-1: 0 1px 0 rgba(32,26,20,.05), 0 1px 3px rgba(32,26,20,.09);
+   --fl-e-2: 0 2px 0 rgba(32,26,20,.06), 0 4px 8px rgba(32,26,20,.10);
+   --fl-e-3: 0 4px 0 rgba(32,26,20,.06), 0 8px 24px rgba(32,26,20,.14);
+
+   /* ────────────────────────────────────────────────────────────────
+      §2.6  BORDERS
+      ──────────────────────────────────────────────────────────────── */
+
+   --fl-border-hairline: 1px solid var(--fl-ink-100);
+   --fl-border-chambers: 1px solid var(--fl-chambers-600);
+
+   /* ────────────────────────────────────────────────────────────────
+      §2.14 GRID & LAYOUT
+      ──────────────────────────────────────────────────────────────── */
+
+   --fl-content-max: 1160px;
+   --fl-reading-width: 72ch;
+
+   /* ────────────────────────────────────────────────────────────────
+      §2.12 TRANSITIONS / MOTION
+      ──────────────────────────────────────────────────────────────── */
+
+   --fl-transition-fast:   180ms ease;
+   --fl-transition-normal: 260ms cubic-bezier(.2,.7,.2,1);
+   --fl-transition-slow:   300ms ease-out;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   §2.13 REDUCED MOTION
+   ──────────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+   :root {
+      --fl-transition-fast:   0ms;
+      --fl-transition-normal: 0ms;
+      --fl-transition-slow:   0ms;
+   }
+}
+
+/* ────────────────────────────────────────────────────────────────
+   §2.4  GLOBAL FONT / TYPE RESETS
+   Apply the new type system over dashboard defaults
+   ──────────────────────────────────────────────────────────────── */
+
+body {
+   font-family: var(--fl-font-body);
+   font-size: var(--fl-text-body);
+   line-height: var(--fl-lh-body);
+   color: var(--fl-ink-800);
+   background-color: var(--fl-ink-50);
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+}
+
+h1, .h1 {
+   font-family: var(--fl-font-display);
+   font-weight: 600;
+   font-size: var(--fl-text-h1);
+   line-height: var(--fl-lh-heading);
+   color: var(--fl-chambers-900);
+}
+
+h2, .h2 {
+   font-family: var(--fl-font-display);
+   font-weight: 600;
+   font-size: var(--fl-text-h2);
+   line-height: var(--fl-lh-heading);
+   color: var(--fl-chambers-900);
+}
+
+h3, .h3 {
+   font-family: var(--fl-font-body);
+   font-weight: 600;
+   font-size: var(--fl-text-h3);
+   line-height: var(--fl-lh-heading);
+   color: var(--fl-chambers-800);
+}
+
+h4, h5, h6 {
+   font-family: var(--fl-font-body);
+   font-weight: 600;
+   color: var(--fl-chambers-800);
+}
+
+a {
+   color: var(--fl-chambers-600);
+   text-decoration: none;
+}
+
+a:hover {
+   color: var(--fl-chambers-700);
+   text-decoration: underline;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   COMPONENT FOUNDATIONS
+   ──────────────────────────────────────────────────────────────── */
+
+/* Kicker / eyebrow label */
+.fl-kicker {
+   display: block;
+   font-family: var(--fl-font-body);
+   font-weight: 600;
+   font-size: var(--fl-text-kicker);
+   letter-spacing: var(--fl-ls-kicker);
+   text-transform: uppercase;
+   line-height: var(--fl-lh-kicker);
+   color: var(--fl-ink-500);
+}
+
+/* Mono / data text */
+.fl-data {
+   font-family: var(--fl-font-mono);
+   font-size: var(--fl-text-data);
+   font-weight: 400;
+}
+
+.fl-data-lg {
+   font-family: var(--fl-font-mono);
+   font-size: var(--fl-text-data-lg);
+   font-weight: 500;
+}
+
+/* Status chips — §2.9 */
+.fl-chip {
+   display: inline-flex;
+   align-items: center;
+   gap: var(--fl-sp-1);
+   padding: var(--fl-sp-1) var(--fl-sp-2);
+   font-family: var(--fl-font-body);
+   font-size: var(--fl-text-body-sm);
+   font-weight: 500;
+   line-height: 1;
+   border-radius: var(--fl-r-sm);
+   border: 1px solid transparent;
+   white-space: nowrap;
+}
+
+.fl-chip::before {
+   content: '';
+   display: inline-block;
+   width: 6px;
+   height: 6px;
+   border-radius: var(--fl-r-full);
+   flex-shrink: 0;
+}
+
+.fl-chip--active {
+   background: var(--fl-status-active-bg);
+   color: var(--fl-status-active-fg);
+   border-color: var(--fl-status-active-border);
+}
+.fl-chip--active::before { background: var(--fl-status-active-fg); }
+
+.fl-chip--sale {
+   background: var(--fl-status-sale-bg);
+   color: var(--fl-status-sale-fg);
+   border-color: var(--fl-status-sale-border);
+}
+.fl-chip--sale::before { background: var(--fl-status-sale-fg); }
+
+.fl-chip--pending {
+   background: var(--fl-status-pending-bg);
+   color: var(--fl-status-pending-fg);
+   border-color: var(--fl-status-pending-border);
+}
+.fl-chip--pending::before { background: var(--fl-status-pending-fg); }
+
+.fl-chip--inactive {
+   background: var(--fl-status-inactive-bg);
+   color: var(--fl-status-inactive-fg);
+   border-color: var(--fl-status-inactive-border);
+}
+.fl-chip--inactive::before { background: var(--fl-status-inactive-fg); }
+
+.fl-chip--error {
+   background: var(--fl-status-error-bg);
+   color: var(--fl-status-error-fg);
+   border-color: var(--fl-status-error-border);
+}
+.fl-chip--error::before { background: var(--fl-status-error-fg); }
+
+.fl-chip--info {
+   background: var(--fl-status-info-bg);
+   color: var(--fl-status-info-fg);
+   border-color: var(--fl-status-info-border);
+}
+.fl-chip--info::before { background: var(--fl-status-info-fg); }
+
+/* Icon tile — §2.8 */
+.fl-icon-tile {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   width: 40px;
+   height: 40px;
+   border-radius: var(--fl-r-md);
+   border: 1px solid transparent;
+   flex-shrink: 0;
+}
+
+.fl-icon-tile--chambers {
+   background: var(--fl-chambers-100);
+   color: var(--fl-chambers-600);
+   border-color: var(--fl-chambers-200);
+}
+
+.fl-icon-tile--clay {
+   background: var(--fl-clay-100);
+   color: var(--fl-clay-600);
+   border-color: var(--fl-clay-100);
+}
+
+.fl-icon-tile--seal {
+   background: var(--fl-seal-100);
+   color: var(--fl-seal-600);
+   border-color: var(--fl-seal-100);
+}
+
+.fl-icon-tile--ink {
+   background: var(--fl-ink-100);
+   color: var(--fl-ink-600);
+   border-color: var(--fl-ink-200);
+}
+
+.fl-icon-tile--sage {
+   background: var(--fl-sage-100);
+   color: var(--fl-sage-600);
+   border-color: var(--fl-sage-100);
+}
+
+/* Buttons — §2.9 */
+.fl-btn {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   gap: var(--fl-sp-1);
+   padding: 0 var(--fl-sp-5);
+   height: 40px;
+   font-family: var(--fl-font-body);
+   font-size: var(--fl-text-body);
+   font-weight: 500;
+   line-height: 1;
+   border-radius: var(--fl-r-sm);
+   border: 1px solid transparent;
+   cursor: pointer;
+   text-decoration: none;
+   white-space: nowrap;
+   transition: background var(--fl-transition-fast), border-color var(--fl-transition-fast), color var(--fl-transition-fast), box-shadow var(--fl-transition-fast);
+}
+
+.fl-btn:focus-visible {
+   outline: 2px solid var(--fl-chambers-400);
+   outline-offset: 2px;
+}
+
+.fl-btn--primary {
+   background: var(--fl-seal-600);
+   color: #FFFFFF;
+   border-color: var(--fl-seal-700);
+}
+.fl-btn--primary:hover {
+   background: var(--fl-seal-700);
+   color: #FFFFFF;
+   text-decoration: none;
+}
+
+.fl-btn--secondary {
+   background: var(--fl-surface);
+   color: var(--fl-chambers-700);
+   border-color: var(--fl-chambers-600);
+}
+.fl-btn--secondary:hover {
+   background: var(--fl-chambers-50);
+   color: var(--fl-chambers-700);
+   text-decoration: none;
+}
+
+.fl-btn--ghost {
+   background: transparent;
+   color: var(--fl-ink-600);
+   border-color: transparent;
+}
+.fl-btn--ghost:hover {
+   background: var(--fl-ink-50);
+   color: var(--fl-ink-700);
+   text-decoration: none;
+}
+
+.fl-btn--danger {
+   background: var(--fl-crit-600);
+   color: #FFFFFF;
+   border-color: var(--fl-crit-700);
+}
+.fl-btn--danger:hover {
+   background: var(--fl-crit-700);
+   color: #FFFFFF;
+   text-decoration: none;
+}
+
+.fl-btn--sm {
+   height: 34px;
+   padding: 0 var(--fl-sp-4);
+   font-size: var(--fl-text-body-sm);
+}
+
+/* Panels / Cards — §2.9 */
+.fl-panel {
+   background: var(--fl-surface);
+   border: var(--fl-border-hairline);
+   border-radius: var(--fl-r-md);
+   box-shadow: var(--fl-e-1);
+   padding: var(--fl-sp-5);
+}
+
+/* Form inputs — §2.9 */
+.fl-input {
+   display: block;
+   width: 100%;
+   height: 40px;
+   padding: 0 var(--fl-sp-3);
+   font-family: var(--fl-font-body);
+   font-size: var(--fl-text-body);
+   color: var(--fl-ink-800);
+   background: transparent;
+   border: 1px solid var(--fl-ink-100);
+   border-radius: var(--fl-r-sm);
+   transition: border-color var(--fl-transition-fast), box-shadow var(--fl-transition-fast);
+}
+
+.fl-input:hover {
+   border-color: var(--fl-ink-200);
+}
+
+.fl-input:focus {
+   outline: none;
+   border-color: var(--fl-chambers-400);
+   box-shadow: 0 0 0 2px var(--fl-chambers-400);
+}
+
+.fl-input--error {
+   border-color: var(--fl-crit-600);
+   background: var(--fl-crit-50);
+}
+
+.fl-input--error:focus {
+   box-shadow: 0 0 0 2px var(--fl-crit-500);
+}
+
+textarea.fl-input {
+   height: auto;
+   min-height: 100px;
+   padding: var(--fl-sp-3);
+}
+
+/* Select input */
+select.fl-input {
+   appearance: none;
+   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235B4C3B' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+   background-repeat: no-repeat;
+   background-position: right 12px center;
+   padding-right: 36px;
+}
+
+/* Form labels — kicker style */
+.fl-label {
+   display: block;
+   font-family: var(--fl-font-body);
+   font-weight: 600;
+   font-size: var(--fl-text-kicker);
+   letter-spacing: var(--fl-ls-kicker);
+   text-transform: uppercase;
+   line-height: var(--fl-lh-kicker);
+   color: var(--fl-ink-500);
+   margin-bottom: var(--fl-sp-1);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   FOCUS RING — global accessible focus
+   ──────────────────────────────────────────────────────────────── */
+
+:focus-visible {
+   outline: 2px solid var(--fl-chambers-400);
+   outline-offset: 2px;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   SKIP TO CONTENT — §2.13
+   ──────────────────────────────────────────────────────────────── */
+
+.fl-skip-link {
+   position: absolute;
+   top: -100px;
+   left: var(--fl-sp-4);
+   z-index: 10000;
+   padding: var(--fl-sp-2) var(--fl-sp-4);
+   background: var(--fl-chambers-600);
+   color: #FFFFFF;
+   font-family: var(--fl-font-body);
+   font-weight: 500;
+   border-radius: var(--fl-r-sm);
+   text-decoration: none;
+   transition: top var(--fl-transition-fast);
+}
+
+.fl-skip-link:focus {
+   top: var(--fl-sp-4);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   SECTION WRAPPER
+   ──────────────────────────────────────────────────────────────── */
+
+.fl-section {
+   width: 100%;
+   max-width: var(--fl-content-max);
+   margin-left: auto;
+   margin-right: auto;
+   padding-left: var(--fl-sp-5);
+   padding-right: var(--fl-sp-5);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   TABLE BASE — for admin tables
+   ──────────────────────────────────────────────────────────────── */
+
+.fl-table {
+   width: 100%;
+   border-collapse: collapse;
+   font-family: var(--fl-font-body);
+   font-size: var(--fl-text-body);
+}
+
+.fl-table th {
+   font-family: var(--fl-font-body);
+   font-weight: 600;
+   font-size: var(--fl-text-kicker);
+   letter-spacing: var(--fl-ls-kicker);
+   text-transform: uppercase;
+   color: var(--fl-ink-500);
+   padding: var(--fl-sp-3) var(--fl-sp-4);
+   border-bottom: var(--fl-border-hairline);
+   text-align: left;
+}
+
+.fl-table td {
+   padding: var(--fl-sp-3) var(--fl-sp-4);
+   border-bottom: var(--fl-border-hairline);
+   vertical-align: middle;
+}
+
+.fl-table tbody tr:hover {
+   background: var(--fl-ink-50);
+}
+
+/* Mono columns (numeric, date, price) */
+.fl-table .fl-col-mono {
+   font-family: var(--fl-font-mono);
+   font-size: var(--fl-text-data);
+   text-align: right;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   DIALOG / MODAL — §2.9
+   ──────────────────────────────────────────────────────────────── */
+
+.fl-dialog-backdrop {
+   position: fixed;
+   inset: 0;
+   z-index: 9998;
+   background: rgba(11, 21, 32, 0.4);
+}
+
+.fl-dialog {
+   position: fixed;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   z-index: 9999;
+   width: 90%;
+   max-width: 600px;
+   max-height: 85vh;
+   overflow-y: auto;
+   background: var(--fl-surface);
+   border-radius: var(--fl-r-lg);
+   box-shadow: var(--fl-e-3);
+   padding: var(--fl-sp-6);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   PAGE-LEVEL UTILITIES
+   ──────────────────────────────────────────────────────────────── */
+
+.fl-page-bg {
+   background: var(--fl-ink-50);
+}
+
+.fl-text-chambers { color: var(--fl-chambers-600); }
+.fl-text-seal     { color: var(--fl-seal-600); }
+.fl-text-clay     { color: var(--fl-clay-600); }
+.fl-text-sage     { color: var(--fl-sage-600); }
+.fl-text-crit     { color: var(--fl-crit-600); }
+.fl-text-ink      { color: var(--fl-ink-500); }
+
+.fl-bg-chambers { background: var(--fl-chambers-600); }
+.fl-bg-seal     { background: var(--fl-seal-600); }
+.fl-bg-clay     { background: var(--fl-clay-600); }
+.fl-bg-sage     { background: var(--fl-sage-600); }
+.fl-bg-ink-50   { background: var(--fl-ink-50); }
+
+/* ================================================================
+   §2.15  SHELL — Admin Sidebar & Topbar
+   Overrides dashboard.css with the Dossier Interface palette.
+   All existing class names preserved; new overrides only.
+   ================================================================ */
+
+/* ── Map old dashboard tokens to new design system tokens ── */
+:root {
+   --flf-navy:        var(--fl-chambers-700);
+   --flf-navy-dark:   var(--fl-chambers-900);
+   --flf-royal:       var(--fl-chambers-600);
+   --flf-blue:        var(--fl-chambers-50);
+   --flf-white:       var(--fl-surface);
+   --flf-slate:       var(--fl-ink-500);
+   --flf-charcoal:    var(--fl-ink-800);
+   --flf-gold:        var(--fl-seal-600);
+   --flf-gold-light:  var(--fl-seal-500);
+   --flf-gold-tint:   var(--fl-seal-50);
+   --flf-muted:       var(--fl-ink-400);
+   --flf-muted-light: var(--fl-ink-300);
+   --flf-danger:      var(--fl-crit-600);
+   --flf-success:     var(--fl-sage-600);
+   --flf-warning:     var(--fl-seal-500);
+   --flf-info:        var(--fl-chambers-500);
+   --flf-navy-soft:   rgba(255, 255, 255, 0.06);
+   --flf-navy-shadow: rgba(11, 21, 32, 0.35);
+   --flf-radius:      var(--fl-r-md);
+   --flf-radius-sm:   var(--fl-r-sm);
+   --flf-radius-pill: var(--fl-r-full);
+   --flf-font-head:   var(--fl-font-display);
+   --flf-font-body:   var(--fl-font-body);
+}
+
+/* ── Sidebar ── */
+#sidebar {
+   background: linear-gradient(180deg, var(--fl-chambers-800) 0%, var(--fl-chambers-900) 100%);
+   border-right: 2px solid var(--fl-seal-600);
+}
+
+.flf-brand {
+   border-bottom-color: var(--fl-chambers-700);
+}
+
+.flf-brand-icon {
+   background: rgba(156, 120, 24, 0.15);
+   border-color: var(--fl-seal-600);
+}
+
+.flf-brand-icon i {
+   color: var(--fl-seal-500);
+}
+
+.flf-brand-text strong {
+   font-family: var(--fl-font-display);
+   color: var(--fl-surface);
+}
+
+.flf-brand-text small {
+   color: var(--fl-seal-400);
+}
+
+/* Sidebar nav links */
+#sidebar ul.flf-nav li a {
+   color: rgba(255, 255, 255, 0.65);
+   font-family: var(--fl-font-body);
+}
+
+#sidebar ul.flf-nav li a i {
+   color: rgba(255, 255, 255, 0.5);
+}
+
+#sidebar ul.flf-nav li a:hover,
+#sidebar ul.flf-nav li a:focus {
+   color: var(--fl-surface);
+   background: rgba(255, 255, 255, 0.05);
+}
+
+#sidebar ul.flf-nav li a:hover i,
+#sidebar ul.flf-nav li a:focus i {
+   color: var(--fl-seal-400);
+}
+
+/* Active state — seal gold left border */
+#sidebar ul.flf-nav li.active a {
+   border-left-color: var(--fl-seal-600);
+   background: rgba(255, 255, 255, 0.06);
+   color: var(--fl-surface);
+}
+
+#sidebar ul.flf-nav li.active a i {
+   color: var(--fl-seal-500);
+}
+
+/* Logout button — seal gold CTA */
+#sidebar ul.flf-nav li.flf-nav-logout a {
+   background: var(--fl-seal-600);
+   color: var(--fl-chambers-900);
+   font-weight: 700;
+   border-radius: var(--fl-r-sm);
+}
+
+#sidebar ul.flf-nav li.flf-nav-logout a i {
+   color: var(--fl-chambers-900);
+}
+
+#sidebar ul.flf-nav li.flf-nav-logout a:hover {
+   background: var(--fl-seal-700);
+   color: var(--fl-chambers-900);
+}
+
+/* Sidebar scrollbar */
+#sidebar::-webkit-scrollbar-thumb {
+   background: rgba(156, 120, 24, 0.3);
+}
+
+/* ── Topbar ── */
+.flf-topbar-inner {
+   background: var(--fl-surface);
+   border-bottom: 1px solid var(--fl-ink-100);
+}
+
+.flf-page-title {
+   font-family: var(--fl-font-display);
+   font-weight: 600;
+   font-size: 1.25rem;
+   color: var(--fl-chambers-800);
+}
+
+.flf-burger {
+   color: var(--fl-chambers-700);
+   border-radius: var(--fl-r-sm);
+}
+
+.flf-burger:hover {
+   background: var(--fl-chambers-50);
+}
+
+/* Search */
+.flf-search {
+   background: var(--fl-ink-50);
+   border: 1px solid var(--fl-ink-100);
+   border-radius: var(--fl-r-full);
+}
+
+.flf-search:focus-within {
+   border-color: var(--fl-chambers-400);
+   box-shadow: 0 0 0 2px var(--fl-chambers-400);
+}
+
+.flf-search i {
+   color: var(--fl-ink-400);
+}
+
+.flf-search input {
+   font-family: var(--fl-font-body);
+   color: var(--fl-ink-800);
+}
+
+.flf-search input::placeholder {
+   color: var(--fl-ink-400);
+}
+
+/* Notification bell */
+.flf-bell {
+   color: var(--fl-ink-500);
+}
+
+.flf-bell:hover {
+   color: var(--fl-chambers-600);
+   background: var(--fl-chambers-50);
+}
+
+.flf-notif-count {
+   background: var(--fl-crit-600);
+   color: #fff;
+}
+
+.flf-notif-menu {
+   border: var(--fl-border-hairline);
+   border-radius: var(--fl-r-md);
+   box-shadow: var(--fl-e-2);
+}
+
+.flf-notif-head {
+   font-family: var(--fl-font-body);
+   font-weight: 600;
+   font-size: var(--fl-text-kicker);
+   letter-spacing: var(--fl-ls-kicker);
+   text-transform: uppercase;
+   color: var(--fl-ink-500);
+}
+
+/* User chip */
+.flf-user-chip img {
+   border-radius: var(--fl-r-full);
+}
+
+.flf-user-name {
+   font-family: var(--fl-font-body);
+   font-weight: 500;
+   color: var(--fl-ink-700);
+}
+
+.flf-user-menu {
+   border: var(--fl-border-hairline);
+   border-radius: var(--fl-r-md);
+   box-shadow: var(--fl-e-2);
+}
+
+.flf-signout {
+   color: var(--fl-crit-600) !important;
+}
+
+/* ── Footer ── */
+.flf-footer {
+   border-top: var(--fl-border-hairline);
+}
+
+.flf-footer p {
+   font-family: var(--fl-font-body);
+   font-size: var(--fl-text-body-sm);
+   color: var(--fl-ink-500);
+}
+
+.flf-footer a {
+   color: var(--fl-chambers-600);
+}
+
+.flf-footer a:hover {
+   color: var(--fl-seal-600);
+}
+
+.flf-sep {
+   margin: 0 var(--fl-sp-1);
+   color: var(--fl-ink-300);
+}
+
+/* ── Admin Responsive ── */
+@media (min-width: 1200px) {
+   #sidebar.active ul.flf-nav li.active a {
+      background: rgba(156, 120, 24, 0.12);
+   }
+}
+
+@media (max-width: 1199px) {
+   #sidebar.active {
+      box-shadow: 14px 0 40px var(--flf-navy-shadow);
+   }
+}
+
+/* ================================================================
+   §2.7  SEAL & LEDGER — Signature Element (Dashboard)
+   ================================================================ */
+
+.fl-seal {
+   color: var(--fl-seal-600);
+}
+
+.fl-seal--dashboard {
+   width: 120px;
+   height: 120px;
+   flex-shrink: 0;
+}
+
+.fl-seal__svg {
+   width: 100%;
+   height: 100%;
+   display: block;
+}
+
+.fl-seal__perimeter-text {
+   font-family: var(--fl-font-body);
+   font-weight: 600;
+   font-size: 11px;
+   letter-spacing: 0.18em;
+   text-transform: uppercase;
+   fill: currentColor;
+}
+
+.fl-seal__mark {
+   stroke: currentColor;
+}
+
+.fl-seal__center-value {
+   font-family: var(--fl-font-mono);
+   font-weight: 500;
+   font-size: 32px;
+   fill: var(--fl-sage-700);
+}
+
+.fl-seal__center-label {
+   font-family: var(--fl-font-body);
+   font-weight: 600;
+   font-size: 9px;
+   letter-spacing: 0.15em;
+   text-transform: uppercase;
+   fill: var(--fl-ink-500);
+}
+
+.fl-seal__sr-only {
+   position: absolute;
+   width: 1px;
+   height: 1px;
+   padding: 0;
+   margin: -1px;
+   overflow: hidden;
+   clip: rect(0, 0, 0, 0);
+   border: 0;
+}
+
+/* Seal & Ledger Instrument */
+.fl-seal-ledger {
+   display: flex;
+   align-items: center;
+   gap: var(--fl-sp-6);
+   padding: var(--fl-sp-5);
+   background: var(--fl-surface);
+   border: var(--fl-border-hairline);
+   border-radius: var(--fl-r-md);
+   box-shadow: var(--fl-e-1);
+   margin-bottom: var(--fl-sp-5);
+}
+
+.fl-seal-ledger__seal-wrap {
+   flex-shrink: 0;
+}
+
+/* Ledger Bar */
+.fl-seal-ledger__ledger {
+   flex: 1;
+   min-width: 0;
+}
+
+.fl-seal-ledger__ledger-label {
+   margin-bottom: var(--fl-sp-2);
+}
+
+.fl-ledger-bar {
+   display: flex;
+   height: 8px;
+   border-radius: var(--fl-r-full);
+   overflow: hidden;
+   background: var(--fl-ink-100);
+}
+
+.fl-ledger-bar__segment {
+   height: 100%;
+   transition: width var(--fl-transition-normal);
+}
+
+.fl-ledger-bar__segment--legal {
+   background: var(--fl-chambers-600);
+}
+
+.fl-ledger-bar__segment--property {
+   background: var(--fl-clay-500);
+}
+
+.fl-seal-ledger__ledger-legend {
+   display: flex;
+   gap: var(--fl-sp-4);
+   margin-top: var(--fl-sp-2);
+}
+
+.fl-seal-ledger__legend-item {
+   display: flex;
+   align-items: center;
+   gap: var(--fl-sp-1);
+   font-size: var(--fl-text-body-sm);
+   color: var(--fl-ink-500);
+}
+
+.fl-seal-ledger__legend-dot {
+   width: 8px;
+   height: 8px;
+   border-radius: var(--fl-r-full);
+   flex-shrink: 0;
+}
+
+.fl-seal-ledger__legend-dot--legal {
+   background: var(--fl-chambers-600);
+}
+
+.fl-seal-ledger__legend-dot--property {
+   background: var(--fl-clay-500);
+}
+
+/* Registry Watch */
+.fl-seal-ledger__watch {
+   flex-shrink: 0;
+   text-align: right;
+}
+
+.fl-seal-ledger__watch-items {
+   display: flex;
+   gap: var(--fl-sp-5);
+   margin-top: var(--fl-sp-2);
+}
+
+.fl-seal-ledger__watch-item {
+   display: flex;
+   flex-direction: column;
+}
+
+.fl-seal-ledger__watch-value {
+   color: var(--fl-chambers-800);
+}
+
+.fl-seal-ledger__watch-label {
+   font-size: var(--fl-text-body-sm);
+   color: var(--fl-ink-400);
+}
+
+@media (max-width: 959px) {
+   .fl-seal-ledger {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--fl-sp-4);
+   }
+
+   .fl-seal-ledger__seal-wrap {
+      display: flex;
+      justify-content: center;
+   }
+
+   .fl-seal-ledger__watch {
+      text-align: left;
+   }
+
+   .fl-seal-ledger__watch-items {
+      justify-content: flex-start;
+   }
+}

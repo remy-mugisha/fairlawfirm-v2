@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once 'propertyMgt/config.php';
+require_once __DIR__ . '/csrf.php';
 
 $phpmailerPath = __DIR__ . '/PHPMailer/src/';
 if (!file_exists($phpmailerPath . 'Exception.php')) {
@@ -32,6 +33,7 @@ $error_message = '';
 $success_message = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    requireCsrfPost();
     $email = filter_var($_POST["email"], FILTER_SANITIZE_EMAIL);
     
     try {
@@ -110,21 +112,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <style>
         :root {
-            --flf-navy: #01166A;
-            --flf-midnight: #07143F;
-            --flf-royal: #18358F;
-            --flf-blue: #E9EEFA;
-            --flf-white: #FFFFFF;
-            --flf-gold: #C8A951;
-            --flf-slate: #536174;
-            --flf-charcoal: #172033;
-            --flf-muted: #6b7699;
-            --flf-danger: #a12734;
-            --flf-success: #1a7a4c;
-            --flf-font-head: 'Cormorant Garamond', serif;
-            --flf-font-body: 'DM Sans', sans-serif;
-            --flf-radius: 14px;
-            --flf-radius-sm: 8px;
+            --fl-chambers-900: #172033;
+            --fl-chambers-600: #01166A;
+            --fl-chambers-100: #E9EEFA;
+            --fl-seal-600: #9C7818;
+            --fl-seal-500: #C8A951;
+            --fl-ink-500: #536174;
+            --fl-ink-400: #6b7699;
+            --fl-surface: #FFFFFF;
+            --fl-crit-500: #a12734;
+            --fl-sage-500: #1a7a4c;
+            --fl-font-display: 'Source Serif 4', Georgia, serif;
+            --fl-font-body: 'Public Sans', system-ui, sans-serif;
+            --fl-r-md: 6px;
+            --fl-r-sm: 4px;
         }
         *, *::before, *::after { box-sizing: border-box; }
         body {
@@ -347,7 +348,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <p class="flf-auth-info">Enter your email address and we'll send you instructions to reset your password.</p>
 
-                <form method="POST" action="">
+                <form method="POST" action=""><?php echo csrfHiddenField(); ?>
                     <div class="flf-field">
                         <label><i class="fa fa-envelope"></i>Email Address</label>
                         <input type="email" class="form-control" name="email" placeholder="you@example.com" required>

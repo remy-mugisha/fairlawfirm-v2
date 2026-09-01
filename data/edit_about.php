@@ -1,6 +1,7 @@
 <?php
 require_once 'include/header.php';
 require_once 'propertyMgt/config.php';
+require_once __DIR__ . '/csrf.php';
 
 if (!isset($_GET['id'])) {
     $_SESSION['error_message'] = "Invalid request. No ID provided.";
@@ -28,6 +29,7 @@ try {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    requireCsrfPost();
     $title = $_POST['title'];
     $description = $_POST['description'];
     $more_description = $_POST['more_description'];
@@ -73,55 +75,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 .flf-form-section {
     margin-bottom: 32px;
     padding-bottom: 28px;
-    border-bottom: 1px solid var(--flf-blue);
+    border-bottom: 1px solid var(--fl-chambers-100);
 }
 .flf-form-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
 .flf-section-title {
     display: flex; align-items: center; gap: 10px;
-    font-family: var(--flf-font-head); font-size: 20px; font-weight: 700;
-    color: var(--flf-navy); margin: 0 0 22px;
+    font-family: var(--fl-font-display); font-size: 20px; font-weight: 700;
+    color: var(--fl-chambers-600); margin: 0 0 22px;
 }
-.flf-section-title i { color: var(--flf-gold); font-size: 16px; }
+.flf-section-title i { color: var(--fl-seal-600); font-size: 16px; }
 .flf-field { margin-bottom: 20px; }
 .flf-field:last-child { margin-bottom: 0; }
 .flf-field label {
-    display: block; font-family: var(--flf-font-body); font-weight: 600;
-    font-size: 13.5px; color: var(--flf-slate); margin-bottom: 7px;
+    display: block; font-family: var(--fl-font-body); font-weight: 600;
+    font-size: 13.5px; color: var(--fl-ink-500); margin-bottom: 7px;
 }
-.flf-field label i { color: var(--flf-gold); margin-right: 5px; width: 16px; text-align: center; }
+.flf-field label i { color: var(--fl-seal-600); margin-right: 5px; width: 16px; text-align: center; }
 .flf-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .flf-upload-area {
     position: relative; width: 100%; border: 2px dashed #d9dee9;
-    border-radius: var(--flf-radius); background: #fafbfe; text-align: center;
+    border-radius: var(--fl-r-md); background: #fafbfe; text-align: center;
     padding: 36px 20px; cursor: pointer; transition: all 0.3s ease;
 }
-.flf-upload-area:hover, .flf-upload-area.flf-dragover { border-color: var(--flf-royal); background: rgba(24, 53, 143, 0.04); }
+.flf-upload-area:hover, .flf-upload-area.flf-dragover { border-color: var(--fl-chambers-600); background: rgba(24, 53, 143, 0.04); }
 .flf-upload-area input[type="file"] { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
-.flf-upload-icon { font-size: 36px; color: var(--flf-blue); margin-bottom: 10px; }
-.flf-upload-area:hover .flf-upload-icon, .flf-upload-area.flf-dragover .flf-upload-icon { color: var(--flf-royal); }
-.flf-upload-text { font-family: var(--flf-font-body); font-size: 14px; color: var(--flf-slate); margin: 0 0 2px; }
-.flf-upload-hint { font-family: var(--flf-font-body); font-size: 12px; color: var(--flf-muted); margin: 0; }
+.flf-upload-icon { font-size: 36px; color: var(--fl-chambers-100); margin-bottom: 10px; }
+.flf-upload-area:hover .flf-upload-icon, .flf-upload-area.flf-dragover .flf-upload-icon { color: var(--fl-chambers-600); }
+.flf-upload-text { font-family: var(--fl-font-body); font-size: 14px; color: var(--fl-ink-500); margin: 0 0 2px; }
+.flf-upload-hint { font-family: var(--fl-font-body); font-size: 12px; color: var(--fl-ink-400); margin: 0; }
 .flf-img-current-wrap { display: flex; align-items: flex-start; gap: 24px; flex-wrap: wrap; }
 .flf-img-current-wrap .flf-upload-side { flex: 1; min-width: 200px; }
-.flf-current-img { width: 100%; max-width: 360px; border-radius: var(--flf-radius); border: 2px solid var(--flf-blue); }
+.flf-current-img { width: 100%; max-width: 360px; border-radius: var(--fl-r-md); border: 2px solid var(--fl-chambers-100); }
 .flf-upload-preview { display: block; margin-top: 14px; position: relative; max-width: 360px; }
-.flf-upload-preview img { width: 100%; max-height: 200px; object-fit: cover; border-radius: var(--flf-radius-sm); border: 2px solid var(--flf-blue); }
+.flf-upload-preview img { width: 100%; max-height: 200px; object-fit: cover; border-radius: var(--fl-r-sm); border: 2px solid var(--fl-chambers-100); }
 .flf-upload-preview .flf-remove-img {
     position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border-radius: 50%;
-    background: var(--flf-danger); color: var(--flf-white); border: none; font-size: 12px;
+    background: var(--flf-danger); color: var(--fl-surface); border: none; font-size: 12px;
     display: none; align-items: center; justify-content: center; cursor: pointer;
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 .flf-radio-group { display: flex; gap: 24px; margin-top: 6px; }
 .flf-radio-card {
     display: flex; align-items: center; gap: 10px; padding: 12px 20px;
-    border: 2px solid #d9dee9; border-radius: var(--flf-radius-sm); background: var(--flf-white);
+    border: 2px solid #d9dee9; border-radius: var(--fl-r-sm); background: var(--fl-surface);
     cursor: pointer; transition: all 0.2s ease;
-    font-family: var(--flf-font-body); font-size: 14px; font-weight: 500; color: var(--flf-charcoal);
+    font-family: var(--fl-font-body); font-size: 14px; font-weight: 500; color: var(--fl-chambers-900);
 }
-.flf-radio-card:hover { border-color: var(--flf-royal); }
-.flf-radio-card input[type="radio"] { accent-color: var(--flf-navy); width: 18px; height: 18px; }
-.flf-radio-card:has(input:checked) { border-color: var(--flf-navy); background: rgba(233, 238, 250, 0.5); color: var(--flf-navy); font-weight: 600; }
+.flf-radio-card:hover { border-color: var(--fl-chambers-600); }
+.flf-radio-card input[type="radio"] { accent-color: var(--fl-chambers-600); width: 18px; height: 18px; }
+.flf-radio-card:has(input:checked) { border-color: var(--fl-chambers-600); background: rgba(233, 238, 250, 0.5); color: var(--fl-chambers-600); font-weight: 600; }
 @media (max-width: 767px) { .flf-field-row { grid-template-columns: 1fr; } .flf-radio-group { flex-direction: column; gap: 10px; } .flf-img-current-wrap { flex-direction: column; } }
 </style>
 
@@ -166,6 +168,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     <div class="full padding_infor_info">
                         <form action="edit_about.php?id=<?php echo $id; ?>" method="POST" enctype="multipart/form-data" style="max-width:820px;">
+                            <?php echo csrfHiddenField(); ?>
 
                             <!-- Section 1: Image -->
                             <div class="flf-form-section">

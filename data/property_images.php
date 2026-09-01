@@ -2,8 +2,10 @@
 ob_start();
 require_once 'include/header.php';
 require_once 'propertyMgt/config.php';
+require_once __DIR__ . '/csrf.php';
 
 if (isset($_POST['submit'])) {
+    requireCsrfPost();
     $property_id = $_POST['property_id'];
     
     $check_property = $conn->prepare("SELECT id FROM properties WHERE id = ?");
@@ -87,9 +89,10 @@ if (isset($_GET['set_featured'])) {
     exit();
 }
 
-if (isset($_GET['delete_image'])) {
-    $image_id = $_GET['delete_image'];
-    $property_id = $_GET['property_id'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_image'])) {
+    requireCsrfPost();
+    $image_id = intval($_POST['delete_image']);
+    $property_id = intval($_POST['property_id']);
     
     $get_stmt = $conn->prepare("SELECT image_path FROM property_images WHERE id = ?");
     $get_stmt->execute([$image_id]);
@@ -130,50 +133,50 @@ if (isset($_GET['property_id'])) {
 .flf-field { margin-bottom: 20px; }
 .flf-field:last-child { margin-bottom: 0; }
 .flf-field label {
-    display: block; font-family: var(--flf-font-body); font-weight: 600;
-    font-size: 13.5px; color: var(--flf-slate); margin-bottom: 7px;
+    display: block; font-family: var(--fl-font-body); font-weight: 600;
+    font-size: 13.5px; color: var(--fl-ink-500); margin-bottom: 7px;
 }
-.flf-field label i { color: var(--flf-gold); margin-right: 5px; width: 16px; text-align: center; }
+.flf-field label i { color: var(--fl-seal-600); margin-right: 5px; width: 16px; text-align: center; }
 .flf-field .form-control, .flf-field select {
-    height: 46px; border: 1px solid #d9dee9; border-radius: var(--flf-radius-sm);
-    font-family: var(--flf-font-body); font-size: 14px; color: var(--flf-charcoal);
+    height: 46px; border: 1px solid #d9dee9; border-radius: var(--fl-r-sm);
+    font-family: var(--fl-font-body); font-size: 14px; color: var(--fl-chambers-900);
     padding: 0 14px; transition: border-color 0.25s ease, box-shadow 0.25s ease;
-    background: var(--flf-white);
+    background: var(--fl-surface);
 }
 .flf-field select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236B7899' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; cursor: pointer; }
-.flf-field .form-control:focus, .flf-field select:focus { border-color: var(--flf-royal); box-shadow: 0 0 0 3px rgba(24, 53, 143, 0.12); outline: none; }
+.flf-field .form-control:focus, .flf-field select:focus { border-color: var(--fl-chambers-600); box-shadow: 0 0 0 3px rgba(24, 53, 143, 0.12); outline: none; }
 .flf-section-title {
     display: flex; align-items: center; gap: 10px;
-    font-family: var(--flf-font-head); font-size: 18px; font-weight: 600;
-    color: var(--flf-navy); margin-bottom: 18px; padding-bottom: 10px;
-    border-bottom: 2px solid var(--flf-blue);
+    font-family: var(--fl-font-display); font-size: 18px; font-weight: 600;
+    color: var(--fl-chambers-600); margin-bottom: 18px; padding-bottom: 10px;
+    border-bottom: 2px solid var(--fl-chambers-100);
 }
-.flf-section-title i { color: var(--flf-gold); font-size: 16px; }
+.flf-section-title i { color: var(--fl-seal-600); font-size: 16px; }
 .flf-upload-zone {
-    border: 2px dashed #d0d7e8; border-radius: var(--flf-radius-sm); padding: 30px 20px;
-    text-align: center; cursor: pointer; transition: all 0.25s ease; background: var(--flf-white);
+    border: 2px dashed #d0d7e8; border-radius: var(--fl-r-sm); padding: 30px 20px;
+    text-align: center; cursor: pointer; transition: all 0.25s ease; background: var(--fl-surface);
 }
-.flf-upload-zone:hover { border-color: var(--flf-royal); background: rgba(233, 238, 250, 0.3); }
-.flf-upload-zone.dragover { border-color: var(--flf-navy); background: rgba(233, 238, 250, 0.5); }
-.flf-upload-zone i { font-size: 36px; color: var(--flf-royal); margin-bottom: 10px; display: block; }
-.flf-upload-zone p { font-family: var(--flf-font-body); font-size: 14px; color: var(--flf-charcoal); margin: 0 0 6px; }
-.flf-upload-zone small { font-size: 12px; color: var(--flf-muted); }
+.flf-upload-zone:hover { border-color: var(--fl-chambers-600); background: rgba(233, 238, 250, 0.3); }
+.flf-upload-zone.dragover { border-color: var(--fl-chambers-600); background: rgba(233, 238, 250, 0.5); }
+.flf-upload-zone i { font-size: 36px; color: var(--fl-chambers-600); margin-bottom: 10px; display: block; }
+.flf-upload-zone p { font-family: var(--fl-font-body); font-size: 14px; color: var(--fl-chambers-900); margin: 0 0 6px; }
+.flf-upload-zone small { font-size: 12px; color: var(--fl-ink-400); }
 .flf-upload-zone input[type="file"] { display: none; }
 .flf-upload-label {
-    display: inline-block; padding: 8px 18px; border-radius: var(--flf-radius-sm);
-    background: var(--flf-navy); color: var(--flf-white); font-family: var(--flf-font-body);
+    display: inline-block; padding: 8px 18px; border-radius: var(--fl-r-sm);
+    background: var(--fl-chambers-600); color: var(--fl-surface); font-family: var(--fl-font-body);
     font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s;
 }
-.flf-upload-label:hover { background: var(--flf-royal); }
+.flf-upload-label:hover { background: var(--fl-chambers-600); }
 .flf-upload-count {
     display: inline-block; margin-top: 10px; padding: 4px 12px; border-radius: 20px;
-    background: rgba(24, 53, 143, 0.08); color: var(--flf-navy);
-    font-family: var(--flf-font-body); font-size: 12px; font-weight: 600;
+    background: rgba(24, 53, 143, 0.08); color: var(--fl-chambers-600);
+    font-family: var(--fl-font-body); font-size: 12px; font-weight: 600;
 }
 .flf-preview-grid { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
 .flf-preview-item {
     position: relative; width: 120px; height: 120px; border-radius: 8px; overflow: hidden;
-    border: 2px solid var(--flf-blue);
+    border: 2px solid var(--fl-chambers-100);
 }
 .flf-preview-item img { width: 100%; height: 100%; object-fit: cover; }
 .flf-preview-item .flf-preview-remove {
@@ -183,25 +186,25 @@ if (isset($_GET['property_id'])) {
 }
 .flf-gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
 .flf-gallery-card {
-    position: relative; border-radius: var(--flf-radius); overflow: hidden;
-    border: 2px solid var(--flf-blue); background: var(--flf-white);
+    position: relative; border-radius: var(--fl-r-md); overflow: hidden;
+    border: 2px solid var(--fl-chambers-100); background: var(--fl-surface);
     transition: border-color 0.25s, box-shadow 0.25s;
 }
-.flf-gallery-card:hover { border-color: var(--flf-royal); box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
-.flf-gallery-card.featured { border-color: var(--flf-gold); box-shadow: 0 2px 12px rgba(200, 169, 81, 0.15); }
+.flf-gallery-card:hover { border-color: var(--fl-chambers-600); box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+.flf-gallery-card.featured { border-color: var(--fl-seal-600); box-shadow: 0 2px 12px rgba(200, 169, 81, 0.15); }
 .flf-gallery-img {
     width: 100%; height: 180px; object-fit: cover; display: block;
     background: var(--flf-ice);
 }
 .flf-gallery-info { padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .flf-gallery-name {
-    font-family: var(--flf-font-body); font-size: 12px; color: var(--flf-muted);
+    font-family: var(--fl-font-body); font-size: 12px; color: var(--fl-ink-400);
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100px;
 }
 .flf-featured-badge {
     position: absolute; top: 10px; left: 10px; padding: 4px 10px; border-radius: 20px;
-    background: var(--flf-gold); color: var(--flf-navy);
-    font-family: var(--flf-font-body); font-size: 10px; font-weight: 700;
+    background: var(--fl-seal-600); color: var(--fl-chambers-600);
+    font-family: var(--fl-font-body); font-size: 10px; font-weight: 700;
     letter-spacing: 0.5px; text-transform: uppercase;
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
@@ -211,8 +214,8 @@ if (isset($_GET['property_id'])) {
     width: 30px; height: 30px; padding: 0; border-radius: 7px; font-size: 12px;
 }
 .flf-empty-state { text-align: center; padding: 48px 20px; }
-.flf-empty-state i { font-size: 42px; color: var(--flf-blue); margin-bottom: 14px; display: block; }
-.flf-empty-state p { font-family: var(--flf-font-body); font-size: 14px; color: var(--flf-muted); margin: 0; }
+.flf-empty-state i { font-size: 42px; color: var(--fl-chambers-100); margin-bottom: 14px; display: block; }
+.flf-empty-state p { font-family: var(--fl-font-body); font-size: 14px; color: var(--fl-ink-400); margin: 0; }
 </style>
 
 <div class="midde_cont">
@@ -293,7 +296,7 @@ if (isset($_GET['property_id'])) {
                                 Images for: <strong><?php echo htmlspecialchars($current_property['title']); ?></strong>
                             </div>
 
-                            <form method="POST" action="property_images.php" enctype="multipart/form-data" id="uploadForm">
+                            <form method="POST" action="property_images.php" enctype="multipart/form-data" id="uploadForm"><?php echo csrfHiddenField(); ?>
                                 <input type="hidden" name="property_id" value="<?php echo $current_property['id']; ?>">
 
                                 <div class="flf-field">
@@ -356,10 +359,12 @@ if (isset($_GET['property_id'])) {
                                                             <i class="fa fa-star"></i>
                                                         </a>
                                                     <?php endif; ?>
-                                                    <a href="#" class="btn btn-danger btn-sm" title="Delete"
-                                                       onclick="document.getElementById('deleteId').value='<?php echo $image['id']; ?>';document.getElementById('deleteModal').style.display='flex';return false;">
-                                                        <i class="fa fa-trash"></i>
-                                                    </a>
+                                                    <form method="POST" action="property_images.php" style="display:inline;" onsubmit="return confirm('Delete this image?');">
+                                                        <?php echo csrfHiddenField(); ?>
+                                                        <input type="hidden" name="delete_image" value="<?php echo $image['id']; ?>">
+                                                        <input type="hidden" name="property_id" value="<?php echo $current_property['id']; ?>">
+                                                        <button type="submit" class="btn btn-danger btn-sm" title="Delete"><i class="fa fa-trash"></i></button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>

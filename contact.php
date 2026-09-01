@@ -1,3 +1,4 @@
+<?php require_once __DIR__ . '/csrf.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,40 +10,40 @@
     <title><?= __('Contact') ?> - Fair Law Firm LTD</title>
     <style>
         .fl-contact {
-            padding: var(--fl-space-20) 0;
+            padding: var(--fl-sp-8) 0;
         }
 
         .fl-contact__grid {
             display: grid;
             grid-template-columns: 380px 1fr;
-            gap: var(--fl-space-10);
+            gap: var(--fl-sp-6);
             align-items: start;
         }
 
         .fl-contact__sidebar {}
 
         .fl-contact__info-card {
-            background: var(--fl-white);
-            border: 1px solid var(--fl-gray-200);
-            border-radius: var(--fl-radius-lg);
-            padding: var(--fl-space-8);
-            margin-bottom: var(--fl-space-6);
+            background: var(--fl-surface);
+            border: 1px solid var(--fl-ink-100);
+            border-radius: var(--fl-r-md);
+            padding: var(--fl-sp-5);
+            margin-bottom: var(--fl-sp-4);
         }
 
         .fl-contact__info-title {
-            font-family: var(--fl-font-heading);
-            font-size: var(--fl-text-xl);
+            font-family: var(--fl-font-display);
+            font-size: var(--fl-text-h2);
             font-weight: 600;
-            color: var(--fl-charcoal);
-            margin-bottom: var(--fl-space-5);
+            color: var(--fl-chambers-900);
+            margin-bottom: var(--fl-sp-4);
         }
 
         .fl-contact__info-item {
             display: flex;
             align-items: flex-start;
-            gap: var(--fl-space-3);
-            padding: var(--fl-space-3) 0;
-            border-bottom: 1px solid var(--fl-gray-100);
+            gap: var(--fl-sp-2);
+            padding: var(--fl-sp-2) 0;
+            border-bottom: 1px solid var(--fl-ink-50);
         }
 
         .fl-contact__info-item:last-child {
@@ -55,63 +56,75 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--fl-blue-soft);
-            color: var(--fl-navy);
-            border-radius: var(--fl-radius-md);
+            background: var(--fl-chambers-100);
+            color: var(--fl-chambers-600);
+            border-radius: var(--fl-r-md);
             flex-shrink: 0;
         }
 
         .fl-contact__info-label {
-            font-size: var(--fl-text-sm);
+            font-size: var(--fl-text-body-sm);
             color: var(--fl-gray-400);
-            margin-bottom: var(--fl-space-1);
+            margin-bottom: var(--fl-sp-1);
         }
 
         .fl-contact__info-value {
-            font-size: var(--fl-text-base);
-            color: var(--fl-charcoal);
+            font-size: var(--fl-text-body);
+            color: var(--fl-chambers-900);
             font-weight: 500;
         }
 
         .fl-contact__info-value a {
-            color: var(--fl-charcoal);
+            color: var(--fl-chambers-900);
             text-decoration: none;
         }
 
         .fl-contact__info-value a:hover {
-            color: var(--fl-navy);
+            color: var(--fl-chambers-600);
         }
 
         .fl-contact__form-card {
-            background: var(--fl-white);
-            border: 1px solid var(--fl-gray-200);
-            border-radius: var(--fl-radius-lg);
-            padding: var(--fl-space-8);
+            background: var(--fl-surface);
+            border: 1px solid var(--fl-ink-100);
+            border-radius: var(--fl-r-md);
+            padding: var(--fl-sp-5);
         }
 
         .fl-contact__form-title {
-            font-family: var(--fl-font-heading);
-            font-size: var(--fl-text-xl);
+            font-family: var(--fl-font-display);
+            font-size: var(--fl-text-h2);
             font-weight: 600;
-            color: var(--fl-charcoal);
-            margin-bottom: var(--fl-space-6);
+            color: var(--fl-chambers-900);
+            margin-bottom: var(--fl-sp-4);
         }
 
         .fl-contact__form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: var(--fl-space-4);
+            gap: var(--fl-sp-3);
         }
 
         .fl-contact__map {
-            margin-top: var(--fl-space-16);
+            margin-top: var(--fl-sp-8);
         }
 
         .fl-contact__map iframe {
             width: 100%;
             height: 400px;
             border: none;
-            border-radius: var(--fl-radius-lg);
+            border-radius: var(--fl-r-md);
+        }
+
+        .fl-input,
+        .fl-textarea {
+            font-family: var(--fl-font-body);
+            border-radius: var(--fl-r-sm);
+        }
+
+        .fl-input:focus,
+        .fl-textarea:focus {
+            box-shadow: 0 0 0 2px var(--fl-chambers-400);
+            border-color: var(--fl-chambers-400);
         }
 
         @media (max-width: 992px) {
@@ -182,6 +195,7 @@
                 <div class="fl-contact__form-card">
                     <h3 class="fl-contact__form-title"><?= __('Send A Message') ?></h3>
                     <form method="POST" action="contactEmail.php" enctype="multipart/form-data">
+                        <?php echo csrfHiddenField(); ?>
                         <div class="fl-contact__form-row">
                             <div class="fl-form-group">
                                 <label class="fl-label" for="name"><?= __('Full Name') ?></label>
@@ -206,7 +220,7 @@
                             <label class="fl-label" for="message"><?= __('Message') ?></label>
                             <textarea name="message" id="message" class="fl-textarea" rows="6" placeholder="<?= __('Write your message') ?>" required></textarea>
                         </div>
-                        <button type="submit" name="submit" class="fl-btn fl-btn--gold fl-btn--lg"><?= __('Send Message') ?></button>
+                        <button type="submit" name="submit" class="fl-btn fl-btn--primary fl-btn--lg"><?= __('Send Message') ?></button>
                     </form>
                 </div>
             </div>

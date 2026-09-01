@@ -1,21 +1,26 @@
 <?php
+session_start();
+require_once __DIR__ . '/csrf.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 if (isset($_POST['submit'])) {
+    requireCsrfPost();
     require 'composer/vendor/autoload.php';
+    require_once __DIR__ . '/env.php';
+    loadEnv(__DIR__ . '/.env');
     $mail = new PHPMailer(true);
     
     // SMTP Configuration
     $mail->isSMTP();
-    $mail->Host = 'mail.fairlawfirmltd.com';
+    $mail->Host = env('SMTP_HOST', 'mail.fairlawfirmltd.com');
     $mail->SMTPAuth = true;
-    $mail->Username = 'info@fairlawfirmltd.com';
-    $mail->Password = '2RxJfCkKA(jx';    
+    $mail->Username = env('SMTP_USER', 'info@fairlawfirmltd.com');
+    $mail->Password = env('SMTP_PASS', '');
     $mail->SMTPSecure = 'ssl';
-    $mail->Port = 465;
-    $mail->setFrom('info@fairlawfirmltd.com', 'Fair Law Firm LTD');
+    $mail->Port = (int) env('SMTP_PORT', 465);
+    $mail->setFrom(env('SMTP_USER', 'info@fairlawfirmltd.com'), 'Fair Law Firm LTD');
 
     // Retrieve form data
     $name = $_POST['name'];

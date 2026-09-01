@@ -9,42 +9,42 @@
     <title><?= __('Property Management Services') ?> - Fair Law Firm LTD</title>
     <style>
         .fl-services-detail {
-            padding: var(--fl-space-20) 0;
+            padding: var(--fl-sp-8) 0;
         }
 
         .fl-services-detail__grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: var(--fl-space-6);
+            gap: var(--fl-sp-4);
         }
 
         .fl-services-detail__cta {
-            padding: var(--fl-space-16) 0;
-            background: var(--fl-gray-100);
+            padding: var(--fl-sp-8) 0;
+            background: var(--fl-ink-50);
         }
 
         .fl-services-detail__cta-inner {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: var(--fl-space-8);
-            padding: var(--fl-space-10);
-            background: var(--fl-white);
-            border: 1px solid var(--fl-gray-200);
-            border-radius: var(--fl-radius-lg);
+            gap: var(--fl-sp-5);
+            padding: var(--fl-sp-6);
+            background: var(--fl-surface);
+            border: 1px solid var(--fl-ink-100);
+            border-radius: var(--fl-r-md);
         }
 
         .fl-services-detail__cta-title {
-            font-family: var(--fl-font-heading);
-            font-size: var(--fl-text-2xl);
+            font-family: var(--fl-font-display);
+            font-size: var(--fl-text-h2);
             font-weight: 600;
-            color: var(--fl-charcoal);
-            margin-bottom: var(--fl-space-2);
+            color: var(--fl-chambers-900);
+            margin-bottom: var(--fl-sp-1);
         }
 
         .fl-services-detail__cta-text {
-            font-size: var(--fl-text-base);
-            color: var(--fl-slate);
+            font-size: var(--fl-text-body);
+            color: var(--fl-ink-500);
         }
 
         @media (max-width: 768px) {
@@ -130,7 +130,7 @@
                     <h3 class="fl-services-detail__cta-title"><?= __('Need Property Management?') ?></h3>
                     <p class="fl-services-detail__cta-text"><?= __('Let us handle your property management needs with professionalism and expertise.') ?></p>
                 </div>
-                <a href="contact.php" class="fl-btn fl-btn--gold fl-btn--lg"><?= __('Get Started') ?></a>
+                <a href="contact.php" class="fl-btn fl-btn--primary fl-btn--lg"><?= __('Get Started') ?></a>
             </div>
         </div>
     </section>

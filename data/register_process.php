@@ -1,8 +1,10 @@
 <?php
 session_start();
 require_once 'propertyMgt/config.php';
+require_once __DIR__ . '/csrf.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    requireCsrfPost();
     $first_name = htmlspecialchars(trim($_POST['first_name']), ENT_QUOTES, 'UTF-8');
     $last_name = htmlspecialchars(trim($_POST['last_name']), ENT_QUOTES, 'UTF-8');
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);

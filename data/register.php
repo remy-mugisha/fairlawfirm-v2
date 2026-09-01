@@ -5,6 +5,7 @@
    ================================================================ */
 require_once 'include/header.php';
 require_once 'propertyMgt/config.php';
+require_once __DIR__ . '/csrf.php';
 
 $roles = [];
 try {
@@ -47,7 +48,7 @@ try {
    <div class="white_shd full">
       <div class="full padding_infor_info">
 
-         <form method="POST" action="register_process.php" enctype="multipart/form-data" id="flfRegisterForm">
+         <form method="POST" action="register_process.php" enctype="multipart/form-data" id="flfRegisterForm"><?php echo csrfHiddenField(); ?>
 
             <!-- Profile Image -->
             <div class="field">

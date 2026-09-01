@@ -1,9 +1,11 @@
 <?php
+require_once __DIR__ . '/csrf.php';
 require_once 'propertyMgt/config.php';
 
-if (isset($_GET['id']) && isset($_GET['blog_id'])) {
-    $id = intval($_GET['id']);
-    $blog_id = intval($_GET['blog_id']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && isset($_POST['blog_id'])) {
+    requireCsrfPost();
+    $id = intval($_POST['id']);
+    $blog_id = intval($_POST['blog_id']);
     
     try {
         // Get attachment info before deletion

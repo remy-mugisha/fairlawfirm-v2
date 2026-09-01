@@ -12,7 +12,7 @@ $currentLang = $_SESSION['lang'] ?? 'en';
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <!-- Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -24,6 +24,9 @@ $currentLang = $_SESSION['lang'] ?? 'en';
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <link rel="stylesheet" href="assets/vendors/bootstrap/css/bootstrap.min.css">
 
+<!-- Design System Tokens (loaded after all vendor CSS) -->
+<link rel="stylesheet" href="assets/css/fairlaw-tokens.css">
+
 <!-- Legacy Template CSS (kept for backward compat on inner pages) -->
 <link rel="stylesheet" href="assets/vendors/owl-carousel/css/owl.carousel.min.css">
 <link rel="stylesheet" href="assets/vendors/owl-carousel/css/owl.theme.default.min.css">
@@ -31,6 +34,9 @@ $currentLang = $_SESSION['lang'] ?? 'en';
 
 </head>
 <body>
+
+<!-- Skip to content -->
+<a href="#main-content" class="fl-skip-link">Skip to content</a>
 
 <!-- Utility Bar -->
 <div class="fl-utility-bar">

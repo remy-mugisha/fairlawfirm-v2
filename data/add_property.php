@@ -1,8 +1,10 @@
 <?php
 require_once 'include/header.php';
 require_once 'propertyMgt/config.php';
+require_once __DIR__ . '/csrf.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
+    requireCsrfPost();
     $location = $_POST['location'];
     $title = $_POST['title'];   
     $targetDir = "propertyMgt/proImg/";

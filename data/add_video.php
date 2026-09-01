@@ -2,12 +2,14 @@
 ob_start();
 require_once 'include/header.php';
 require_once 'propertyMgt/config.php';
+require_once __DIR__ . '/csrf.php';
 
-if (isset($_GET['delete'])) {
-    $id = $_GET['delete'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
+    requireCsrfPost();
+    $id = intval($_POST['delete_id']);
     try {
         $stmt = $conn->prepare("DELETE FROM videos WHERE id = :id");
-        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         
         $_SESSION['success_message'] = "Video link deleted successfully!";
@@ -35,6 +37,7 @@ if (isset($_GET['edit'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    requireCsrfPost();
     $video_link = $_POST['video_link'];
     $status = $_POST['status'] ?? 'pending';
     $id = $_POST['id'] ?? null;
@@ -86,77 +89,77 @@ try {
 .flf-field { margin-bottom: 20px; }
 .flf-field:last-child { margin-bottom: 0; }
 .flf-field label {
-    display: block; font-family: var(--flf-font-body); font-weight: 600;
-    font-size: 13.5px; color: var(--flf-slate); margin-bottom: 7px;
+    display: block; font-family: var(--fl-font-body); font-weight: 600;
+    font-size: 13.5px; color: var(--fl-ink-500); margin-bottom: 7px;
 }
-.flf-field label i { color: var(--flf-gold); margin-right: 5px; width: 16px; text-align: center; }
+.flf-field label i { color: var(--fl-seal-600); margin-right: 5px; width: 16px; text-align: center; }
 .flf-field .form-control {
-    height: 46px; border: 1px solid #d9dee9; border-radius: var(--flf-radius-sm);
-    font-family: var(--flf-font-body); font-size: 14px; color: var(--flf-charcoal);
+    height: 46px; border: 1px solid #d9dee9; border-radius: var(--fl-r-sm);
+    font-family: var(--fl-font-body); font-size: 14px; color: var(--fl-chambers-900);
     padding: 0 14px; transition: border-color 0.25s ease, box-shadow 0.25s ease;
-    background: var(--flf-white);
+    background: var(--fl-surface);
 }
-.flf-field .form-control:focus { border-color: var(--flf-royal); box-shadow: 0 0 0 3px rgba(24, 53, 143, 0.12); outline: none; }
+.flf-field .form-control:focus { border-color: var(--fl-chambers-600); box-shadow: 0 0 0 3px rgba(24, 53, 143, 0.12); outline: none; }
 .flf-radio-group { display: flex; gap: 16px; margin-top: 4px; }
 .flf-radio-card {
     display: flex; align-items: center; gap: 10px; padding: 12px 20px;
-    border: 2px solid #d9dee9; border-radius: var(--flf-radius-sm); background: var(--flf-white);
+    border: 2px solid #d9dee9; border-radius: var(--fl-r-sm); background: var(--fl-surface);
     cursor: pointer; transition: all 0.2s ease;
-    font-family: var(--flf-font-body); font-size: 14px; font-weight: 500; color: var(--flf-charcoal);
+    font-family: var(--fl-font-body); font-size: 14px; font-weight: 500; color: var(--fl-chambers-900);
 }
-.flf-radio-card:hover { border-color: var(--flf-royal); }
-.flf-radio-card input[type="radio"] { accent-color: var(--flf-navy); width: 18px; height: 18px; }
-.flf-radio-card:has(input:checked) { border-color: var(--flf-navy); background: rgba(233, 238, 250, 0.5); color: var(--flf-navy); font-weight: 600; }
+.flf-radio-card:hover { border-color: var(--fl-chambers-600); }
+.flf-radio-card input[type="radio"] { accent-color: var(--fl-chambers-600); width: 18px; height: 18px; }
+.flf-radio-card:has(input:checked) { border-color: var(--fl-chambers-600); background: rgba(233, 238, 250, 0.5); color: var(--fl-chambers-600); font-weight: 600; }
 .flf-active-note {
     display: inline-flex; align-items: center; gap: 6px; margin-top: 10px;
-    padding: 8px 14px; border-radius: var(--flf-radius-sm); font-size: 12.5px;
-    font-family: var(--flf-font-body); font-weight: 500;
-    background: rgba(24, 53, 143, 0.06); color: var(--flf-royal); border: 1px solid rgba(24, 53, 143, 0.12);
+    padding: 8px 14px; border-radius: var(--fl-r-sm); font-size: 12.5px;
+    font-family: var(--fl-font-body); font-weight: 500;
+    background: rgba(24, 53, 143, 0.06); color: var(--fl-chambers-600); border: 1px solid rgba(24, 53, 143, 0.12);
 }
 .flf-active-note i { font-size: 12px; }
 .flf-table {
     width: 100%; border-collapse: separate; border-spacing: 0;
 }
 .flf-table th {
-    font-family: var(--flf-font-body); font-size: 12px; font-weight: 700;
-    letter-spacing: 0.8px; text-transform: uppercase; color: var(--flf-white);
+    font-family: var(--fl-font-body); font-size: 12px; font-weight: 700;
+    letter-spacing: 0.8px; text-transform: uppercase; color: var(--fl-surface);
     background: var(--flf-midnight); padding: 14px 18px;
-    border-bottom: 2px solid var(--flf-gold); white-space: nowrap;
+    border-bottom: 2px solid var(--fl-seal-600); white-space: nowrap;
 }
 .flf-table th:first-child { border-radius: 10px 0 0 0; }
 .flf-table th:last-child  { border-radius: 0 10px 0 0; }
 .flf-table td {
-    font-family: var(--flf-font-body); font-size: 14px; color: var(--flf-charcoal);
-    padding: 16px 18px; border-bottom: 1px solid var(--flf-blue); vertical-align: middle;
+    font-family: var(--fl-font-body); font-size: 14px; color: var(--fl-chambers-900);
+    padding: 16px 18px; border-bottom: 1px solid var(--fl-chambers-100); vertical-align: middle;
 }
 .flf-table tbody tr { transition: background 0.2s ease; }
 .flf-table tbody tr:hover { background: rgba(233, 238, 250, 0.45); }
 .flf-table tbody tr:last-child td { border-bottom: none; }
 .flf-video-link {
-    font-family: var(--flf-font-body); font-size: 13px; color: var(--flf-charcoal);
+    font-family: var(--fl-font-body); font-size: 13px; color: var(--fl-chambers-900);
     max-width: 320px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     display: block;
 }
 .flf-video-link-full {
-    color: var(--flf-navy); text-decoration: none; font-weight: 500;
+    color: var(--fl-chambers-600); text-decoration: none; font-weight: 500;
 }
-.flf-video-link-full:hover { color: var(--flf-gold); text-decoration: underline; }
+.flf-video-link-full:hover { color: var(--fl-seal-600); text-decoration: underline; }
 .flf-status-pill {
     display: inline-block; padding: 4px 12px; border-radius: 20px;
-    font-family: var(--flf-font-body); font-size: 11px; font-weight: 700;
+    font-family: var(--fl-font-body); font-size: 11px; font-weight: 700;
     letter-spacing: 0.5px; text-transform: uppercase;
 }
 .flf-status-active  { background: rgba(26, 122, 76, 0.1);  color: var(--flf-success); }
-.flf-status-pending { background: rgba(107, 118, 153, 0.1); color: var(--flf-muted); }
-.flf-date-cell { font-size: 13px; color: var(--flf-muted); white-space: nowrap; }
+.flf-status-pending { background: rgba(107, 118, 153, 0.1); color: var(--fl-ink-400); }
+.flf-date-cell { font-size: 13px; color: var(--fl-ink-400); white-space: nowrap; }
 .flf-action-group { display: flex; gap: 5px; }
 .flf-action-group .btn-sm {
     display: inline-flex; align-items: center; justify-content: center;
     width: 32px; height: 32px; padding: 0; border-radius: 7px; font-size: 13px;
 }
 .flf-empty-state { text-align: center; padding: 48px 20px; }
-.flf-empty-state i { font-size: 42px; color: var(--flf-blue); margin-bottom: 14px; display: block; }
-.flf-empty-state p { font-family: var(--flf-font-body); font-size: 14px; color: var(--flf-muted); margin: 0; }
+.flf-empty-state i { font-size: 42px; color: var(--fl-chambers-100); margin-bottom: 14px; display: block; }
+.flf-empty-state p { font-family: var(--fl-font-body); font-size: 14px; color: var(--fl-ink-400); margin: 0; }
 @media (max-width: 576px) { .flf-radio-group { flex-direction: column; gap: 10px; } }
 </style>
 
@@ -198,6 +201,7 @@ try {
 
                     <div class="full padding_infor_info">
                         <form method="POST" action="add_video.php" class="flf-video-form">
+                            <?php echo csrfHiddenField(); ?>
 
                             <div class="flf-field">
                                 <label><i class="fa fa-link"></i>Video Link</label>
@@ -298,10 +302,11 @@ try {
                                                     <a href="add_video.php?edit=<?php echo $video['id']; ?>" class="btn btn-info btn-sm" title="Edit">
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
-                                                    <a href="#" class="btn btn-danger btn-sm" title="Delete"
-                                                       onclick="document.getElementById('deleteId').value='<?php echo $video['id']; ?>';document.getElementById('deleteModal').style.display='flex';return false;">
-                                                        <i class="fa fa-trash"></i>
-                                                    </a>
+                                                    <form method="POST" action="add_video.php" style="display:inline;" onsubmit="return confirm('Delete this video?');">
+                                                        <?php echo csrfHiddenField(); ?>
+                                                        <input type="hidden" name="delete_id" value="<?php echo $video['id']; ?>">
+                                                        <button type="submit" class="btn btn-danger btn-sm" title="Delete"><i class="fa fa-trash"></i></button>
+                                                    </form>
                                                 </div>
                                             </td>
                                         </tr>
@@ -341,10 +346,14 @@ try {
 <script>
 document.getElementById('deleteConfirmBtn').addEventListener('click', function(e) {
     e.preventDefault();
-    var id = document.getElementById('deleteId').value;
-    window.location.href = 'add_video.php?delete=' + id;
+    document.getElementById('deleteForm').submit();
 });
 </script>
+
+<form id="deleteForm" method="POST" action="add_video.php" style="display:none;">
+    <?php echo csrfHiddenField(); ?>
+    <input type="hidden" name="delete_id" id="deleteFormId" value="">
+</form>
 
 <input type="hidden" id="deleteId" value="">
 

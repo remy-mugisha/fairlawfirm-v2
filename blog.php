@@ -24,30 +24,30 @@ $selectAllUsers->execute();
     <title><?= __('Blog') ?> - Fair Law Firm LTD</title>
     <style>
         .fl-blog-page {
-            padding: var(--fl-space-20) 0;
+            padding: var(--fl-sp-8) 0;
         }
 
         .fl-blog-page__grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: var(--fl-space-6);
+            gap: var(--fl-sp-4);
         }
 
         .fl-blog-page__empty {
             text-align: center;
-            padding: var(--fl-space-16) 0;
+            padding: var(--fl-sp-8) 0;
             grid-column: 1 / -1;
         }
 
         .fl-blog-page__empty-icon {
             font-size: 3rem;
-            color: var(--fl-gray-300);
-            margin-bottom: var(--fl-space-4);
+            color: var(--fl-ink-200);
+            margin-bottom: var(--fl-sp-3);
         }
 
         .fl-blog-page__empty-text {
-            font-size: var(--fl-text-lg);
-            color: var(--fl-slate);
+            font-size: var(--fl-body-lg);
+            color: var(--fl-ink-500);
         }
 
         @media (max-width: 992px) {

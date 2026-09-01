@@ -2,8 +2,10 @@
 ob_start();
 require_once 'include/header.php';
 require_once 'propertyMgt/config.php';
+require_once __DIR__ . '/csrf.php';
 
 if (isset($_POST['submit'])) {
+    requireCsrfPost();
     $description = $_POST['description'];
     $title = $_POST['title'];
     $property_status = $_POST['property_status'];
@@ -60,7 +62,7 @@ if (isset($_POST['submit'])) {
 .flf-form-section {
     margin-bottom: 32px;
     padding-bottom: 28px;
-    border-bottom: 1px solid var(--flf-blue);
+    border-bottom: 1px solid var(--fl-chambers-100);
 }
 .flf-form-section:last-child {
     border-bottom: none;
@@ -71,14 +73,14 @@ if (isset($_POST['submit'])) {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-family: var(--flf-font-head);
+    font-family: var(--fl-font-display);
     font-size: 20px;
     font-weight: 700;
-    color: var(--flf-navy);
+    color: var(--fl-chambers-600);
     margin: 0 0 22px;
 }
 .flf-section-title i {
-    color: var(--flf-gold);
+    color: var(--fl-seal-600);
     font-size: 16px;
 }
 .flf-field {
@@ -89,14 +91,14 @@ if (isset($_POST['submit'])) {
 }
 .flf-field label {
     display: block;
-    font-family: var(--flf-font-body);
+    font-family: var(--fl-font-body);
     font-weight: 600;
     font-size: 13.5px;
-    color: var(--flf-slate);
+    color: var(--fl-ink-500);
     margin-bottom: 7px;
 }
 .flf-field label i {
-    color: var(--flf-gold);
+    color: var(--fl-seal-600);
     margin-right: 5px;
     width: 16px;
     text-align: center;
@@ -118,28 +120,28 @@ if (isset($_POST['submit'])) {
     gap: 8px;
     padding: 10px 14px;
     border: 1px solid #d9dee9;
-    border-radius: var(--flf-radius-sm);
-    background: var(--flf-white);
+    border-radius: var(--fl-r-sm);
+    background: var(--fl-surface);
     cursor: pointer;
     transition: all 0.2s ease;
-    font-family: var(--flf-font-body);
+    font-family: var(--fl-font-body);
     font-size: 13px;
-    color: var(--flf-charcoal);
+    color: var(--fl-chambers-900);
 }
 .flf-checkbox-card:hover {
-    border-color: var(--flf-royal);
+    border-color: var(--fl-chambers-600);
     background: rgba(24, 53, 143, 0.03);
 }
 .flf-checkbox-card input[type="checkbox"] {
-    accent-color: var(--flf-navy);
+    accent-color: var(--fl-chambers-600);
     width: 16px;
     height: 16px;
     flex-shrink: 0;
 }
 .flf-checkbox-card:has(input:checked) {
-    border-color: var(--flf-navy);
+    border-color: var(--fl-chambers-600);
     background: rgba(233, 238, 250, 0.5);
-    color: var(--flf-navy);
+    color: var(--fl-chambers-600);
     font-weight: 600;
 }
 .flf-dynamic-hide { display: none; }
@@ -155,7 +157,7 @@ if (isset($_POST['submit'])) {
         <?php if (isset($_SESSION['success_message'])): ?>
             <div class="row mb-3">
                 <div class="col-md-12">
-                    <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius:var(--flf-radius-sm);margin:0;">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius:var(--fl-r-sm);margin:0;">
                         <i class="fa fa-check-circle" style="margin-right:6px;"></i>
                         <?php echo htmlspecialchars($_SESSION['success_message']); unset($_SESSION['success_message']); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -167,7 +169,7 @@ if (isset($_POST['submit'])) {
         <?php if (isset($_SESSION['error_message'])): ?>
             <div class="row mb-3">
                 <div class="col-md-12">
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert" style="border-radius:var(--flf-radius-sm);margin:0;">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert" style="border-radius:var(--fl-r-sm);margin:0;">
                         <i class="fa fa-exclamation-triangle" style="margin-right:6px;"></i>
                         <?php echo htmlspecialchars($_SESSION['error_message']); unset($_SESSION['error_message']); ?>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -181,7 +183,7 @@ if (isset($_POST['submit'])) {
                 <div class="white_shd full margin_bottom_30">
                     <div class="full graph_head">
                         <div class="heading1 margin_0 d-flex justify-content-between align-items-center">
-                            <h2><i class="fa fa-plus-circle" style="color:var(--flf-gold);margin-right:10px;font-size:20px;"></i>Add Rental Property</h2>
+                            <h2><i class="fa fa-plus-circle" style="color:var(--fl-seal-600);margin-right:10px;font-size:20px;"></i>Add Rental Property</h2>
                             <a href="display_rental.php" class="btn btn-secondary btn-sm">
                                 <i class="fa fa-th-list" style="margin-right:5px;"></i>View All Properties
                             </a>
@@ -190,6 +192,7 @@ if (isset($_POST['submit'])) {
 
                     <div class="full padding_infor_info">
                         <form action="add_rental_property.php" method="post" style="max-width:820px;">
+                            <?php echo csrfHiddenField(); ?>
 
                             <!-- Section 1: Property Information -->
                             <div class="flf-form-section">

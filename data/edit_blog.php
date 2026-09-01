@@ -2,6 +2,7 @@
 ob_start();
 require_once 'include/header.php';
 require_once 'propertyMgt/config.php';
+require_once __DIR__ . '/csrf.php';
 
 function getFileIconClass($filename) {
     $ext = pathinfo($filename, PATHINFO_EXTENSION);
@@ -65,6 +66,7 @@ if (!$blog) {
 }
 
 if (isset($_POST['update_blog'])) {
+    requireCsrfPost();
     $title = $_POST['title'];
     $description = $_POST['description_blog'];
     $details = $_POST['blog_description_details'];
@@ -169,7 +171,7 @@ $attachments = $stmt->fetchAll(PDO::FETCH_ASSOC);
 .flf-form-section {
     margin-bottom: 32px;
     padding-bottom: 28px;
-    border-bottom: 1px solid var(--flf-blue);
+    border-bottom: 1px solid var(--fl-chambers-100);
 }
 .flf-form-section:last-child {
     border-bottom: none;
@@ -180,13 +182,13 @@ $attachments = $stmt->fetchAll(PDO::FETCH_ASSOC);
     display: flex;
     align-items: center;
     gap: 10px;
-    font-family: var(--flf-font-head);
+    font-family: var(--fl-font-display);
     font-size: 20px;
     font-weight: 700;
-    color: var(--flf-navy);
+    color: var(--fl-chambers-600);
     margin: 0 0 22px;
 }
-.flf-section-title i { color: var(--flf-gold); font-size: 16px; }
+.flf-section-title i { color: var(--fl-seal-500); font-size: 16px; }
 .flf-field { margin-bottom: 20px; }
 .flf-field:last-child { margin-bottom: 0; }
 .flf-field label {
@@ -194,44 +196,44 @@ $attachments = $stmt->fetchAll(PDO::FETCH_ASSOC);
     font-family: var(--flf-font-body);
     font-weight: 600;
     font-size: 13.5px;
-    color: var(--flf-slate);
+    color: var(--fl-ink-500);
     margin-bottom: 7px;
 }
-.flf-field label i { color: var(--flf-gold); margin-right: 5px; width: 16px; text-align: center; }
+.flf-field label i { color: var(--fl-seal-500); margin-right: 5px; width: 16px; text-align: center; }
 .flf-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .flf-upload-area {
     position: relative;
     width: 100%;
     border: 2px dashed #d9dee9;
-    border-radius: var(--flf-radius);
+    border-radius: var(--fl-r-md);
     background: #fafbfe;
     text-align: center;
     padding: 36px 20px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
-.flf-upload-area:hover, .flf-upload-area.flf-dragover { border-color: var(--flf-royal); background: rgba(24, 53, 143, 0.04); }
+.flf-upload-area:hover, .flf-upload-area.flf-dragover { border-color: var(--fl-chambers-600); background: rgba(24, 53, 143, 0.04); }
 .flf-upload-area input[type="file"] { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
-.flf-upload-icon { font-size: 36px; color: var(--flf-blue); margin-bottom: 10px; }
-.flf-upload-area:hover .flf-upload-icon, .flf-upload-area.flf-dragover .flf-upload-icon { color: var(--flf-royal); }
-.flf-upload-text { font-family: var(--flf-font-body); font-size: 14px; color: var(--flf-slate); margin: 0 0 2px; }
+.flf-upload-icon { font-size: 36px; color: var(--fl-chambers-100); margin-bottom: 10px; }
+.flf-upload-area:hover .flf-upload-icon, .flf-upload-area.flf-dragover .flf-upload-icon { color: var(--fl-chambers-600); }
+.flf-upload-text { font-family: var(--flf-font-body); font-size: 14px; color: var(--fl-ink-500); margin: 0 0 2px; }
 .flf-upload-hint { font-family: var(--flf-font-body); font-size: 12px; color: var(--flf-muted); margin: 0; }
 .flf-upload-preview { display: block; margin-top: 14px; position: relative; max-width: 400px; }
-.flf-upload-preview img { width: 100%; max-height: 220px; object-fit: cover; border-radius: var(--flf-radius-sm); border: 2px solid var(--flf-blue); }
+.flf-upload-preview img { width: 100%; max-height: 220px; object-fit: cover; border-radius: var(--fl-r-sm); border: 2px solid var(--fl-chambers-100); }
 .flf-upload-preview .flf-remove-img {
     position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border-radius: 50%;
-    background: var(--flf-danger); color: var(--flf-white); border: none; font-size: 12px;
+    background: var(--flf-danger); color: var(--fl-surface); border: none; font-size: 12px;
     display: flex; align-items: center; justify-content: center; cursor: pointer;
     box-shadow: 0 2px 6px rgba(0,0,0,0.2); display: none;
 }
 .flf-img-current-wrap { display: flex; align-items: flex-start; gap: 24px; flex-wrap: wrap; }
 .flf-img-current-wrap .flf-upload-side { flex: 1; min-width: 200px; }
-.flf-current-img { width: 100%; max-width: 360px; border-radius: var(--flf-radius); border: 2px solid var(--flf-blue); }
+.flf-current-img { width: 100%; max-width: 360px; border-radius: var(--fl-r-md); border: 2px solid var(--fl-chambers-100); }
 .flf-attach-list { margin-top: 14px; display: flex; flex-direction: column; gap: 8px; }
 .flf-attach-item {
     display: flex; align-items: center; gap: 12px; padding: 12px 16px;
-    background: var(--flf-white); border: 1px solid var(--flf-blue); border-radius: var(--flf-radius-sm);
-    font-family: var(--flf-font-body); font-size: 13px; color: var(--flf-charcoal);
+    background: var(--fl-surface); border: 1px solid var(--fl-chambers-100); border-radius: var(--fl-r-sm);
+    font-family: var(--flf-font-body); font-size: 13px; color: var(--fl-chambers-900);
     transition: background 0.2s ease;
 }
 .flf-attach-item:hover { background: rgba(233, 238, 250, 0.3); }
@@ -243,8 +245,8 @@ $attachments = $stmt->fetchAll(PDO::FETCH_ASSOC);
 .flf-new-file-list { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
 .flf-new-file-item {
     display: flex; align-items: center; gap: 10px; padding: 10px 14px;
-    background: var(--flf-white); border: 1px solid var(--flf-blue); border-radius: var(--flf-radius-sm);
-    font-family: var(--flf-font-body); font-size: 13px; color: var(--flf-charcoal);
+    background: var(--fl-surface); border: 1px solid var(--fl-chambers-100); border-radius: var(--fl-r-sm);
+    font-family: var(--flf-font-body); font-size: 13px; color: var(--fl-chambers-900);
 }
 .flf-new-file-item i { font-size: 18px; flex-shrink: 0; }
 .flf-new-file-item .flf-file-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -252,13 +254,13 @@ $attachments = $stmt->fetchAll(PDO::FETCH_ASSOC);
 .flf-radio-group { display: flex; gap: 24px; margin-top: 6px; }
 .flf-radio-card {
     display: flex; align-items: center; gap: 10px; padding: 12px 20px;
-    border: 2px solid #d9dee9; border-radius: var(--flf-radius-sm); background: var(--flf-white);
+    border: 2px solid #d9dee9; border-radius: var(--fl-r-sm); background: var(--fl-surface);
     cursor: pointer; transition: all 0.2s ease;
-    font-family: var(--flf-font-body); font-size: 14px; font-weight: 500; color: var(--flf-charcoal);
+    font-family: var(--flf-font-body); font-size: 14px; font-weight: 500; color: var(--fl-chambers-900);
 }
-.flf-radio-card:hover { border-color: var(--flf-royal); }
-.flf-radio-card input[type="radio"] { accent-color: var(--flf-navy); width: 18px; height: 18px; }
-.flf-radio-card:has(input:checked) { border-color: var(--flf-navy); background: rgba(233, 238, 250, 0.5); color: var(--flf-navy); font-weight: 600; }
+.flf-radio-card:hover { border-color: var(--fl-chambers-600); }
+.flf-radio-card input[type="radio"] { accent-color: var(--fl-chambers-600); width: 18px; height: 18px; }
+.flf-radio-card:has(input:checked) { border-color: var(--fl-chambers-600); background: rgba(233, 238, 250, 0.5); color: var(--fl-chambers-600); font-weight: 600; }
 @media (max-width: 767px) { .flf-field-row { grid-template-columns: 1fr; } .flf-radio-group { flex-direction: column; gap: 10px; } .flf-img-current-wrap { flex-direction: column; } }
 </style>
 
@@ -303,6 +305,7 @@ $attachments = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                     <div class="full padding_infor_info">
                         <form action="edit_blog.php?id=<?php echo htmlspecialchars($id); ?>" method="post" enctype="multipart/form-data" style="max-width:820px;">
+                            <?php echo csrfHiddenField(); ?>
 
                             <!-- Section 1: Content -->
                             <div class="flf-form-section">
@@ -368,10 +371,14 @@ $attachments = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                                         <a href="propertyMgt/blogFiles/<?php echo htmlspecialchars($attachment['file_path']); ?>" class="btn btn-info btn-sm" title="Download" download>
                                                             <i class="fa fa-download"></i>
                                                         </a>
-                                                        <a href="delete_attachment.php?id=<?php echo $attachment['id']; ?>&blog_id=<?php echo $id; ?>" class="btn btn-danger btn-sm" title="Delete"
-                                                           onclick="return confirm('Delete this attachment?')">
-                                                            <i class="fa fa-trash"></i>
-                                                        </a>
+                                                        <form method="POST" action="delete_attachment.php" style="display:inline;" onsubmit="return confirm('Delete this attachment?');">
+                                                            <?php echo csrfHiddenField(); ?>
+                                                            <input type="hidden" name="id" value="<?php echo $attachment['id']; ?>">
+                                                            <input type="hidden" name="blog_id" value="<?php echo $id; ?>">
+                                                            <button type="submit" class="btn btn-danger btn-sm" title="Delete">
+                                                                <i class="fa fa-trash"></i>
+                                                            </button>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             <?php endforeach; ?>

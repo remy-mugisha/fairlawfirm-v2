@@ -5,10 +5,12 @@
    ================================================================ */
 session_start();
 require_once 'propertyMgt/config.php';
+require_once __DIR__ . '/csrf.php';
 
 $error_message = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+   requireCsrfPost();
    $email    = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
    $password = $_POST['password'];
 
@@ -78,18 +80,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
          DESIGN TOKENS
          ========================================================== */
       :root {
-         --flf-navy:        #01166A;
-         --flf-navy-dark:   #010F47;
-         --flf-blue:        #E9EEFA;
-         --flf-white:       #FFFFFF;
-         --flf-gold:        #C8A951;
-         --flf-gold-light:  #D9BC66;
-         --flf-muted:       #6b7699;
-         --flf-muted-light: #7c88ab;
-         --flf-danger:      #a12734;
-         --flf-success:     #1c7c4d;
-         --flf-font-head:   'Cormorant Garamond', serif;
-         --flf-font-body:   'DM Sans', sans-serif;
+         --fl-chambers-900:   #172033;
+         --fl-chambers-600:   #01166A;
+         --fl-chambers-400:   #010F47;
+         --fl-chambers-100:   #E9EEFA;
+         --fl-seal-600:       #9C7818;
+         --fl-seal-500:       #C8A951;
+         --fl-seal-400:       #D9BC66;
+         --fl-ink-400:        #6b7699;
+         --fl-ink-300:        #7c88ab;
+         --fl-surface:        #FFFFFF;
+         --fl-crit-500:       #a12734;
+         --fl-sage-500:       #1c7c4d;
+         --fl-font-display:   'Source Serif 4', Georgia, serif;
+         --fl-font-body:      'Public Sans', system-ui, sans-serif;
       }
 
       *, *::before, *::after { box-sizing: border-box; }
@@ -576,7 +580,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
          </div>
          <?php endif; ?>
 
-         <form method="POST" action="" id="flfLoginForm" autocomplete="on">
+         <form method="POST" action="" id="flfLoginForm" autocomplete="on"><?php echo csrfHiddenField(); ?>
 
             <!-- Email -->
             <div class="flf-field">
