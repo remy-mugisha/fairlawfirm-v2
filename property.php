@@ -51,92 +51,6 @@ $selectProperties->execute();
     <meta name="description" content="Browse available properties for sale or rent across Rwanda. Fair Law Firm LTD offers professional property management and real estate services.">
     <title><?= __('Properties') ?> - Fair Law Firm LTD</title>
     <style>
-        /* ---- Hero ---- */
-        .fl-prop-hero {
-            position: relative;
-            padding: var(--fl-sp-8) 0 var(--fl-sp-8);
-            background: var(--fl-chambers-900);
-            overflow: hidden;
-        }
-
-        .fl-prop-hero__bg {
-            position: absolute;
-            inset: 0;
-            background-image: url(assets/images/backgrounds/bkground_1.jpg);
-            background-size: cover;
-            background-position: center;
-            opacity: 0.12;
-        }
-
-        .fl-prop-hero__content {
-            position: relative;
-            z-index: 1;
-            max-width: 640px;
-        }
-
-        .fl-prop-hero__eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--fl-sp-2);
-            font-family: var(--fl-font-body);
-            font-size: var(--fl-text-body-sm);
-            font-weight: 600;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--fl-seal-600);
-            margin-bottom: var(--fl-sp-4);
-        }
-
-        .fl-prop-hero__eyebrow::before {
-            content: '';
-            width: 32px;
-            height: 2px;
-            background: var(--fl-seal-600);
-        }
-
-        .fl-prop-hero__title {
-            font-family: var(--fl-font-display);
-            font-size: clamp(2.5rem, 5vw, 4.25rem);
-            font-weight: 700;
-            color: var(--fl-surface);
-            line-height: 1.08;
-            margin-bottom: var(--fl-sp-4);
-        }
-
-        .fl-prop-hero__title em {
-            font-style: italic;
-            color: var(--fl-seal-600);
-        }
-
-        .fl-prop-hero__desc {
-            font-size: var(--fl-text-body);
-            color: rgba(255,255,255,0.55);
-            line-height: 1.75;
-            max-width: 520px;
-            margin-bottom: var(--fl-sp-5);
-        }
-
-        .fl-prop-hero__breadcrumb {
-            display: flex;
-            align-items: center;
-            gap: var(--fl-sp-1);
-            font-size: var(--fl-text-body-sm);
-        }
-
-        .fl-prop-hero__breadcrumb a {
-            color: rgba(255,255,255,0.4);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .fl-prop-hero__breadcrumb a:hover {
-            color: var(--fl-surface);
-        }
-
-        .fl-prop-hero__breadcrumb span {
-            color: var(--fl-seal-600);
-        }
-
         /* ---- Filter Bar ---- */
         .fl-prop-filters {
             padding: var(--fl-sp-5) 0 0;
@@ -467,9 +381,6 @@ $selectProperties->execute();
         }
 
         @media (max-width: 768px) {
-            .fl-prop-hero {
-                padding: var(--fl-sp-8) 0 var(--fl-sp-8);
-            }
             .fl-prop-grid__inner {
                 grid-template-columns: 1fr;
             }
@@ -484,19 +395,13 @@ $selectProperties->execute();
     </style>
 </head>
 
-    <!-- Hero -->
-    <section class="fl-prop-hero">
-        <div class="fl-prop-hero__bg"></div>
+    <!-- Page Header -->
+    <section class="fl-page-header">
+        <div class="fl-page-header__bg" style="background-image: url(assets/images/backgrounds/bkground_1.jpg);"></div>
         <div class="fl-container">
-            <div class="fl-prop-hero__content">
-                <div class="fl-prop-hero__eyebrow"><?= __('Real Estate') ?></div>
-                <h1 class="fl-prop-hero__title">
-                    <?= __('Browse Our') ?> <em><?= __('Properties') ?></em>
-                </h1>
-                <p class="fl-prop-hero__desc">
-                    <?= __('Explore our curated selection of properties available for sale or rent across Rwanda, managed with the professionalism and legal expertise Fair Law Firm is known for.') ?>
-                </p>
-                <nav class="fl-prop-hero__breadcrumb">
+            <div class="fl-page-header__content">
+                <h1 class="fl-page-header__title"><?= __('Browse Our Properties') ?></h1>
+                <nav class="fl-page-header__breadcrumb">
                     <a href="index.php"><?= __('Home') ?></a>
                     <span>/</span>
                     <span><?= __('Properties') ?></span>

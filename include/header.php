@@ -72,7 +72,7 @@ $currentLang = $_SESSION['lang'] ?? 'en';
     <div class="fl-nav__inner">
         <!-- Logo -->
         <a href="index.php" class="fl-nav__logo" aria-label="Fair Law Firm LTD Home">
-            <img src="assets/images/logo-0-0-0.png" alt="Fair Law Firm LTD" height="48">
+            <img src="assets/images/logo-white-1.png" alt="Fair Law Firm LTD" height="48">
         </a>
 
         <!-- Desktop Links -->
@@ -130,7 +130,7 @@ $currentLang = $_SESSION['lang'] ?? 'en';
 <div class="fl-mobile-nav" id="flMobileNav">
     <div class="fl-mobile-nav__header">
         <a href="index.php">
-            <img src="assets/images/logo-0-0-0.png" alt="Fair Law Firm" height="40">
+            <img src="assets/images/logo-white-1.png" alt="Fair Law Firm" height="40">
         </a>
         <button class="fl-mobile-nav__close" id="flMobileClose" aria-label="Close menu">
             <i class="fa fa-times"></i>

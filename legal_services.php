@@ -8,92 +8,6 @@
     <?php require_once 'include/header.php'; ?>
     <title><?= __('Legal Services') ?> - Fair Law Firm LTD</title>
     <style>
-        /* ---- Editorial Hero ---- */
-        .fl-legal-hero {
-            position: relative;
-            padding: var(--fl-sp-8) 0 var(--fl-sp-8);
-            background: var(--fl-chambers-900);
-            overflow: hidden;
-        }
-
-        .fl-legal-hero__bg {
-            position: absolute;
-            inset: 0;
-            background-image: url(assets/images/backgrounds/bkground_1.jpg);
-            background-size: cover;
-            background-position: center;
-            opacity: 0.12;
-        }
-
-        .fl-legal-hero__content {
-            position: relative;
-            z-index: 1;
-            max-width: 680px;
-        }
-
-        .fl-legal-hero__eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--fl-sp-2);
-            font-family: var(--fl-font-body);
-            font-size: var(--fl-text-body-sm);
-            font-weight: 600;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--fl-seal-600);
-            margin-bottom: var(--fl-sp-4);
-        }
-
-        .fl-legal-hero__eyebrow::before {
-            content: '';
-            width: 32px;
-            height: 2px;
-            background: var(--fl-seal-600);
-        }
-
-        .fl-legal-hero__title {
-            font-family: var(--fl-font-display);
-            font-size: clamp(2.5rem, 5vw, 4.25rem);
-            font-weight: 700;
-            color: var(--fl-surface);
-            line-height: 1.08;
-            margin-bottom: var(--fl-sp-4);
-        }
-
-        .fl-legal-hero__title em {
-            font-style: italic;
-            color: var(--fl-seal-600);
-        }
-
-        .fl-legal-hero__desc {
-            font-size: var(--fl-text-body);
-            color: rgba(255,255,255,0.55);
-            line-height: 1.75;
-            max-width: 540px;
-            margin-bottom: var(--fl-sp-5);
-        }
-
-        .fl-legal-hero__breadcrumb {
-            display: flex;
-            align-items: center;
-            gap: var(--fl-sp-1);
-            font-size: var(--fl-text-body-sm);
-        }
-
-        .fl-legal-hero__breadcrumb a {
-            color: rgba(255,255,255,0.4);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .fl-legal-hero__breadcrumb a:hover {
-            color: var(--fl-surface);
-        }
-
-        .fl-legal-hero__breadcrumb span {
-            color: var(--fl-seal-600);
-        }
-
         /* ---- Editorial Intro ---- */
         .fl-legal-intro {
             padding: var(--fl-sp-8) 0;
@@ -359,9 +273,6 @@
         }
 
         @media (max-width: 768px) {
-            .fl-legal-hero {
-                padding: var(--fl-sp-8) 0 var(--fl-sp-8);
-            }
             .fl-legal-block {
                 grid-template-columns: 1fr;
                 gap: var(--fl-sp-3);
@@ -387,19 +298,13 @@
     </style>
 </head>
 
-    <!-- Editorial Hero -->
-    <section class="fl-legal-hero">
-        <div class="fl-legal-hero__bg"></div>
+    <!-- Page Header -->
+    <section class="fl-page-header">
+        <div class="fl-page-header__bg" style="background-image: url(assets/images/backgrounds/bkground_1.jpg);"></div>
         <div class="fl-container">
-            <div class="fl-legal-hero__content">
-                <div class="fl-legal-hero__eyebrow"><?= __('Our Expertise') ?></div>
-                <h1 class="fl-legal-hero__title">
-                    <?= __('Legal') ?> <em><?= __('Services') ?></em>
-                </h1>
-                <p class="fl-legal-hero__desc">
-                    <?= __('From courtroom representation to contract drafting, we provide comprehensive legal counsel built on years of experience and unwavering commitment to our clients.') ?>
-                </p>
-                <nav class="fl-legal-hero__breadcrumb">
+            <div class="fl-page-header__content">
+                <h1 class="fl-page-header__title"><?= __('Legal Services') ?></h1>
+                <nav class="fl-page-header__breadcrumb">
                     <a href="index.php"><?= __('Home') ?></a>
                     <span>/</span>
                     <span><?= __('Legal Services') ?></span>
