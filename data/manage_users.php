@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /* ================================================================
    Fair Law Firm LTD - Manage Users
    Admin-only page: list, view (modal), edit, delete users.
@@ -91,9 +91,9 @@ $userCount = count($users);
    <!-- Flash messages -->
    <?php if (!empty($_SESSION['success_message'])): ?>
    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      <i class="fa fa-check-circle mr-2"></i>
+      <i class="fa fa-check-circle me-2"></i>
       <?php echo htmlspecialchars($_SESSION['success_message']); unset($_SESSION['success_message']); ?>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
          <span aria-hidden="true">&times;</span>
       </button>
    </div>
@@ -101,9 +101,9 @@ $userCount = count($users);
 
    <?php if (!empty($_SESSION['error_message'])): ?>
    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-      <i class="fa fa-exclamation-circle mr-2"></i>
+      <i class="fa fa-exclamation-circle me-2"></i>
       <?php echo htmlspecialchars($_SESSION['error_message']); unset($_SESSION['error_message']); ?>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
          <span aria-hidden="true">&times;</span>
       </button>
    </div>
@@ -111,7 +111,7 @@ $userCount = count($users);
 
    <?php if (!empty($userError)): ?>
    <div class="alert alert-danger">
-      <i class="fa fa-exclamation-circle mr-2"></i>
+      <i class="fa fa-exclamation-circle me-2"></i>
       <?php echo htmlspecialchars($userError); ?>
    </div>
    <?php endif; ?>
@@ -123,7 +123,7 @@ $userCount = count($users);
 
             <?php if (empty($users) && empty($userError)): ?>
             <div class="alert alert-info">
-               <i class="fa fa-info-circle mr-2"></i>
+               <i class="fa fa-info-circle me-2"></i>
                No users found. <a href="register.php">Add a new user</a> to get started.
             </div>
 
@@ -176,8 +176,8 @@ $userCount = count($users);
                      <td>
                         <button type="button"
                                 class="btn btn-primary btn-sm"
-                                data-toggle="modal"
-                                data-target="#viewUser<?php echo (int) $u['id']; ?>"
+                                data-bs-toggle="modal"
+                                data-bs-target="#viewUser<?php echo (int) $u['id']; ?>"
                                 title="View user">
                            <i class="fa fa-eye"></i>
                         </button>
@@ -216,7 +216,7 @@ $userCount = count($users);
 
          <div class="modal-header">
             <h5 class="modal-title">User Details</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                <span aria-hidden="true">&times;</span>
             </button>
          </div>
@@ -277,7 +277,7 @@ $userCount = count($users);
             <a href="edit_user.php?id=<?php echo (int) $u['id']; ?>" class="btn btn-info btn-sm">
                <i class="fa fa-edit"></i> Edit User
             </a>
-            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
          </div>
 
       </div>

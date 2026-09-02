@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 ob_start();
 require_once 'include/header.php';
 require_once 'propertyMgt/config.php';
@@ -101,7 +101,7 @@ if (isset($_POST['submit'])) {
     }
 }
 
-$selectedFloors = explode(', ', $property['floor']);
+$selectedFloors = explode(', ', $property['floor'] ?? '');
 $allFloors = [
     'Ground Floor', '1st Floor', '2nd Floor', '3rd Floor',
     '4th Floor', '5th Floor', '6th Floor', '7th Floor',
@@ -212,7 +212,7 @@ $allFloors = [
                     <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius:var(--fl-r-sm);margin:0;">
                         <i class="fa fa-check-circle" style="margin-right:6px;"></i>
                         <?php echo htmlspecialchars($_SESSION['success_message']); unset($_SESSION['success_message']); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                 </div>
             </div>
@@ -224,7 +224,7 @@ $allFloors = [
                     <div class="alert alert-danger alert-dismissible fade show" role="alert" style="border-radius:var(--fl-r-sm);margin:0;">
                         <i class="fa fa-exclamation-triangle" style="margin-right:6px;"></i>
                         <?php echo htmlspecialchars($_SESSION['error_message']); unset($_SESSION['error_message']); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                 </div>
             </div>

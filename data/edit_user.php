@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /* ================================================================
    Fair Law Firm LTD - Edit User
    Admin-only form to update an existing user's details.
@@ -180,16 +180,16 @@ try {
          </p>
       </div>
       <a href="manage_users.php" class="btn btn-secondary">
-         <i class="fa fa-arrow-left mr-1"></i> Back to Users
+         <i class="fa fa-arrow-left me-1"></i> Back to Users
       </a>
    </div>
 
    <!-- Flash messages -->
    <?php if (!empty($_SESSION['error_message'])): ?>
    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-      <i class="fa fa-exclamation-circle mr-2"></i>
+      <i class="fa fa-exclamation-circle me-2"></i>
       <?php echo htmlspecialchars($_SESSION['error_message']); unset($_SESSION['error_message']); ?>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
          <span aria-hidden="true">&times;</span>
       </button>
    </div>
@@ -329,7 +329,7 @@ try {
             <!-- Submit -->
             <div class="field mb-0">
                <button type="submit" class="btn btn-info btn-block">
-                  <i class="fa fa-save mr-2"></i> Update User
+                  <i class="fa fa-save me-2"></i> Update User
                </button>
             </div>
 
@@ -341,7 +341,7 @@ try {
 </div>
 
 <!-- ================================================================
-     SCRIPTS — avatar preview
+     SCRIPTS â€” avatar preview
      ================================================================ -->
 <script>
 (function () {

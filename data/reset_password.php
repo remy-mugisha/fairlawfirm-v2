@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 0);
@@ -103,31 +103,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token'])) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Fair Law Firm - Reset Password</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="shortcut icon" href="images/logo/logo_icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/bootstrap5.min.css">
+    <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --fl-chambers-900: #172033;
-            --fl-chambers-600: #01166A;
-            --fl-chambers-100: #E9EEFA;
-            --fl-seal-600: #9C7818;
-            --fl-seal-500: #C8A951;
-            --fl-ink-500: #536174;
-            --fl-ink-400: #6b7699;
-            --fl-surface: #FFFFFF;
-            --fl-crit-500: #a12734;
-            --fl-sage-500: #1a7a4c;
-            --fl-font-display: 'Source Serif 4', Georgia, serif;
-            --fl-font-body: 'Public Sans', system-ui, sans-serif;
-            --fl-r-md: 6px;
-            --fl-r-sm: 4px;
-        }
         *, *::before, *::after { box-sizing: border-box; }
         body {
             margin: 0;
             padding: 0;
             font-family: var(--flf-font-body);
-            background: #f4f6fa;
+            background: var(--fl-page);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -200,7 +189,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token'])) {
             position: relative;
         }
         .flf-field .form-control {
-            height: 46px; border: 1px solid #d9dee9; border-radius: var(--flf-radius-sm);
+            height: 46px; border: 1px solid var(--fl-line); border-radius: var(--flf-radius-sm);
             font-family: var(--flf-font-body); font-size: 14px; color: var(--flf-charcoal);
             padding: 0 44px 0 14px; transition: border-color 0.25s ease, box-shadow 0.25s ease;
             background: var(--flf-white); width: 100%;

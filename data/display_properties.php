@@ -1,6 +1,7 @@
-<?php
+﻿<?php
 require_once 'include/header.php';
 require_once 'propertyMgt/config.php';
+require_once __DIR__ . '/csrf.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
     requireCsrfPost();
@@ -86,6 +87,19 @@ try {
 .flf-prop-location,
 .flf-prop-title {
     color: var(--fl-chambers-900);
+    display: inline-block;
+    max-width: 100%;
+    vertical-align: middle;
+}
+.flf-prop-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.flf-prop-location {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .flf-action-group {
     display: flex;
@@ -128,8 +142,7 @@ try {
 }
 </style>
 
-<div class="midde_cont">
-    <div class="container-fluid">
+<div class="padding_infor_info flf-wrap">
 
         <?php if (isset($_SESSION['success_message'])): ?>
             <div class="row mb-3">
@@ -137,7 +150,7 @@ try {
                     <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius:var(--flf-radius-sm);margin:0;">
                         <i class="fa fa-check-circle" style="margin-right:6px;"></i>
                         <?php echo htmlspecialchars($_SESSION['success_message']); unset($_SESSION['success_message']); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -151,7 +164,7 @@ try {
                     <div class="alert alert-danger alert-dismissible fade show" role="alert" style="border-radius:var(--flf-radius-sm);margin:0;">
                         <i class="fa fa-exclamation-triangle" style="margin-right:6px;"></i>
                         <?php echo htmlspecialchars($_SESSION['error_message']); unset($_SESSION['error_message']); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -191,9 +204,9 @@ try {
                                         <tr>
                                             <th style="width:60px;">ID</th>
                                             <th style="width:90px;">Image</th>
-                                            <th>Location</th>
-                                            <th>Title</th>
-                                            <th style="width:110px;text-align:center;">Actions</th>
+                                            <th style="width:24%;">Location</th>
+                                            <th style="width:44%;">Title</th>
+                                            <th style="width:130px;text-align:center;">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -228,13 +241,10 @@ try {
                                 </table>
                             </div>
                         <?php endif; ?>
-                    </div>
+</div>
                 </div>
             </div>
         </div>
-
-    </div>
-</div>
 
 <div id="deleteModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center;">
     <div style="background:var(--flf-white);border-radius:var(--flf-radius);box-shadow:0 20px 60px rgba(0,0,0,0.3);max-width:420px;width:90%;padding:0;overflow:hidden;">

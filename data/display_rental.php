@@ -1,6 +1,7 @@
-<?php
+﻿<?php
 require_once 'include/header.php';
 require_once 'propertyMgt/config.php';
+require_once __DIR__ . '/csrf.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id']) && !empty($_POST['delete_id'])) {
     requireCsrfPost();
@@ -108,6 +109,16 @@ function formatDisplayPrice($price) {
     color: var(--fl-chambers-600);
     white-space: nowrap;
 }
+.flf-rental-title {
+    font-weight: 600;
+    color: var(--fl-chambers-600);
+    display: inline-block;
+    max-width: 100%;
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .flf-bed-bath {
     display: inline-flex;
     align-items: center;
@@ -154,8 +165,7 @@ function formatDisplayPrice($price) {
 }
 </style>
 
-<div class="midde_cont">
-    <div class="container-fluid">
+<div class="padding_infor_info flf-wrap">
 
         <?php if (isset($_SESSION['success_message'])): ?>
             <div class="row mb-3">
@@ -163,7 +173,7 @@ function formatDisplayPrice($price) {
                     <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius:var(--flf-radius-sm);margin:0;">
                         <i class="fa fa-check-circle" style="margin-right:6px;"></i>
                         <?php echo htmlspecialchars($_SESSION['success_message']); unset($_SESSION['success_message']); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                 </div>
             </div>
@@ -175,7 +185,7 @@ function formatDisplayPrice($price) {
                     <div class="alert alert-danger alert-dismissible fade show" role="alert" style="border-radius:var(--flf-radius-sm);margin:0;">
                         <i class="fa fa-exclamation-triangle" style="margin-right:6px;"></i>
                         <?php echo htmlspecialchars($_SESSION['error_message']); unset($_SESSION['error_message']); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                 </div>
             </div>
@@ -207,19 +217,19 @@ function formatDisplayPrice($price) {
                                 <table class="table flf-rental-table" style="margin-bottom:0;">
                                     <thead>
                                         <tr>
-                                            <th>Title</th>
-                                            <th>Type</th>
-                                            <th>Status</th>
-                                            <th>Price</th>
-                                            <th>Bed/Bath</th>
-                                            <th style="width:140px;text-align:center;">Actions</th>
+                                            <th style="width:30%;">Title</th>
+                                            <th style="width:100px;">Type</th>
+                                            <th style="width:110px;">Status</th>
+                                            <th style="width:110px;">Price</th>
+                                            <th style="width:110px;">Bed/Bath</th>
+                                            <th style="width:160px;text-align:center;">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php foreach ($properties as $row): ?>
                                         <tr>
                                             <td>
-                                                <span style="font-weight:600;color:var(--fl-chambers-600);"><?php echo htmlspecialchars($row['title']); ?></span>
+                                                <span class="flf-rental-title"><?php echo htmlspecialchars($row['title']); ?></span>
                                             </td>
                                             <td><?php echo htmlspecialchars($row['property_type']); ?></td>
                                             <td>
@@ -274,7 +284,6 @@ function formatDisplayPrice($price) {
         </div>
 
     </div>
-</div>
 
 <div id="deleteModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center;">
     <div style="background:var(--fl-surface);border-radius:var(--flf-radius);box-shadow:0 20px 60px rgba(0,0,0,0.3);max-width:420px;width:90%;padding:0;overflow:hidden;">

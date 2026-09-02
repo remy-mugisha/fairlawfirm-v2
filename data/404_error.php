@@ -1,77 +1,40 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
-   
-<!-- Mirrored from themewagon.github.io/pluto/404_error.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 28 Jan 2025 09:07:49 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
-      <!-- basic -->
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <!-- mobile metas -->
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-      <!-- site metas -->
-      <title>Pluto - Responsive Bootstrap Admin Panel Templates</title>
-      <meta name="keywords" content="">
-      <meta name="description" content="">
-      <meta name="author" content="">
-      <!-- site icon -->
-      <link rel="icon" href="images/fevicon.html" type="image/png" />
-      <!-- bootstrap css -->
-      <link rel="stylesheet" href="css/bootstrap.min.css" />
-      <!-- site css -->
-      <link rel="stylesheet" href="style.css" />
-      <!-- responsive css -->
-      <link rel="stylesheet" href="css/responsive.css" />
-      <!-- color css -->
-      <link rel="stylesheet" href="css/colors.html" />
-      <!-- select bootstrap -->
-      <link rel="stylesheet" href="css/bootstrap-select.css" />
-      <!-- scrollbar css -->
-      <link rel="stylesheet" href="css/perfect-scrollbar.css" />
-      <!-- custom css -->
-      <link rel="stylesheet" href="css/custom.css" />
-      <!-- calendar file css -->
-      <link rel="stylesheet" href="js/semantic.min.html" />
-      <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-      <![endif]-->
-   </head>
-   <body class="inner_page error_404">
-      <div class="full_container">
-         <div class="container">
-            <div class="center verticle_center full_height">
-               <div class="error_page">
-                  <div class="center">
-                     <div class="error_icon">
-                        <img class="img-responsive" src="images/layout_img/error.png" alt="#">
-                     </div>
-                  </div>
-                  <br>
-                  <h3>PAGE NOT FOUND !</h3>
-                  <P>YOU SEEM TO BE TRYING TO FIND HIS WAY HOME</P>
-                  <div class="center"><a class="main_bt" href="index-2.html">Go To Home Page</a></div>
-               </div>
-            </div>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <title>Page Not Found | Fair Law Firm LTD</title>
+   <link rel="shortcut icon" href="images/logo/logo_icon.png" type="image/x-icon">
+   <link rel="stylesheet" href="css/bootstrap5.min.css">
+   <link rel="stylesheet" href="css/theme.css">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+   <style>
+      .error-page { background: var(--fl-page); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: var(--sp-6); }
+      .error-card { text-align: center; max-width: 520px; width: 100%; background: var(--fl-surface); border: 1px solid var(--fl-line); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); padding: var(--sp-8) var(--sp-6); }
+      .error-code { font-family: var(--font-mono); font-size: clamp(64px, 14vw, 112px); line-height: 1; font-weight: 700; color: var(--fl-primary); letter-spacing: var(--ls-tight); }
+      .error-code span { color: var(--fl-accent); }
+      .error-card h1 { font-family: var(--font-heading); font-size: var(--fs-2xl); color: var(--fl-ink); margin: var(--sp-3) 0 var(--sp-2); }
+      .error-card p { color: var(--fl-ink-muted); margin-bottom: var(--sp-6); }
+      .error-card .btn { min-width: 220px; }
+   </style>
+</head>
+<body>
+   <div class="error-page">
+      <div class="error-card">
+         <div class="seal-flf" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="72" height="72" fill="currentColor">
+               <path d="M12 2 8.5 4.5 4 5l-.5 4.5L1 15l4.5 2L8 21l4-3 4 3 2.5-4L23 15l-2.5-5.5L20 5l-4.5-.5L12 2z"/>
+               <text x="12" y="15" text-anchor="middle" font-family="var(--font-heading), Georgia, serif" font-size="8" fill="#fff">FLF</text>
+            </svg>
          </div>
+         <div class="error-code">4<span>0</span>4</div>
+         <h1>Page Not Found</h1>
+         <p>You seem to be trying to find your way home. The page you are looking for doesn't exist or has been moved.</p>
+         <a class="btn btn-primary" href="index.php">Go To Home Page</a>
       </div>
-      <!-- jQuery -->
-      <script src="js/jquery.min.js"></script>
-      <script src="js/popper.min.js"></script>
-      <script src="js/bootstrap.min.js"></script>
-      <!-- wow animation -->
-      <script src="js/animate.js"></script>
-      <!-- select country -->
-      <script src="js/bootstrap-select.js"></script>
-      <!-- nice scrollbar -->
-      <script src="js/perfect-scrollbar.min.js"></script>
-      <script>
-         var ps = new PerfectScrollbar('#sidebar');
-      </script>
-      <!-- custom js -->
-      <script src="js/custom.js"></script>
-   </body>
-
-<!-- Mirrored from themewagon.github.io/pluto/404_error.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 28 Jan 2025 09:07:50 GMT -->
+   </div>
+</body>
 </html>

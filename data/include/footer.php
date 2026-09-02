@@ -15,25 +15,18 @@
 
       <!-- ==================== SCRIPTS ==================== -->
 
-      <!-- Core: jQuery + Popper + Bootstrap -->
+      <!-- jQuery (required by Chart.js, perfect-scrollbar, legacy code) -->
       <script src="js/jquery.min.js"></script>
-      <script src="js/popper.min.js"></script>
-      <script src="js/bootstrap.min.js"></script>
 
-      <!-- Bootstrap select + animations -->
-      <script src="js/bootstrap-select.js"></script>
-      <script src="js/animate.js"></script>
+      <!-- Bootstrap 5 bundle (includes Popper) -->
+      <script src="js/bootstrap5.bundle.min.js"></script>
 
-      <!-- Sidebar: scrollbar + toggle -->
+      <!-- Sidebar scrollbar + custom -->
       <script src="js/perfect-scrollbar.min.js"></script>
       <script src="js/custom.js"></script>
 
-      <!-- Chart.js (used by dashboard analytics) -->
+      <!-- Chart.js (used by dashboard analytics via its own inline script) -->
       <script src="js/Chart.min.js"></script>
-      <script src="js/Chart.bundle.min.js"></script>
-      <script src="js/utils.js"></script>
-      <script src="js/analyser.js"></script>
-      <script src="js/chart_custom_style1.js"></script>
 
       <!-- Mobile sidebar: close on outside click or Escape key -->
       <script>

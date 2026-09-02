@@ -1,6 +1,7 @@
-<?php
+﻿<?php
 require_once 'include/header.php';
 require_once 'propertyMgt/config.php';
+require_once __DIR__ . '/csrf.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
     requireCsrfPost();
@@ -74,7 +75,16 @@ try {
     border: 2px solid var(--fl-chambers-100);
 }
 .flf-about-id { font-weight: 700; color: var(--fl-chambers-600); }
-.flf-about-title { font-weight: 600; color: var(--fl-chambers-600); }
+.flf-about-title {
+    font-weight: 600;
+    color: var(--fl-chambers-600);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    display: inline-block;
+    vertical-align: middle;
+}
 .flf-about-desc {
     color: var(--fl-ink-400);
     font-size: 13px;
@@ -82,6 +92,9 @@ try {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
 }
 .flf-cases-badge {
     display: inline-flex;
@@ -125,8 +138,7 @@ try {
 .flf-empty-state a { display: inline-block; margin-top: 16px; }
 </style>
 
-<div class="midde_cont">
-    <div class="container-fluid">
+<div class="padding_infor_info flf-wrap">
 
         <?php if (isset($_SESSION['success_message'])): ?>
             <div class="row mb-3">
@@ -134,7 +146,7 @@ try {
                     <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius:var(--flf-radius-sm);margin:0;">
                         <i class="fa fa-check-circle" style="margin-right:6px;"></i>
                         <?php echo htmlspecialchars($_SESSION['success_message']); unset($_SESSION['success_message']); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                 </div>
             </div>
@@ -146,7 +158,7 @@ try {
                     <div class="alert alert-danger alert-dismissible fade show" role="alert" style="border-radius:var(--flf-radius-sm);margin:0;">
                         <i class="fa fa-exclamation-triangle" style="margin-right:6px;"></i>
                         <?php echo htmlspecialchars($_SESSION['error_message']); unset($_SESSION['error_message']); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                 </div>
             </div>
@@ -184,11 +196,11 @@ try {
                                         <tr>
                                             <th style="width:60px;">ID</th>
                                             <th style="width:90px;">Image</th>
-                                            <th>Title</th>
-                                            <th>Description</th>
+                                            <th style="width:20%;">Title</th>
+                                            <th style="width:38%;">Description</th>
                                             <th style="width:110px;">Cases Won</th>
                                             <th style="width:80px;">Status</th>
-                                            <th style="width:110px;text-align:center;">Actions</th>
+                                            <th style="width:130px;text-align:center;">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -244,7 +256,6 @@ try {
         </div>
 
     </div>
-</div>
 
 <div id="deleteModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center;">
     <div style="background:var(--flf-white);border-radius:var(--flf-radius);box-shadow:0 20px 60px rgba(0,0,0,0.3);max-width:420px;width:90%;padding:0;overflow:hidden;">

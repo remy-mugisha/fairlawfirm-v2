@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /* ================================================================
    Fair Law Firm LTD - Admin Login
    Split-screen: brand pane (left) + login form (right).
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
          } elseif (!password_verify($password, $user['password'])) {
             $error_message = 'Invalid email or password.';
          } else {
-            // Successful login — populate session
+            // Successful login â€” populate session
             session_regenerate_id(true);
             $_SESSION['user_type'] = $user['usertype'];
             $_SESSION['email']     = $user['email'];
@@ -68,33 +68,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
    <title>Sign In | Fair Law Firm LTD</title>
 
-   <link rel="shortcut icon" href="images/logo/small-logo.jpg" type="image/x-icon">
-   <link rel="stylesheet" href="css/bootstrap.min.css">
+   <link rel="shortcut icon" href="images/logo/logo_icon.png" type="image/x-icon">
+   <link rel="stylesheet" href="css/bootstrap5.min.css">
+   <link rel="stylesheet" href="css/theme.css">
    <link rel="stylesheet" href="css/font-awesome.min.css">
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
    <style>
       /* ==========================================================
-         DESIGN TOKENS
+         TOKENS: inherited from css/theme.css (via --flf-* aliases)
          ========================================================== */
-      :root {
-         --fl-chambers-900:   #172033;
-         --fl-chambers-600:   #01166A;
-         --fl-chambers-400:   #010F47;
-         --fl-chambers-100:   #E9EEFA;
-         --fl-seal-600:       #9C7818;
-         --fl-seal-500:       #C8A951;
-         --fl-seal-400:       #D9BC66;
-         --fl-ink-400:        #6b7699;
-         --fl-ink-300:        #7c88ab;
-         --fl-surface:        #FFFFFF;
-         --fl-crit-500:       #a12734;
-         --fl-sage-500:       #1c7c4d;
-         --fl-font-display:   'Source Serif 4', Georgia, serif;
-         --fl-font-body:      'Public Sans', system-ui, sans-serif;
-      }
 
       *, *::before, *::after { box-sizing: border-box; }
 
@@ -116,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
 
       /* ==========================================================
-         LEFT — BRAND PANE
+         LEFT â€” BRAND PANE
          ========================================================== */
       .flf-brand-pane {
          position: relative;
@@ -226,7 +211,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
 
       /* ==========================================================
-         RIGHT — FORM PANE
+         RIGHT â€” FORM PANE
          ========================================================== */
       .flf-form-pane {
          display: flex;
@@ -234,8 +219,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
          justify-content: center;
          padding: 48px 24px;
          background:
-            radial-gradient(circle at 85% 12%, rgba(200, 169, 81, 0.10) 0%, transparent 42%),
-            #f7f9fd;
+            radial-gradient(circle at 85% 12%, rgba(176, 141, 62, 0.10) 0%, transparent 42%),
+            var(--fl-surface-muted);
       }
 
       .flf-form-card {
@@ -333,7 +318,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       .flf-input {
          width: 100%;
          height: 48px;
-         border: 1px solid #dbe3f2;
+         border: 1px solid var(--fl-line);
          border-radius: 10px;
          background: var(--flf-white);
          padding: 0 44px 0 42px;
@@ -346,7 +331,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       .flf-input::placeholder { color: #a5aec7; }
       .flf-input:focus {
          border-color: var(--flf-gold);
-         box-shadow: 0 0 0 3px rgba(200, 169, 81, 0.18);
+         box-shadow: 0 0 0 3px rgba(176, 141, 62, 0.18);
       }
       .flf-input:focus + i { color: var(--flf-navy); }
 
@@ -466,7 +451,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       .flf-form-foot {
          margin-top: 26px;
          padding-top: 18px;
-         border-top: 1px solid #e4eaf6;
+         border-top: 1px solid var(--fl-line);
          text-align: center;
          font-size: 12.5px;
          color: var(--flf-muted-light);
@@ -513,7 +498,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="flf-split">
 
    <!-- ============================================================
-        LEFT — BRAND PANE
+        LEFT â€” BRAND PANE
         ============================================================ -->
    <aside class="flf-brand-pane">
       <div class="flf-logo-tile">
@@ -526,7 +511,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <p class="flf-brand-copy flf-hide-sm">
          Secure access to Fair Law Firm's management platform. Property administration,
-         rental listings and firm publications — all in one workspace.
+         rental listings and firm publications â€” all in one workspace.
       </p>
 
       <hr class="flf-brand-rule flf-hide-sm">
@@ -550,7 +535,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
    </aside>
 
    <!-- ============================================================
-        RIGHT — LOGIN FORM
+        RIGHT â€” LOGIN FORM
         ============================================================ -->
    <main class="flf-form-pane">
       <div class="flf-form-card">

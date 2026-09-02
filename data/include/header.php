@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /* ================================================================
    Fair Law Firm LTD - Admin Dashboard Header
    Generates the <head>, sidebar navigation, and top bar.
@@ -95,38 +95,22 @@ $flfIsAdmin = isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin
    <meta charset="utf-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1">
-   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
 
    <title><?php echo $flfPageTitle; ?> | Fair Law Firm LTD</title>
 
-   <link rel="shortcut icon" href="images/logo/small-logo.jpg" type="image/x-icon">
-   <link rel="manifest" href="images/logo/site.webmanifest">
-   <link rel="icon" href="images/fevicon.html" type="image/png">
+   <link rel="shortcut icon" href="images/logo/logo_icon.png" type="image/x-icon">
 
-   <!-- Stylesheets -->
-   <link rel="stylesheet" href="css/bootstrap.min.css">
-   <link rel="stylesheet" href="style.css">
-   <link rel="stylesheet" href="css/responsive.css">
-   <link rel="stylesheet" href="css/colors.html">
-   <link rel="stylesheet" href="css/bootstrap-select.css">
+   <!-- Bootstrap 5 -->
+   <link rel="stylesheet" href="css/bootstrap5.min.css">
    <link rel="stylesheet" href="css/perfect-scrollbar.css">
-   <link rel="stylesheet" href="css/custom.css">
 
-   <!-- Brand fonts -->
+   <!-- Design System (single consolidated theme) -->
+   <link rel="stylesheet" href="css/theme.css">
+
+   <!-- Brand fonts (loaded once, used everywhere) -->
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-   <!-- Dashboard brand overrides -->
-   <link rel="stylesheet" href="css/dashboard.css">
-
-   <!-- Design System Tokens (loaded last to override) -->
-   <link rel="stylesheet" href="css/fairlaw-tokens.css">
-
-   <!--[if lt IE 9]>
-   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-   <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-   <![endif]-->
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body class="dashboard dashboard_1">
 
@@ -251,7 +235,7 @@ $flfIsAdmin = isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin
                <!-- Notification bell -->
                <div class="flf-dd dropdown">
                   <a class="flf-bell"
-                     data-toggle="dropdown"
+                     data-bs-toggle="dropdown"
                      aria-haspopup="true"
                      aria-expanded="false">
                      <i class="fa fa-bell-o"></i>
@@ -294,7 +278,7 @@ $flfIsAdmin = isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin
                <!-- User profile chip -->
                <div class="flf-dd dropdown">
                   <a class="flf-user-chip"
-                     data-toggle="dropdown"
+                     data-bs-toggle="dropdown"
                      aria-haspopup="true"
                      aria-expanded="false">
                      <?php if (isset($_SESSION['profile_image']) && !empty($_SESSION['profile_image'])): ?>

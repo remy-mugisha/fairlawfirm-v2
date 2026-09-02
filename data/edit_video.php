@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 require_once 'propertyMgt/config.php';
 require_once __DIR__ . '/csrf.php';
@@ -49,8 +49,21 @@ try {
     error_log("Fetch video error: " . $e->getMessage()); $error = "An error occurred while loading video links.";
 }
 ?>
-
-<!-- Display Success/Error Messages -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <title>Edit Video Link | Fair Law Firm LTD</title>
+   <link rel="shortcut icon" href="images/logo/logo_icon.png" type="image/x-icon">
+   <link rel="stylesheet" href="css/bootstrap5.min.css">
+   <link rel="stylesheet" href="css/theme.css">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body style="padding: var(--sp-6); max-width:600px; margin:0 auto;">
+<div style="background: var(--fl-surface); border: 1px solid var(--fl-line); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); padding: var(--sp-6);">
 <?php if (isset($_SESSION['success_message'])): ?>
     <div class="alert alert-success">
         <?php echo htmlspecialchars($_SESSION['success_message']); unset($_SESSION['success_message']); ?>
@@ -78,3 +91,6 @@ try {
     </div>
     <button type="submit" class="btn btn-primary">Update Video Link</button>
 </form>
+</div>
+</body>
+</html>

@@ -1,7 +1,8 @@
-<?php
+﻿<?php
 ob_start();
 require_once 'include/header.php';
 require_once 'propertyMgt/config.php';
+require_once __DIR__ . '/csrf.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id']) && !empty($_POST['delete_id'])) {
     requireCsrfPost();
@@ -118,6 +119,12 @@ if (!empty($blogs)) {
 .flf-blog-title {
     font-weight: 600;
     color: var(--flf-navy);
+    display: inline-block;
+    max-width: 100%;
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .flf-category-pill {
     display: inline-block;
@@ -203,8 +210,7 @@ if (!empty($blogs)) {
 }
 </style>
 
-<div class="midde_cont">
-    <div class="container-fluid">
+<div class="padding_infor_info flf-wrap">
 
         <?php if (isset($_SESSION['success_message'])): ?>
             <div class="row mb-3">
@@ -212,7 +218,7 @@ if (!empty($blogs)) {
                     <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius:var(--flf-radius-sm);margin:0;">
                         <i class="fa fa-check-circle" style="margin-right:6px;"></i>
                         <?php echo htmlspecialchars($_SESSION['success_message']); unset($_SESSION['success_message']); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                 </div>
             </div>
@@ -224,7 +230,7 @@ if (!empty($blogs)) {
                     <div class="alert alert-danger alert-dismissible fade show" role="alert" style="border-radius:var(--flf-radius-sm);margin:0;">
                         <i class="fa fa-exclamation-triangle" style="margin-right:6px;"></i>
                         <?php echo htmlspecialchars($_SESSION['error_message']); unset($_SESSION['error_message']); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                 </div>
             </div>
@@ -257,12 +263,12 @@ if (!empty($blogs)) {
                                     <thead>
                                         <tr>
                                             <th style="width:84px;">Image</th>
-                                            <th>Title</th>
-                                            <th>Category</th>
+                                            <th style="width:26%;">Title</th>
+                                            <th style="width:14%;">Category</th>
                                             <th style="width:80px;text-align:center;">Files</th>
-                                            <th>Status</th>
-                                            <th>Date</th>
-                                            <th style="width:110px;text-align:center;">Actions</th>
+                                            <th style="width:100px;">Status</th>
+                                            <th style="width:120px;">Date</th>
+                                            <th style="width:130px;text-align:center;">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -330,7 +336,6 @@ if (!empty($blogs)) {
         </div>
 
     </div>
-</div>
 
 <div id="deleteModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center;">
     <div style="background:var(--flf-white);border-radius:var(--flf-radius);box-shadow:0 20px 60px rgba(0,0,0,0.3);max-width:420px;width:90%;padding:0;overflow:hidden;">

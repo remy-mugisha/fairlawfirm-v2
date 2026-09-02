@@ -26,95 +26,88 @@ $stmt->execute([':blog_id' => $id]);
 $attachments = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Blog</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <style>
-        .container { max-width: 800px; margin-top: 30px; }
-        .card { margin-bottom: 30px; }
-        .card img { max-height: 400px; object-fit: cover; }
-        .attachment-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #eee; }
-        .attachment-item:last-child { border-bottom: none; }
-        .file-icon { margin-right: 10px; }
-        .attachments-container { margin-top: 30px; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="card shadow">
-            <img src="propertyMgt/blogImg/<?php echo htmlspecialchars($blog['image']); ?>" class="card-img-top" alt="Blog Image">
-            <div class="card-body">
-                <h1 class="card-title"><?php echo htmlspecialchars($blog['title']); ?></h1>
-                <p class="text-muted">
-                    <i class="far fa-calendar-alt"></i> <?php echo date('F j, Y', strtotime($blog['date'])); ?> | 
-                    <i class="far fa-folder-open"></i> <?php echo htmlspecialchars($blog['category_blog']); ?>
-                </p>
-                <div class="card-text">
-                    <h4>Description</h4>
-                    <p><?php echo nl2br(htmlspecialchars($blog['description_blog'])); ?></p>
-                    
-                    <h4 class="mt-4">Details</h4>
-                    <p><?php echo nl2br(htmlspecialchars($blog['blog_description_details'])); ?></p>
-                </div>
-                
-                <?php if (!empty($attachments)): ?>
-                <div class="attachments-container">
-                    <h4><i class="far fa-paperclip"></i> Attachments</h4>
-                    <div class="list-group">
-                        <?php foreach ($attachments as $attachment): ?>
-                            <div class="list-group-item">
-                                <div class="attachment-item">
-                                    <div>
-                                        <i class="<?php echo getFileIconClass($attachment['file_name']); ?> file-icon"></i>
-                                        <?php echo htmlspecialchars($attachment['file_name']); ?>
-                                        <small class="text-muted ml-2">(<?php echo formatFileSize($attachment['file_size']); ?>)</small>
+<style>
+    .flf-viewblog { max-width: 860px; margin: 0 auto; }
+    .flf-viewblog .flf-viewblog-img { max-height: 420px; width: 100%; object-fit: cover; border-radius: var(--radius-md) var(--radius-md) 0 0; }
+    .flf-viewblog-date { color: var(--fl-ink-muted); font-size: var(--fs-small); }
+    .flf-viewblog-detail h4 { font-family: var(--font-heading); color: var(--fl-primary); margin: var(--sp-6) 0 var(--sp-2); }
+    .flf-viewblog-detail p { color: var(--fl-ink-secondary); line-height: var(--lh-body); white-space: pre-line; }
+    .flf-attachment-item { display: flex; justify-content: space-between; align-items: center; padding: var(--sp-3) var(--sp-4); border-bottom: 1px solid var(--fl-line); }
+    .flf-attachment-item:last-child { border-bottom: none; }
+    .flf-attachment-item .fa { color: var(--fl-accent); margin-right: var(--sp-2); }
+</style>
+
+<div class="midde_cont">
+    <div class="container-fluid">
+
+        <div class="white_shd full">
+            <div class="padding_infor_info">
+                <div class="flf-viewblog">
+                    <img src="propertyMgt/blogImg/<?php echo htmlspecialchars($blog['image']); ?>" class="flf-viewblog-img" alt="Blog Image">
+                    <div class="p-4">
+                        <h3 style="font-family:var(--font-heading);color:var(--fl-primary);font-weight:var(--fw-bold);"><?php echo htmlspecialchars($blog['title']); ?></h3>
+                        <p class="flf-viewblog-date">
+                            <i class="fa fa-calendar"></i> <?php echo date('F j, Y', strtotime($blog['date'])); ?> |
+                            <i class="fa fa-folder-open"></i> <?php echo htmlspecialchars($blog['category_blog']); ?>
+                        </p>
+
+                        <div class="flf-viewblog-detail">
+                            <h4>Description</h4>
+                            <p><?php echo nl2br(htmlspecialchars($blog['description_blog'])); ?></p>
+
+                            <h4>Details</h4>
+                            <p><?php echo nl2br(htmlspecialchars($blog['blog_description_details'])); ?></p>
+                        </div>
+
+                        <?php if (!empty($attachments)): ?>
+                        <div style="margin-top: var(--sp-6);">
+                            <h4><i class="fa fa-paperclip"></i> Attachments</h4>
+                            <div class="list-group" style="border:1px solid var(--fl-line);border-radius:var(--radius-md);overflow:hidden;">
+                                <?php foreach ($attachments as $attachment): ?>
+                                    <div class="flf-attachment-item">
+                                        <div>
+                                            <i class="<?php echo getFileIconClass($attachment['file_name']); ?>"></i>
+                                            <?php echo htmlspecialchars($attachment['file_name']); ?>
+                                            <small class="text-muted ms-2">(<?php echo formatFileSize($attachment['file_size']); ?>)</small>
+                                        </div>
+                                        <a href="propertyMgt/blogFiles/<?php echo htmlspecialchars($attachment['file_path']); ?>"
+                                           class="btn btn-sm btn-primary" download>
+                                            <i class="fa fa-download"></i> Download
+                                        </a>
                                     </div>
-                                    <a href="propertyMgt/blogFiles/<?php echo htmlspecialchars($attachment['file_path']); ?>" 
-                                       class="btn btn-sm btn-primary" download>
-                                        <i class="fa fa-download"></i> Download
-                                    </a>
-                                </div>
+                                <?php endforeach; ?>
                             </div>
-                        <?php endforeach; ?>
+                        </div>
+                        <?php endif; ?>
+
+                        <div style="margin-top: var(--sp-6);">
+                            <a href="display_blog.php" class="btn btn-secondary">
+                                <i class="fa fa-arrow-left"></i> Back to Blog List
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <?php endif; ?>
-                
-                <div class="mt-4">
-                    <a href="display_blog.php" class="btn btn-secondary">
-                        <i class="fa fa-arrow-left"></i> Back to Blog List
-                    </a>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+    </div>
+</div>
 
 <?php
 function getFileIconClass($filename) {
     $ext = pathinfo($filename, PATHINFO_EXTENSION);
     switch(strtolower($ext)) {
-        case 'pdf': return 'far fa-file-pdf text-danger';
+        case 'pdf': return 'fa fa-file-pdf-o';
         case 'doc':
-        case 'docx': return 'far fa-file-word text-primary';
+        case 'docx': return 'fa fa-file-word-o';
         case 'xls':
-        case 'xlsx': return 'far fa-file-excel text-success';
+        case 'xlsx': return 'fa fa-file-excel-o';
         case 'ppt':
-        case 'pptx': return 'far fa-file-powerpoint text-warning';
+        case 'pptx': return 'fa fa-file-powerpoint-o';
         case 'zip':
-        case 'rar': return 'far fa-file-archive text-secondary';
-        case 'txt': return 'far fa-file-alt text-info';
-        default: return 'far fa-file-alt';
+        case 'rar': return 'fa fa-file-archive-o';
+        case 'txt': return 'fa fa-file-o';
+        default: return 'fa fa-file-o';
     }
 }
 
